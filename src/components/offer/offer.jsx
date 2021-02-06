@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Offer = (props) => {
+const Offer = () => {
   return (
     <article className="cities__place-card place-card">
       <div className="cities__image-wrapper place-card__image-wrapper">

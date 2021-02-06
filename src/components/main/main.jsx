@@ -1,8 +1,13 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import Offer from '../offer/offer.jsx';
 
 const Main = (props) => {
   const {offersCount} = props;
+  const offersTemplate = new Array(offersCount)
+    .fill(``)
+    .map((elem, index) => <Offer key={`offer` + index} />);
 
   return (
     <div className="page page--gray page--main">
@@ -87,7 +92,7 @@ const Main = (props) => {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                {new Array(offersCount).fill().map(() => <Offer/>)}
+                {offersTemplate}
               </div>
             </section>
             <div className="cities__right-section">
@@ -98,6 +103,10 @@ const Main = (props) => {
       </main>
     </div>
   );
+};
+
+Main.propTypes = {
+  offersCount: PropTypes.number.isRequired,
 };
 
 export default Main;
