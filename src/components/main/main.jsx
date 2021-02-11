@@ -1,13 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Offer from '../offer/offer.jsx';
+import OffersList from '../offers-list/offers-list.jsx';
 
 const Main = (props) => {
-  const {offersCount} = props;
-  const offersTemplate = new Array(offersCount)
-    .fill(``)
-    .map((elem, index) => <Offer key={`offer` + index} />);
+  const {offersCount, offers} = props;
 
   return (
     <div className="page page--gray page--main">
@@ -91,9 +88,10 @@ const Main = (props) => {
                   <li className="places__option" tabIndex={0}>Top rated first</li>
                 </ul>
               </form>
-              <div className="cities__places-list places__list tabs__content">
-                {offersTemplate}
-              </div>
+              <OffersList
+                offersCount={offersCount}
+                offers={offers}
+              />
             </section>
             <div className="cities__right-section">
               <section className="cities__map map" />
@@ -107,6 +105,7 @@ const Main = (props) => {
 
 Main.propTypes = {
   offersCount: PropTypes.number.isRequired,
+  offers: PropTypes.array.isRequired,
 };
 
 export default Main;
