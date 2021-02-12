@@ -1,10 +1,20 @@
+const Cities = {
+  PARIS: `Paris`,
+  COLOGNE: `Cologne`,
+  BRUSSELS: `Brussels`,
+  AMSTERDAM: `Amsterdam`,
+  HAMBURG: `Hamburg`,
+  DUSSELDORF: `Dusseldorf`
+};
+
 export const offers = [
   {
     id: 1,
+    city: Cities.AMSTERDAM,
     isPremium: true,
     image: `img/apartment-01.jpg`,
     price: 120,
-    isBookmarked: false,
+    isBookmarked: true,
     rating: 4.8,
     title: `Beautiful & luxurious apartment at great location`,
     type: `Apartment`,
@@ -58,7 +68,8 @@ export const offers = [
   },
   {
     id: 2,
-    isPremium: false,
+    city: Cities.AMSTERDAM,
+    isPremium: true,
     image: `img/room.jpg`,
     price: 80,
     isBookmarked: true,
@@ -115,6 +126,7 @@ export const offers = [
   },
   {
     id: 3,
+    city: Cities.COLOGNE,
     isPremium: false,
     image: `img/apartment-02.jpg`,
     price: 132,
@@ -172,10 +184,11 @@ export const offers = [
   },
   {
     id: 4,
+    city: Cities.DUSSELDORF,
     isPremium: true,
     image: `img/apartment-03.jpg`,
     price: 180,
-    isBookmarked: false,
+    isBookmarked: true,
     rating: 5.0,
     title: `Nice, cozy, warm big bed apartment`,
     type: `Apartment`,
