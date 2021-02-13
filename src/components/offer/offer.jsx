@@ -1,18 +1,43 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {CardType, ImageSize} from '../../const.js';
 
 const Offer = (props) => {
-  const {offer} = props;
+  const {offer, cardType} = props;
   const {image, price, isBookmarked, rating, title, type} = offer;
 
+  const getCardClassName = () => {
+    switch (cardType) {
+      case CardType.FAVORITE: {
+        return `favorites__card`;
+      }
+      case CardType.CITY: {
+        return `cities__place-card`;
+      }
+    }
+
+    return ``;
+  };
+
   return (
-    <article className="cities__place-card place-card">
-      <div className="cities__image-wrapper place-card__image-wrapper">
+    <article className={`${getCardClassName()} place-card`}>
+      <div className={`${cardType}__image-wrapper place-card__image-wrapper`}>
         <a href="#">
-          <img className="place-card__image" src={image} width={260} height={200} alt="Place image" />
+          <img
+            className="place-card__image"
+            src={image}
+            alt="Place image"
+            width={cardType === CardType.FAVORITE ?
+              ImageSize.SMALL.width : ImageSize.STANDARD.width}
+            height={cardType === CardType.FAVORITE ?
+              ImageSize.SMALL.height : ImageSize.STANDARD.height}
+          />
         </a>
       </div>
-      <div className="place-card__info">
+      <div
+        className={`${cardType === CardType.FAVORITE ?
+          `favorites__card-info` : ``} place-card__info`}
+      >
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">€{price}</b>
@@ -54,6 +79,7 @@ Offer.propTypes = {
     title: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
   }).isRequired,
+  cardType: PropTypes.string.isRequired,
 };
 
 export default Offer;

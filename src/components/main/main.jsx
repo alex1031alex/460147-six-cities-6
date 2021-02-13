@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import OffersList from '../offers-list/offers-list.jsx';
+import {CardType} from '../../const.js';
 
 const Main = (props) => {
   const {offersCount, offers} = props;
@@ -91,6 +92,7 @@ const Main = (props) => {
               <OffersList
                 offersCount={offersCount}
                 offers={offers}
+                cardType={CardType.CITY}
               />
             </section>
             <div className="cities__right-section">

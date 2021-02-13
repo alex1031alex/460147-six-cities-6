@@ -9,6 +9,8 @@ import NotFoundPage from '../not-found-page/not-found-page';
 
 const App = (props) => {
   const {offersCount, offers} = props;
+  const favoriteOffers = offers
+    .filter((offer) => offer.isBookmarked);
 
   return (
     <BrowserRouter>
@@ -23,7 +25,7 @@ const App = (props) => {
           <SignIn />
         </Route>
         <Route exact path="/favorites">
-          <Favorites />
+          <Favorites offers={favoriteOffers} />
         </Route>
         <Route exact path="/offer/:id">
           <Room />
