@@ -4,7 +4,8 @@ import {CardType, ImageSize} from '../../const.js';
 
 const Offer = (props) => {
   const {offer, cardType, onMouseEnter, onMouseLeave} = props;
-  const {image, price, isBookmarked, rating, title, type} = offer;
+  const {images, price, isBookmarked, rating, title, type} = offer;
+  const image = images[0];
 
   const getCardClassName = () => {
     switch (cardType) {
@@ -96,7 +97,7 @@ const Offer = (props) => {
 Offer.propTypes = {
   offer: PropTypes.shape({
     isPremium: PropTypes.bool.isRequired,
-    image: PropTypes.string.isRequired,
+    images: PropTypes.array.isRequired,
     price: PropTypes.number.isRequired,
     isBookmarked: PropTypes.bool.isRequired,
     rating: PropTypes.number.isRequired,

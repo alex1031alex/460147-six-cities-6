@@ -12,53 +12,34 @@ export const offers = [
     id: 1,
     city: Cities.AMSTERDAM,
     isPremium: true,
-    image: `img/apartment-01.jpg`,
+    images: [
+      `img/apartment-01.jpg`,
+      `img/apartment-02.jpg`,
+      `img/apartment-03.jpg`,
+      `img/apartment-02.jpg`,
+      `img/apartment-01.jpg`,
+      `img/apartment-03.jpg`
+    ],
     price: 120,
-    isBookmarked: true,
+    isFavorite: true,
     rating: 4.8,
     title: `Beautiful & luxurious apartment at great location`,
     type: `Apartment`,
-    inside: [
-      {
-        name: `Wi-Fi`,
-        isAvailable: true,
-      },
-      {
-        name: `Heating`,
-        isAvailable: true,
-      },
-      {
-        name: `Kitchen`,
-        isAvailable: true,
-      },
-      {
-        name: `Fridge`,
-        isAvailable: true,
-      },
-      {
-        name: `Washing machine`,
-        isAvailable: true,
-      },
-      {
-        name: `Coffee machine`,
-        isAvailable: true,
-      },
-      {
-        name: `Dishwasher`,
-        isAvailable: true,
-      },
-      {
-        name: `Towels`,
-        isAvailable: true,
-      },
-      {
-        name: `Baby seat`,
-        isAvailable: true,
-      },
-      {
-        name: `Cabel TV`,
-        isAvailable: true,
-      }
+    bedrooms: 2,
+    description: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.\n
+    An independent House, strategically located between Rembrand Square and National Opera, but where the bustle of the city comes to rest in this alley flowery and colorful.`,
+    maxAdults: 4,
+    goods: [
+      `Wi-Fi`,
+      `Heating`,
+      `Kitchen`,
+      `Fridge`,
+      `Washing machine`,
+      `Coffee machine`,
+      `Dishwasher`,
+      `Towels`,
+      `Baby seat`,
+      `Cabel TV`
     ],
     host: {
       name: `Angelina`,
@@ -70,53 +51,31 @@ export const offers = [
     id: 2,
     city: Cities.AMSTERDAM,
     isPremium: true,
-    image: `img/room.jpg`,
+    images: [
+      `img/room.jpg`,
+      `img/apartment-02.jpg`,
+      `img/apartment-03.jpg`,
+      `img/apartment-01.jpg`,
+      `img/apartment-03.jpg`,
+      `img/apartment-02.jpg`
+    ],
     price: 80,
-    isBookmarked: true,
+    isFavorite: true,
     rating: 4.0,
     title: `Wood and stone place`,
     type: `Private room`,
-    inside: [
-      {
-        name: `Wi-Fi`,
-        isAvailable: false,
-      },
-      {
-        name: `Heating`,
-        isAvailable: true,
-      },
-      {
-        name: `Kitchen`,
-        isAvailable: true,
-      },
-      {
-        name: `Fridge`,
-        isAvailable: true,
-      },
-      {
-        name: `Washing machine`,
-        isAvailable: true,
-      },
-      {
-        name: `Coffee machine`,
-        isAvailable: false,
-      },
-      {
-        name: `Dishwasher`,
-        isAvailable: false,
-      },
-      {
-        name: `Towels`,
-        isAvailable: true,
-      },
-      {
-        name: `Baby seat`,
-        isAvailable: false,
-      },
-      {
-        name: `Cabel TV`,
-        isAvailable: true,
-      }
+    bedrooms: 2,
+    description: `Situated in Amsterdam, within 2.2 km of Amsterdam RAI and 2.5 km of Royal Theater Carré, Modern Houseboat Apartment in Amsterdam with Terrace offers accommodation with free WiFi, air conditioning and a terrace. This boat is 3.1 km from Rijksmuseum and 3.1 km from Artis Zoo.\n
+    The boat features a TV. Towels and bed linen are available.`,
+    maxAdults: 3,
+    goods: [
+      `Heating`,
+      `Kitchen`,
+      `Fridge`,
+      `Washing machine`,
+      `Towels`,
+      `Cabel TV`,
+      `Rolling mill`
     ],
     host: {
       name: `Max`,
@@ -128,53 +87,33 @@ export const offers = [
     id: 3,
     city: Cities.COLOGNE,
     isPremium: false,
-    image: `img/apartment-02.jpg`,
+    images: [
+      `img/apartment-02.jpg`,
+      `img/apartment-01.jpg`,
+      `img/apartment-03.jpg`,
+      `img/apartment-03.jpg`,
+      `img/apartment-02.jpg`,
+      `img/apartment-01.jpg`
+    ],
     price: 132,
-    isBookmarked: false,
+    isFavorite: false,
     rating: 4.7,
     title: `Canal View Prinsengracht`,
     type: `Apartment`,
-    inside: [
-      {
-        name: `Wi-Fi`,
-        isAvailable: false,
-      },
-      {
-        name: `Heating`,
-        isAvailable: false,
-      },
-      {
-        name: `Kitchen`,
-        isAvailable: false,
-      },
-      {
-        name: `Fridge`,
-        isAvailable: false,
-      },
-      {
-        name: `Washing machine`,
-        isAvailable: true,
-      },
-      {
-        name: `Coffee machine`,
-        isAvailable: false,
-      },
-      {
-        name: `Dishwasher`,
-        isAvailable: false,
-      },
-      {
-        name: `Towels`,
-        isAvailable: true,
-      },
-      {
-        name: `Baby seat`,
-        isAvailable: false,
-      },
-      {
-        name: `Cabel TV`,
-        isAvailable: true,
-      }
+    bedrooms: 2,
+    description: `The elegant rooms at the Hotel Pullman Cologne include air conditioning, a flat-screen TV and a modern bathroom with a bath and shower. High-speed internet is available for a daily charge, and WiFi is provided free of charge in public areas.\n
+    Guests at the Pullman are welcome to relax in the brasserie e.l.f. with summer terrace. LAB12 is the in-house bar inspired by perfume here in Cologne, the city of fragrances, and it serves aromatic drinks.\n
+    The spa includes a sauna, a steam room, a gym, and massage treatments are also available.`,
+    maxAdults: 2,
+    goods: [
+      `Washing machine`,
+      `Coffee machine`,
+      `Dishwasher`,
+      `Towels`,
+      `Baby seat`,
+      `Cabel TV`,
+      `Boat`,
+      `Van`
     ],
     host: {
       name: `Max`,
@@ -186,53 +125,33 @@ export const offers = [
     id: 4,
     city: Cities.DUSSELDORF,
     isPremium: true,
-    image: `img/apartment-03.jpg`,
+    images: [
+      `img/apartment-03.jpg`,
+      `img/apartment-01.jpg`,
+      `img/apartment-02.jpg`,
+      `img/apartment-03.jpg`,
+      `img/apartment-02.jpg`,
+      `img/apartment-01.jpg`
+    ],
     price: 180,
-    isBookmarked: true,
+    isFavorite: true,
     rating: 5.0,
     title: `Nice, cozy, warm big bed apartment`,
     type: `Apartment`,
-    inside: [
-      {
-        name: `Wi-Fi`,
-        isAvailable: false,
-      },
-      {
-        name: `Heating`,
-        isAvailable: true,
-      },
-      {
-        name: `Kitchen`,
-        isAvailable: true,
-      },
-      {
-        name: `Fridge`,
-        isAvailable: true,
-      },
-      {
-        name: `Washing machine`,
-        isAvailable: true,
-      },
-      {
-        name: `Coffee machine`,
-        isAvailable: true,
-      },
-      {
-        name: `Dishwasher`,
-        isAvailable: true,
-      },
-      {
-        name: `Towels`,
-        isAvailable: false,
-      },
-      {
-        name: `Baby seat`,
-        isAvailable: false,
-      },
-      {
-        name: `Cabel TV`,
-        isAvailable: true,
-      }
+    bedrooms: 3,
+    description: `Situated in the heart of the city of Düsseldorf, this design hotel offers bright rooms with air conditioning, free Wi-Fi in all areas and a 24-hour reception. The popular Königsalle shopping street is 1 km away.\n
+    Each of the modern rooms at Motel One Düsseldorf Hauptbahnhof is simply furnished with a flat-screen TV and contemporary-style bathroom. Some offer guests extra comfort with larger beds.`,
+    maxAdults: 5,
+    goods: [
+      `Heating`,
+      `Kitchen`,
+      `Fridge`,
+      `Washing machine`,
+      `Dishwasher`,
+      `Towels`,
+      `Iron`,
+      `Snowman costume`,
+      `Cabel TV`
     ],
     host: {
       name: `Max`,

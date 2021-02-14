@@ -1,6 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-const Room = () => {
+const Room = (props) => {
+  const {offer} = props;
+
   return (
     <div className="page">
       <header className="header">
@@ -278,6 +281,25 @@ const Room = () => {
       </main>
     </div>
   );
+};
+
+Room.propTypes = {
+  offer: PropTypes.shape({
+    isPremium: PropTypes.bool.isRequired,
+    images: PropTypes.array.isRequired,
+    price: PropTypes.number.isRequired,
+    isBookmarked: PropTypes.bool.isRequired,
+    rating: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
+    bedroomCount: PropTypes.number.isRequired,
+    detail: PropTypes.string.isRequired,
+    host: PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      photo: PropTypes.string.isRequired,
+      isPro: PropTypes.bool.isRequired,
+    }),
+  }).isRequired,
 };
 
 export default Room;
