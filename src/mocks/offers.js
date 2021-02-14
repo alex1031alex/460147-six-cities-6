@@ -26,7 +26,7 @@ export const offers = [
     title: `Beautiful & luxurious apartment at great location`,
     type: `Apartment`,
     bedrooms: 2,
-    description: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.\n
+    description: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.
     An independent House, strategically located between Rembrand Square and National Opera, but where the bustle of the city comes to rest in this alley flowery and colorful.`,
     maxAdults: 4,
     goods: [
@@ -43,7 +43,7 @@ export const offers = [
     ],
     host: {
       name: `Angelina`,
-      photo: `img/avatar-angelina.jpg`,
+      avatarUrl: `img/avatar-angelina.jpg`,
       isPro: true
     }
   },
@@ -65,7 +65,7 @@ export const offers = [
     title: `Wood and stone place`,
     type: `Private room`,
     bedrooms: 2,
-    description: `Situated in Amsterdam, within 2.2 km of Amsterdam RAI and 2.5 km of Royal Theater Carré, Modern Houseboat Apartment in Amsterdam with Terrace offers accommodation with free WiFi, air conditioning and a terrace. This boat is 3.1 km from Rijksmuseum and 3.1 km from Artis Zoo.\n
+    description: `Situated in Amsterdam, within 2.2 km of Amsterdam RAI and 2.5 km of Royal Theater Carré, Modern Houseboat Apartment in Amsterdam with Terrace offers accommodation with free WiFi, air conditioning and a terrace. This boat is 3.1 km from Rijksmuseum and 3.1 km from Artis Zoo.
     The boat features a TV. Towels and bed linen are available.`,
     maxAdults: 3,
     goods: [
@@ -79,7 +79,7 @@ export const offers = [
     ],
     host: {
       name: `Max`,
-      photo: `img/avatar-max.jpg`,
+      avatarUrl: `img/avatar-max.jpg`,
       isPro: false
     }
   },
@@ -101,8 +101,8 @@ export const offers = [
     title: `Canal View Prinsengracht`,
     type: `Apartment`,
     bedrooms: 2,
-    description: `The elegant rooms at the Hotel Pullman Cologne include air conditioning, a flat-screen TV and a modern bathroom with a bath and shower. High-speed internet is available for a daily charge, and WiFi is provided free of charge in public areas.\n
-    Guests at the Pullman are welcome to relax in the brasserie e.l.f. with summer terrace. LAB12 is the in-house bar inspired by perfume here in Cologne, the city of fragrances, and it serves aromatic drinks.\n
+    description: `The elegant rooms at the Hotel Pullman Cologne include air conditioning, a flat-screen TV and a modern bathroom with a bath and shower. High-speed internet is available for a daily charge, and WiFi is provided free of charge in public areas.
+    Guests at the Pullman are welcome to relax in the brasserie e.l.f. with summer terrace. LAB12 is the in-house bar inspired by perfume here in Cologne, the city of fragrances, and it serves aromatic drinks.
     The spa includes a sauna, a steam room, a gym, and massage treatments are also available.`,
     maxAdults: 2,
     goods: [
@@ -117,7 +117,7 @@ export const offers = [
     ],
     host: {
       name: `Max`,
-      photo: `img/avatar-max.jpg`,
+      avatarUrl: `img/avatar-max.jpg`,
       isPro: false
     }
   },
@@ -139,7 +139,7 @@ export const offers = [
     title: `Nice, cozy, warm big bed apartment`,
     type: `Apartment`,
     bedrooms: 3,
-    description: `Situated in the heart of the city of Düsseldorf, this design hotel offers bright rooms with air conditioning, free Wi-Fi in all areas and a 24-hour reception. The popular Königsalle shopping street is 1 km away.\n
+    description: `Situated in the heart of the city of Düsseldorf, this design hotel offers bright rooms with air conditioning, free Wi-Fi in all areas and a 24-hour reception. The popular Königsalle shopping street is 1 km away.
     Each of the modern rooms at Motel One Düsseldorf Hauptbahnhof is simply furnished with a flat-screen TV and contemporary-style bathroom. Some offer guests extra comfort with larger beds.`,
     maxAdults: 5,
     goods: [
@@ -155,8 +155,8 @@ export const offers = [
     ],
     host: {
       name: `Max`,
-      photo: `img/avatar-max.jpg`,
-      isPro: false
+      avatarUrl: `img/avatar-max.jpg`,
+      isPro: true
     }
   }
 ];
