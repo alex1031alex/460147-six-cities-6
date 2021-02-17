@@ -8,9 +8,9 @@ import Room from '../room/room';
 import NotFoundPage from '../not-found-page/not-found-page';
 
 const App = (props) => {
-  const {offersCount, offers} = props;
+  const {offersCount, offers, reviews} = props;
   const favoriteOffers = offers
-    .filter((offer) => offer.isBookmarked);
+    .filter((offer) => offer.isFavorite);
 
   return (
     <BrowserRouter>
@@ -27,8 +27,12 @@ const App = (props) => {
         <Route exact path="/favorites">
           <Favorites offers={favoriteOffers} />
         </Route>
-        <Route exact path="/offer/:id">
-          <Room />
+        <Route exact path="/offer/:id"
+          render={({match}) => {
+            const {id} = match.params;
+            const offer = offers.find((item) => item.id === +id);
+            return <Room offer={offer} reviews={reviews[id]} />;
+          }}>
         </Route>
         <Route>
           <NotFoundPage />

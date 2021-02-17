@@ -1,8 +1,44 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {Link} from 'react-router-dom';
+import Review from '../review/review.jsx';
+
+const MAX_PHOTO_IN_GALERY = 6;
 
 const Room = (props) => {
-  const {offer} = props;
+  const {offer, reviews} = props;
+  const {images, isPremium, title, rating, type, bedrooms, maxAdults, price, goods, host, description} = offer;
+  const {name, avatarUrl, isPro} = host;
+
+  const galeryTemplate = images
+    .slice(0, Math.min(MAX_PHOTO_IN_GALERY, images.length))
+    .map((image, index) => {
+      return <div className="property__image-wrapper" key={index}>
+        <img className="property__image" src={image} alt="Photo studio" />
+      </div>;
+    });
+
+  const goodsTemplate = goods
+    .map((item, index) => {
+      return (
+        <li className="property__inside-item" key={index}>
+          {item}
+        </li>
+      );
+    });
+
+  const descriptionTemplate = description
+    .split(`\n`)
+    .map((paragraph, index) => {
+      return (
+        <p className="property__text" key={index}>
+          {paragraph}
+        </p>
+      );
+    });
+
+  const reviewsTemplate = reviews.length === 0 ? `` :
+    reviews.map((review, index) => <Review key={index} review={review} />);
 
   return (
     <div className="page">
@@ -10,18 +46,18 @@ const Room = (props) => {
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <a className="header__logo-link" href="main.html">
+              <Link className="header__logo-link" to={`/`}>
                 <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width={81} height={41} />
-              </a>
+              </Link>
             </div>
             <nav className="header__nav">
               <ul className="header__nav-list">
                 <li className="header__nav-item user">
-                  <a className="header__nav-link header__nav-link--profile" href="#">
+                  <Link className="header__nav-link header__nav-link--profile" to={`/login`}>
                     <div className="header__avatar-wrapper user__avatar-wrapper">
                     </div>
                     <span className="header__login">Sign in</span>
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </nav>
@@ -32,34 +68,20 @@ const Room = (props) => {
         <section className="property">
           <div className="property__gallery-container container">
             <div className="property__gallery">
-              <div className="property__image-wrapper">
-                <img className="property__image" src="img/room.jpg" alt="Photo studio" />
-              </div>
-              <div className="property__image-wrapper">
-                <img className="property__image" src="img/apartment-01.jpg" alt="Photo studio" />
-              </div>
-              <div className="property__image-wrapper">
-                <img className="property__image" src="img/apartment-02.jpg" alt="Photo studio" />
-              </div>
-              <div className="property__image-wrapper">
-                <img className="property__image" src="img/apartment-03.jpg" alt="Photo studio" />
-              </div>
-              <div className="property__image-wrapper">
-                <img className="property__image" src="img/studio-01.jpg" alt="Photo studio" />
-              </div>
-              <div className="property__image-wrapper">
-                <img className="property__image" src="img/apartment-01.jpg" alt="Photo studio" />
-              </div>
+              {galeryTemplate}
             </div>
           </div>
           <div className="property__container container">
             <div className="property__wrapper">
-              <div className="property__mark">
-                <span>Premium</span>
-              </div>
+              {
+                isPremium ?
+                  <div className="property__mark">
+                    <span>Premium</span>
+                  </div> : ``
+              }
               <div className="property__name-wrapper">
                 <h1 className="property__name">
-                  Beautiful &amp; luxurious studio at great location
+                  {title}
                 </h1>
                 <button className="property__bookmark-button button" type="button">
                   <svg className="property__bookmark-icon" width={31} height={33}>
@@ -70,108 +92,63 @@ const Room = (props) => {
               </div>
               <div className="property__rating rating">
                 <div className="property__stars rating__stars">
-                  <span style={{width: `80%`}} />
+                  <span style={{width: `${Math.round(rating) * 20}%`}} />
                   <span className="visually-hidden">Rating</span>
                 </div>
-                <span className="property__rating-value rating__value">4.8</span>
+                <span className="property__rating-value rating__value">{rating}</span>
               </div>
               <ul className="property__features">
                 <li className="property__feature property__feature--entire">
-                  Apartment
+                  {type}
                 </li>
                 <li className="property__feature property__feature--bedrooms">
-                  3 Bedrooms
+                  {bedrooms} Bedrooms
                 </li>
                 <li className="property__feature property__feature--adults">
-                  Max 4 adults
+                  Max {maxAdults} adults
                 </li>
               </ul>
               <div className="property__price">
-                <b className="property__price-value">€120</b>
+                <b className="property__price-value">€{price}</b>
                 <span className="property__price-text">&nbsp;night</span>
               </div>
               <div className="property__inside">
                 <h2 className="property__inside-title">What&apos;s inside</h2>
                 <ul className="property__inside-list">
-                  <li className="property__inside-item">
-                    Wi-Fi
-                  </li>
-                  <li className="property__inside-item">
-                    Washing machine
-                  </li>
-                  <li className="property__inside-item">
-                    Towels
-                  </li>
-                  <li className="property__inside-item">
-                    Heating
-                  </li>
-                  <li className="property__inside-item">
-                    Coffee machine
-                  </li>
-                  <li className="property__inside-item">
-                    Baby seat
-                  </li>
-                  <li className="property__inside-item">
-                    Kitchen
-                  </li>
-                  <li className="property__inside-item">
-                    Dishwasher
-                  </li>
-                  <li className="property__inside-item">
-                    Cabel TV
-                  </li>
-                  <li className="property__inside-item">
-                    Fridge
-                  </li>
+                  {goodsTemplate}
                 </ul>
               </div>
               <div className="property__host">
                 <h2 className="property__host-title">Meet the host</h2>
                 <div className="property__host-user user">
-                  <div className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper">
-                    <img className="property__avatar user__avatar" src="img/avatar-angelina.jpg" width={74} height={74} alt="Host avatar" />
+                  <div
+                    className={
+                      `property__avatar-wrapper user__avatar-wrapper
+                      ${isPro ? ` property__avatar-wrapper--pro` : ``}`
+                    }
+                  >
+                    <img className="property__avatar user__avatar" src={avatarUrl} width={74} height={74} alt="Host avatar" />
                   </div>
                   <span className="property__user-name">
-                    Angelina
+                    {name}
                   </span>
-                  <span className="property__user-status">
-                    Pro
-                  </span>
+                  {
+                    isPro ?
+                      <span className="property__user-status">
+                        Pro
+                      </span> : ``
+                  }
                 </div>
                 <div className="property__description">
-                  <p className="property__text">
-                    A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.
-                  </p>
-                  <p className="property__text">
-                    An independent House, strategically located between Rembrand Square and National Opera, but where the bustle of the city comes to rest in this alley flowery and colorful.
-                  </p>
+                  {descriptionTemplate}
                 </div>
               </div>
               <section className="property__reviews reviews">
-                <h2 className="reviews__title">Reviews · <span className="reviews__amount">1</span></h2>
+                <h2 className="reviews__title">
+                  Reviews · <span className="reviews__amount">{reviews.length}</span>
+                </h2>
                 <ul className="reviews__list">
-                  <li className="reviews__item">
-                    <div className="reviews__user user">
-                      <div className="reviews__avatar-wrapper user__avatar-wrapper">
-                        <img className="reviews__avatar user__avatar" src="img/avatar-max.jpg" width={54} height={54} alt="Reviews avatar" />
-                      </div>
-                      <span className="reviews__user-name">
-                        Max
-                      </span>
-                    </div>
-                    <div className="reviews__info">
-                      <div className="reviews__rating rating">
-                        <div className="reviews__stars rating__stars">
-                          <span style={{width: `80%`}} />
-                          <span className="visually-hidden">Rating</span>
-                        </div>
-                      </div>
-                      <p className="reviews__text">
-                        A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.
-                      </p>
-                      <time className="reviews__time" dateTime="2019-04-24">April 2019</time>
-                    </div>
-                  </li>
+                  {reviewsTemplate}
                 </ul>
               </section>
             </div>
@@ -285,21 +262,36 @@ const Room = (props) => {
 
 Room.propTypes = {
   offer: PropTypes.shape({
+    id: PropTypes.number.isRequired,
     isPremium: PropTypes.bool.isRequired,
     images: PropTypes.array.isRequired,
     price: PropTypes.number.isRequired,
-    isBookmarked: PropTypes.bool.isRequired,
+    isFavorite: PropTypes.bool.isRequired,
     rating: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
-    bedroomCount: PropTypes.number.isRequired,
-    detail: PropTypes.string.isRequired,
+    bedrooms: PropTypes.number.isRequired,
+    description: PropTypes.string.isRequired,
+    maxAdults: PropTypes.number.isRequired,
     host: PropTypes.shape({
       name: PropTypes.string.isRequired,
-      photo: PropTypes.string.isRequired,
+      avatarUrl: PropTypes.string.isRequired,
       isPro: PropTypes.bool.isRequired,
     }),
+    goods: PropTypes.arrayOf(PropTypes.string),
   }).isRequired,
+  reviews: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    rating: PropTypes.number.isRequired,
+    date: PropTypes.string.isRequired,
+    comment: PropTypes.string.isRequired,
+    user: PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired,
+      avatarUrl: PropTypes.string.isRequired,
+      isPro: PropTypes.bool.isRequired,
+    }),
+  })),
 };
 
 export default Room;
