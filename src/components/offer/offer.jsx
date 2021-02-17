@@ -1,10 +1,11 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {CardType, ImageSize} from '../../const.js';
 
 const Offer = (props) => {
   const {offer, cardType, onMouseEnter, onMouseLeave} = props;
-  const {images, price, isBookmarked, rating, title, type} = offer;
+  const {images, price, isFavorite, rating, title, type} = offer;
   const image = images[0];
 
   const getCardClassName = () => {
@@ -71,12 +72,12 @@ const Offer = (props) => {
           <button
             type="button"
             className={`place-card__bookmark-button button
-            ${isBookmarked ? `place-card__bookmark-button--active` : ``}`}
+            ${isFavorite ? `place-card__bookmark-button--active` : ``}`}
           >
             <svg className="place-card__bookmark-icon" width={18} height={19}>
               <use xlinkHref="#icon-bookmark" />
             </svg>
-            <span className="visually-hidden">${isBookmarked ? `In` : `To`} bookmarks</span>
+            <span className="visually-hidden">${isFavorite ? `In` : `To`} bookmarks</span>
           </button>
         </div>
         <div className="place-card__rating rating">
@@ -86,7 +87,9 @@ const Offer = (props) => {
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">{title}</a>
+          <Link to={`/offer/${offer.id}`}>
+            {title}
+          </Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>
@@ -96,10 +99,11 @@ const Offer = (props) => {
 
 Offer.propTypes = {
   offer: PropTypes.shape({
+    id: PropTypes.number.isRequired,
     isPremium: PropTypes.bool.isRequired,
     images: PropTypes.array.isRequired,
     price: PropTypes.number.isRequired,
-    isBookmarked: PropTypes.bool.isRequired,
+    isFavorite: PropTypes.bool.isRequired,
     rating: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
