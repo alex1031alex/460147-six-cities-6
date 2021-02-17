@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 import Review from '../review/review.jsx';
+import ReviewForm from '../review-form/review-form.jsx';
 
 const MAX_PHOTO_IN_GALERY = 6;
 
@@ -150,6 +151,7 @@ const Room = (props) => {
                 <ul className="reviews__list">
                   {reviewsTemplate}
                 </ul>
+                <ReviewForm />
               </section>
             </div>
           </div>
