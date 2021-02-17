@@ -45,6 +45,7 @@ const App = (props) => {
 App.propTypes = {
   offersCount: PropTypes.number.isRequired,
   offers: PropTypes.array.isRequired,
+  reviews: PropTypes.array.isRequired,
 };
 
 export default App;
