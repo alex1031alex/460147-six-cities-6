@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {Link} from 'react-router-dom';
 
-import Offer from '../offer/offer.jsx';
+import OffersList from '../offers-list/offers-list.jsx';
+import {CardType} from '../../const.js';
+
 
 const Main = (props) => {
-  const {offersCount} = props;
-  const offersTemplate = new Array(offersCount)
-    .fill(``)
-    .map((elem, index) => <Offer key={`offer` + index} />);
+  const {offersCount, offers} = props;
 
   return (
     <div className="page page--gray page--main">
@@ -22,11 +22,11 @@ const Main = (props) => {
             <nav className="header__nav">
               <ul className="header__nav-list">
                 <li className="header__nav-item user">
-                  <a className="header__nav-link header__nav-link--profile" href="#">
+                  <Link className="header__nav-link header__nav-link--profile" to={`/favorites`}>
                     <div className="header__avatar-wrapper user__avatar-wrapper">
                     </div>
                     <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </nav>
@@ -91,9 +91,11 @@ const Main = (props) => {
                   <li className="places__option" tabIndex={0}>Top rated first</li>
                 </ul>
               </form>
-              <div className="cities__places-list places__list tabs__content">
-                {offersTemplate}
-              </div>
+              <OffersList
+                offersCount={offersCount}
+                offers={offers}
+                cardType={CardType.CITY}
+              />
             </section>
             <div className="cities__right-section">
               <section className="cities__map map" />
@@ -107,6 +109,7 @@ const Main = (props) => {
 
 Main.propTypes = {
   offersCount: PropTypes.number.isRequired,
+  offers: PropTypes.array.isRequired,
 };
 
 export default Main;
