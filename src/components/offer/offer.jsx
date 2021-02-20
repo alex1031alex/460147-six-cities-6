@@ -97,6 +97,11 @@ const Offer = (props) => {
   );
 };
 
+Offer.defaultProps = {
+  onMouseEnter: () => {},
+  onMouseLeave: () => {}
+};
+
 Offer.propTypes = {
   offer: PropTypes.shape({
     id: PropTypes.number.isRequired,
