@@ -10,7 +10,14 @@ const Cities = {
 export const offers = [
   {
     id: 1,
-    city: Cities.AMSTERDAM,
+    city: {
+      name: Cities.AMSTERDAM,
+      location: {
+        latitude: 52.3909553943508,
+        longitude: 4.85309666406198,
+        zoom: 10
+      }
+    },
     isPremium: true,
     images: [
       `img/apartment-01.jpg`,
@@ -49,7 +56,14 @@ export const offers = [
   },
   {
     id: 2,
-    city: Cities.AMSTERDAM,
+    city: {
+      name: Cities.AMSTERDAM,
+      location: {
+        latitude: 52.369553943508,
+        longitude: 4.85309666406198,
+        zoom: 10
+      }
+    },
     isPremium: true,
     images: [
       `img/room.jpg`,
@@ -85,7 +99,14 @@ export const offers = [
   },
   {
     id: 3,
-    city: Cities.COLOGNE,
+    city: {
+      name: Cities.AMSTERDAM,
+      location: {
+        latitude: 52.3909553943508,
+        longitude: 4.929309666406198,
+        zoom: 10
+      }
+    },
     isPremium: false,
     images: [
       `img/apartment-02.jpg`,
@@ -123,7 +144,14 @@ export const offers = [
   },
   {
     id: 4,
-    city: Cities.DUSSELDORF,
+    city: {
+      name: Cities.AMSTERDAM,
+      location: {
+        latitude: 52.3809553943508,
+        longitude: 4.939309666406198,
+        zoom: 10
+      }
+    },
     isPremium: true,
     images: [
       `img/apartment-03.jpg`,

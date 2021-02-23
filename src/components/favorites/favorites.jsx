@@ -11,12 +11,13 @@ const Favorites = (props) => {
   const offersByCities = offers
     .reduce((acc, offer) => {
       const {city} = offer;
+      const {name} = city;
 
-      if (acc.hasOwnProperty(city)) {
-        acc[city] = [...acc[city], offer];
+      if (acc.hasOwnProperty(name)) {
+        acc[name] = [...acc[name], offer];
       } else {
-        acc[city] = [];
-        acc[city].push(offer);
+        acc[name] = [];
+        acc[name].push(offer);
       }
 
       return acc;
@@ -57,7 +58,7 @@ const Favorites = (props) => {
                   .map(([city, offersForCity]) => {
                     return <FavoriteOffersList
                       key={city}
-                      city={city}
+                      cityName={city}
                       offers={offersForCity}
                       cardType={CardType.FAVORITE}
                     />;
