@@ -1,6 +1,7 @@
 export const CardType = {
   CITY: `cities`,
-  FAVORITE: `favorites`
+  FAVORITE: `favorites`,
+  NEARBY: `nearby`,
 };
 
 export const ImageSize = {

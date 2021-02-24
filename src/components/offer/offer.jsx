@@ -16,6 +16,9 @@ const Offer = (props) => {
       case CardType.CITY: {
         return `cities__place-card`;
       }
+      case CardType.NEARBY: {
+        return `near-places__card`;
+      }
     }
 
     return ``;
@@ -29,18 +32,13 @@ const Offer = (props) => {
           height: ImageSize.SMALL.height
         };
       }
-      case CardType.CITY: {
+      default: {
         return {
           width: ImageSize.STANDARD.width,
           height: ImageSize.STANDARD.height
         };
       }
     }
-
-    return {
-      width: ImageSize.STANDARD.width,
-      height: ImageSize.STANDARD.height
-    };
   };
 
   return (
