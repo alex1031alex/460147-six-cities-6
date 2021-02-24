@@ -3,11 +3,12 @@ import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 import ReviewsList from '../reviews-list/reviews-list.jsx';
 import ReviewForm from '../review-form/review-form.jsx';
+import Map from '../map/map.jsx';
 
 const MAX_PHOTO_IN_GALERY = 6;
 
 const Room = (props) => {
-  const {offer, reviews} = props;
+  const {offer, reviews, nearbyOffers} = props;
   const {images, isPremium, title, rating, type, bedrooms, maxAdults, price, goods, host, description} = offer;
   const {name, avatarUrl, isPro} = host;
 
@@ -150,7 +151,9 @@ const Room = (props) => {
               </section>
             </div>
           </div>
-          <section className="property__map map" />
+          <section className="property__map map">
+            <Map points={nearbyOffers} />
+          </section>
         </section>
         <div className="container">
           <section className="near-places places">
@@ -289,6 +292,7 @@ Room.propTypes = {
       isPro: PropTypes.bool.isRequired,
     }),
   })),
+  nearbyOffers: PropTypes.array,
 };
 
 export default Room;

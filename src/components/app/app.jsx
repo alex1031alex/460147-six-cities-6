@@ -7,6 +7,8 @@ import Favorites from '../favorites/favorites';
 import Room from '../room/room';
 import NotFoundPage from '../not-found-page/not-found-page';
 
+const NEARBY_OFFERS_COUNT = 3;
+
 const App = (props) => {
   const {offersCount, offers, reviews} = props;
   const favoriteOffers = offers
@@ -31,7 +33,15 @@ const App = (props) => {
           render={({match}) => {
             const {id} = match.params;
             const offer = offers.find((item) => item.id === +id);
-            return <Room offer={offer} reviews={reviews[id]} />;
+            const nearbyOffers = offers
+            .filter((item) => item.id !== +id)
+            .slice(0, NEARBY_OFFERS_COUNT);
+
+            return <Room
+              offer={offer}
+              reviews={reviews[id]}
+              nearbyOffers={nearbyOffers}
+            />;
           }}>
         </Route>
         <Route>
