@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
-import Review from '../review/review.jsx';
+import ReviewsList from '../reviews-list/reviews-list.jsx';
 import ReviewForm from '../review-form/review-form.jsx';
 
 const MAX_PHOTO_IN_GALERY = 6;
@@ -37,9 +37,6 @@ const Room = (props) => {
         </p>
       );
     });
-
-  const reviewsTemplate = reviews.length === 0 ? `` :
-    reviews.map((review, index) => <Review key={index} review={review} />);
 
   return (
     <div className="page">
@@ -148,9 +145,7 @@ const Room = (props) => {
                 <h2 className="reviews__title">
                   Reviews · <span className="reviews__amount">{reviews.length}</span>
                 </h2>
-                <ul className="reviews__list">
-                  {reviewsTemplate}
-                </ul>
+                <ReviewsList reviews={reviews} />
                 <ReviewForm />
               </section>
             </div>
