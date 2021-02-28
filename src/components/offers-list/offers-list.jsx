@@ -1,7 +1,8 @@
-import React from 'react';
-import {useState} from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
+import cn from 'classnames';
 
+import {CardType} from '../../const.js';
 import Offer from '../offer/offer.jsx';
 
 const OffersList = (props) => {
@@ -17,7 +18,7 @@ const OffersList = (props) => {
 
   const {offersCount, offers, cardType} = props;
   const offersTemplate = offers
-    .slice(0, Math.min(offersCount, offers.length))
+    .slice(0, offersCount)
     .map((offer) => {
       return <Offer
         key={`offer` + offer.id}
@@ -29,8 +30,11 @@ const OffersList = (props) => {
     });
 
   return (
-
-    <div className="cities__places-list places__list tabs__content">
+    <div className={cn({
+      'places__list': true,
+      'cities__places-list tabs__content': cardType === CardType.CITY,
+      'near-places__list': cardType === CardType.NEARBY,
+    })}>
       {offersTemplate}
     </div>
   );

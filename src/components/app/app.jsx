@@ -31,7 +31,14 @@ const App = (props) => {
           render={({match}) => {
             const {id} = match.params;
             const offer = offers.find((item) => item.id === +id);
-            return <Room offer={offer} reviews={reviews[id]} />;
+            const nearbyOffers = offers
+            .filter((item) => item.id !== +id);
+
+            return <Room
+              offer={offer}
+              reviews={reviews[id]}
+              nearbyOffers={nearbyOffers}
+            />;
           }}>
         </Route>
         <Route>
