@@ -16,9 +16,8 @@ const OffersList = (props) => {
     setActiveCard(null);
   };
 
-  const {offersCount, offers, cardType} = props;
+  const {offers, cardType} = props;
   const offersTemplate = offers
-    .slice(0, offersCount)
     .map((offer) => {
       return <Offer
         key={`offer` + offer.id}
@@ -41,7 +40,6 @@ const OffersList = (props) => {
 };
 
 OffersList.propTypes = {
-  offersCount: PropTypes.number.isRequired,
   offers: PropTypes.array.isRequired,
   cardType: PropTypes.string.isRequired
 };

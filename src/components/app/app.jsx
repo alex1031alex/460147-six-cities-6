@@ -7,8 +7,10 @@ import Favorites from '../favorites/favorites';
 import Room from '../room/room';
 import NotFoundPage from '../not-found-page/not-found-page';
 
+const MAX_NEARBY_OFFERS = 3;
+
 const App = (props) => {
-  const {offersCount, offers, reviews} = props;
+  const {offers, reviews} = props;
   const favoriteOffers = offers
     .filter((offer) => offer.isFavorite);
 
@@ -16,10 +18,7 @@ const App = (props) => {
     <BrowserRouter>
       <Switch>
         <Route exact path="/">
-          <Main
-            offersCount={offersCount}
-            offers={offers}
-          />
+          <Main />
         </Route>
         <Route exact path="/login">
           <SignIn />
@@ -32,7 +31,8 @@ const App = (props) => {
             const {id} = match.params;
             const offer = offers.find((item) => item.id === +id);
             const nearbyOffers = offers
-            .filter((item) => item.id !== +id);
+            .filter((item) => item.id !== +id)
+            .slice(0, Math.min(MAX_NEARBY_OFFERS, offers.length));
 
             return <Room
               offer={offer}
@@ -50,7 +50,6 @@ const App = (props) => {
 };
 
 App.propTypes = {
-  offersCount: PropTypes.number.isRequired,
   offers: PropTypes.array.isRequired,
   reviews: PropTypes.shape({}),
 };
