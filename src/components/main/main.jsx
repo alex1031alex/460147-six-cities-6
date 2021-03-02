@@ -8,10 +8,13 @@ import {ActionCreator} from '../../store/action.js';
 import OffersList from '../offers-list/offers-list.jsx';
 import Map from '../map/map.jsx';
 import {CardType, Cities} from '../../const.js';
+import {getOffersByCity} from '../../utils.js';
 
 
 const Main = (props) => {
-  const {activeCity, offersByCity, onCityChange} = props;
+  const {activeCity, offers, onCityChange} = props;
+
+  const offersByCity = getOffersByCity(offers, activeCity);
 
   const handleCityClick = (evt) => {
     evt.preventDefault();
@@ -101,19 +104,18 @@ const Main = (props) => {
 
 Main.propTypes = {
   activeCity: PropTypes.string,
-  offersByCity: PropTypes.array,
+  offers: PropTypes.array,
   onCityChange: PropTypes.func,
 };
 
 const mapStateToProps = (state) => ({
   activeCity: state.activeCity,
-  offersByCity: state.offersByCity
+  offers: state.offers
 });
 
 const mapDispatchToProps = (dispatch) => ({
   onCityChange(city) {
     dispatch(ActionCreator.changeCity(city));
-    dispatch(ActionCreator.setOffersByCity());
   }
 });
 
