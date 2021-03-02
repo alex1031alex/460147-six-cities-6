@@ -2,24 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
-import cn from 'classnames';
 
-import {ActionCreator} from '../../store/action.js';
+import CitiesList from '../cities-list/cities-list.jsx';
 import OffersList from '../offers-list/offers-list.jsx';
 import Map from '../map/map.jsx';
-import {CardType, Cities} from '../../const.js';
+import {CardType} from '../../const.js';
 import {getOffersByCity} from '../../utils.js';
 
-
 const Main = (props) => {
-  const {activeCity, offers, onCityChange} = props;
+  const {activeCity, offers} = props;
 
   const offersByCity = getOffersByCity(offers, activeCity);
-
-  const handleCityClick = (evt) => {
-    evt.preventDefault();
-    onCityChange(evt.target.textContent);
-  };
 
   return (
     <div className="page page--gray page--main">
@@ -49,18 +42,7 @@ const Main = (props) => {
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
-            <ul className="locations__list tabs__list">
-              {Object.values(Cities).map((city) => {
-                return <li key={city} className="locations__item">
-                  <a className={cn({
-                    'locations__item-link tabs__item': true,
-                    'tabs__item--active': city === activeCity
-                  })} onClick={handleCityClick} href="#">
-                    <span>{city}</span>
-                  </a>
-                </li>;
-              })}
-            </ul>
+            <CitiesList />
           </section>
         </div>
         <div className="cities">
@@ -105,7 +87,6 @@ const Main = (props) => {
 Main.propTypes = {
   activeCity: PropTypes.string,
   offers: PropTypes.array,
-  onCityChange: PropTypes.func,
 };
 
 const mapStateToProps = (state) => ({
@@ -113,11 +94,5 @@ const mapStateToProps = (state) => ({
   offers: state.offers
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  onCityChange(city) {
-    dispatch(ActionCreator.changeCity(city));
-  }
-});
-
 export {Main};
-export default connect(mapStateToProps, mapDispatchToProps)(Main);
+export default connect(mapStateToProps, null)(Main);
