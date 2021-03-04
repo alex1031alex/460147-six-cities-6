@@ -16,7 +16,7 @@ const Main = (props) => {
 
   const offersByCity = getOffersByCity(offers, activeCity);
 
-  const [, setActiveCard] = useState(null);
+  const [activeCard, setActiveCard] = useState(null);
 
   const handleMouseEnter = (offer) => {
     setActiveCard(offer);
@@ -91,6 +91,7 @@ const Main = (props) => {
                 <section className="cities__map map">
                   <Map
                     points={offersByCity}
+                    activePoint={activeCard}
                   />
                 </section>
               </div>

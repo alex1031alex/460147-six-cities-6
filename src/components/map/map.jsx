@@ -5,7 +5,7 @@ import leaflet from 'leaflet';
 import "leaflet/dist/leaflet.css";
 
 const Map = (props) => {
-  const {points} = props;
+  const {points, activePoint} = props;
   const city = [52.38333, 4.9];
   const zoom = 12;
 
