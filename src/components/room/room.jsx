@@ -9,7 +9,6 @@ import Map from '../map/map.jsx';
 import OffersList from '../offers-list/offers-list.jsx';
 
 const MAX_PHOTO_IN_GALERY = 6;
-const MAX_NEARBY_OFFERS = 3;
 
 const Room = (props) => {
   const {offer, reviews, nearbyOffers} = props;
@@ -163,7 +162,6 @@ const Room = (props) => {
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <OffersList
-              offersCount={Math.min(MAX_NEARBY_OFFERS, nearbyOffers.length)}
               offers={nearbyOffers}
               cardType={CardType.NEARBY}
             />

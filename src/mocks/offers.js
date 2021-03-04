@@ -1,11 +1,4 @@
-const Cities = {
-  PARIS: `Paris`,
-  COLOGNE: `Cologne`,
-  BRUSSELS: `Brussels`,
-  AMSTERDAM: `Amsterdam`,
-  HAMBURG: `Hamburg`,
-  DUSSELDORF: `Dusseldorf`
-};
+import {Cities} from '../const.js';
 
 export const offers = [
   {
