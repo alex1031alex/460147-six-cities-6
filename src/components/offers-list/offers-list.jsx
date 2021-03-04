@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
@@ -6,25 +6,15 @@ import {CardType} from '../../const.js';
 import Offer from '../offer/offer.jsx';
 
 const OffersList = (props) => {
-  const [, setActiveCard] = useState(null);
-
-  const handleMouseEnter = (offer) => {
-    setActiveCard(offer);
-  };
-
-  const handleMouseLeave = () => {
-    setActiveCard(null);
-  };
-
-  const {offers, cardType} = props;
+  const {offers, cardType, onMouseEnter, onMouseLeave} = props;
   const offersTemplate = offers
     .map((offer) => {
       return <Offer
         key={`offer` + offer.id}
         offer={offer}
         cardType={cardType}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
       />;
     });
 
@@ -41,7 +31,9 @@ const OffersList = (props) => {
 
 OffersList.propTypes = {
   offers: PropTypes.array.isRequired,
-  cardType: PropTypes.string.isRequired
+  cardType: PropTypes.string.isRequired,
+  onMouseEnter: PropTypes.func,
+  onMouseLeave: PropTypes.func,
 };
 
 export default OffersList;

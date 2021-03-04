@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
@@ -15,6 +15,15 @@ const Main = (props) => {
   const {activeCity, offers} = props;
 
   const offersByCity = getOffersByCity(offers, activeCity);
+
+  const [, setActiveCard] = useState(null);
+
+  const handleMouseEnter = (offer) => {
+    setActiveCard(offer);
+  };
+  const handleMouseLeave = () => {
+    setActiveCard(null);
+  };
 
   return (
     <div className="page page--gray page--main">
@@ -74,6 +83,8 @@ const Main = (props) => {
                 <OffersList
                   offers={offersByCity}
                   cardType={CardType.CITY}
+                  onMouseEnter={handleMouseEnter}
+                  onMouseLeave={handleMouseLeave}
                 />
               </section>
               <div className="cities__right-section">
