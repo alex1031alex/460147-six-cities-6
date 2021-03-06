@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
+import cn from 'classnames';
 
 import {SortType} from '../../const.js';
 import {ActionCreator} from '../../store/action.js';
@@ -12,23 +13,32 @@ const Sorting = (props) => {
     <form className="places__sorting" action="#" method="get">
       <span className="places__sorting-caption">Sort by</span>
       <span className="places__sorting-type" tabIndex={0}>
-        Popular
+        {activeSortType}
         <svg className="places__sorting-arrow" width={7} height={4}>
           <use xlinkHref="#icon-arrow-select" />
         </svg>
       </span>
       <ul className="places__options places__options--custom places__options--opened">
-        <li className="places__option places__option--active" tabIndex={0}>Popular</li>
-        <li className="places__option" tabIndex={0}>Price: low to high</li>
-        <li className="places__option" tabIndex={0}>Price: high to low</li>
-        <li className="places__option" tabIndex={0}>Top rated first</li>
+        {Object
+          .values(SortType)
+          .map((item) => {
+            return <li
+              className={cn({
+                'places__option': true,
+                'places__option--active': item === activeSortType
+              })}
+              tabIndex={0}
+              key={item}
+            >{item}</li>;
+          })
+        }
       </ul>
     </form>
   );
 };
 
 Sorting.propTypes = {
-  activeSortingType: PropTypes.string,
+  activeSortType: PropTypes.string,
   onSortTypeChange: PropTypes.func,
 };
 
