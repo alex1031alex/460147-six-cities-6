@@ -23,3 +23,10 @@ export const ImageSize = {
     height: 100
   }
 };
+
+export const SortType = {
+  POPULAR: `Popular`,
+  PRICE_INC: `Price: low to high`,
+  PRICE_DEC: `Price: high to low`,
+  RATING: `Top rated first`,
+};
