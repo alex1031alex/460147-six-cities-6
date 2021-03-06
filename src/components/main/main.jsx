@@ -10,12 +10,13 @@ import Map from '../map/map.jsx';
 import MainNoOffers from '../main-no-offers/main-no-offers.jsx';
 import Sorting from '../sorting/sorting.jsx';
 import {CardType} from '../../const.js';
-import {getOffersByCity} from '../../utils.js';
+import {getOffersByCity, sortOffers} from '../../utils.js';
 
 const Main = (props) => {
-  const {activeCity, offers} = props;
+  const {activeCity, activeSortType, offers} = props;
 
-  const offersByCity = getOffersByCity(offers, activeCity);
+  const offersByCity = sortOffers(getOffersByCity(offers, activeCity));
+  const sortedOffers = sortOffers(offersByCity, activeSortType);
 
   const [activeCard, setActiveCard] = useState(null);
 
@@ -68,7 +69,7 @@ const Main = (props) => {
                 <b className="places__found">{offersByCity.length} places to stay in {activeCity}</b>
                 <Sorting />
                 <OffersList
-                  offers={offersByCity}
+                  offers={sortedOffers}
                   cardType={CardType.CITY}
                   onMouseEnter={handleMouseEnter}
                   onMouseLeave={handleMouseLeave}
@@ -93,11 +94,13 @@ const Main = (props) => {
 
 Main.propTypes = {
   activeCity: PropTypes.string,
+  activeSortType: PropTypes.string,
   offers: PropTypes.array,
 };
 
 const mapStateToProps = (state) => ({
   activeCity: state.activeCity,
+  activeSortType: state.activeSortType,
   offers: state.offers
 });
 
