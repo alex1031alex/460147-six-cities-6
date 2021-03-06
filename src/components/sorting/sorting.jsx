@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import cn from 'classnames';
@@ -8,13 +8,18 @@ import {ActionCreator} from '../../store/action.js';
 
 const Sorting = (props) => {
   const {activeSortType, onSortTypeChange} = props;
+  const [isListDropped, setListDropped] = useState(false);
+
+  const handleFormClick = () => {
+    setListDropped(!isListDropped);
+  };
 
   const handleItemClick = (evt) => {
     onSortTypeChange(evt.target.dataset.sortType);
   };
 
   return (
-    <form className="places__sorting" action="#" method="get">
+    <form className="places__sorting" action="#" method="get" onClick={handleFormClick}>
       <span className="places__sorting-caption">Sort by</span>
       <span className="places__sorting-type" tabIndex={0}>
         {activeSortType}
@@ -22,7 +27,11 @@ const Sorting = (props) => {
           <use xlinkHref="#icon-arrow-select" />
         </svg>
       </span>
-      <ul className="places__options places__options--custom places__options--opened">
+      <ul
+        className={cn({
+          'places__options places__options--custom': true,
+          'places__options--opened': isListDropped})}
+      >
         {Object
           .values(SortType)
           .map((item) => {
