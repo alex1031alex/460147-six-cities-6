@@ -1,9 +1,10 @@
 import {ActionType} from './action.js';
-import {Cities} from '../const.js';
+import {Cities, SortType} from '../const.js';
 import {offers} from '../mocks/offers';
 
 const initialState = {
   activeCity: Cities.PARIS,
+  activeSortType: SortType.POPULAR,
   offers
 };
 
@@ -13,6 +14,13 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         activeCity: action.payload
+      };
+    }
+
+    case ActionType.CHANGE_SORT_TYPE: {
+      return {
+        ...state,
+        activeSortType: action.payload
       };
     }
 

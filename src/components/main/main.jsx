@@ -8,7 +8,7 @@ import CitiesList from '../cities-list/cities-list.jsx';
 import OffersList from '../offers-list/offers-list.jsx';
 import Map from '../map/map.jsx';
 import MainNoOffers from '../main-no-offers/main-no-offers.jsx';
-import {Sorting} from '../sorting/sorting.jsx';
+import Sorting from '../sorting/sorting.jsx';
 import {CardType} from '../../const.js';
 import {getOffersByCity} from '../../utils.js';
 
