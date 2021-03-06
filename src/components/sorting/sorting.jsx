@@ -9,6 +9,10 @@ import {ActionCreator} from '../../store/action.js';
 const Sorting = (props) => {
   const {activeSortType, onSortTypeChange} = props;
 
+  const handleItemClick = (evt) => {
+    onSortTypeChange(evt.target.dataset.sortType);
+  };
+
   return (
     <form className="places__sorting" action="#" method="get">
       <span className="places__sorting-caption">Sort by</span>
@@ -29,6 +33,8 @@ const Sorting = (props) => {
               })}
               tabIndex={0}
               key={item}
+              data-sort-type={item}
+              onClick={handleItemClick}
             >{item}</li>;
           })
         }
