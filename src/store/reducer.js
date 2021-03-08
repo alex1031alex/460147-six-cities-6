@@ -29,7 +29,14 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         authorizationStatus: action.payload
-      }
+      };
+    }
+
+    case ActionType.LOAD_OFFERS: {
+      return {
+        ...state,
+        offers: action.payload
+      };
     }
 
     default: {
