@@ -1,11 +1,12 @@
 import {ActionType} from './action.js';
-import {Cities, SortType} from '../const.js';
+import {AuthorizationStatus, Cities, SortType} from '../const.js';
 
 
 const initialState = {
   activeCity: Cities.PARIS,
   activeSortType: SortType.POPULAR,
   offers: [],
+  authorizationStatus: AuthorizationStatus.NO_AUTH,
 };
 
 const reducer = (state = initialState, action) => {
@@ -22,6 +23,13 @@ const reducer = (state = initialState, action) => {
         ...state,
         activeSortType: action.payload
       };
+    }
+
+    case ActionType.REQUIRE_AUTHORIZATION: {
+      return {
+        ...state,
+        authorizationStatus: action.payload
+      }
     }
 
     default: {
