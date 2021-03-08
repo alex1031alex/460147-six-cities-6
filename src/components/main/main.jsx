@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
@@ -11,14 +11,21 @@ import MainNoOffers from '../main-no-offers/main-no-offers.jsx';
 import Sorting from '../sorting/sorting.jsx';
 import {CardType} from '../../const.js';
 import {getOffersByCity, sortOffers} from '../../utils.js';
+import {fetchOffers} from '../../store/api-actions.js';
 
 const Main = (props) => {
-  const {activeCity, activeSortType, offers} = props;
+  const {activeCity, activeSortType, offers, isOffersDataLoaded, onLoadOffersData} = props;
 
   const offersByCity = sortOffers(getOffersByCity(offers, activeCity));
   const sortedOffers = sortOffers(offersByCity, activeSortType);
 
   const [activeCard, setActiveCard] = useState(null);
+
+  useEffect(() => {
+    if (!isOffersDataLoaded) {
+      onLoadOffersData();
+    }
+  }, [isOffersDataLoaded]);
 
   const handleMouseEnter = (offer) => {
     setActiveCard(offer);
@@ -104,5 +111,11 @@ const mapStateToProps = (state) => ({
   offers: state.offers
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  onLoadOffersData() {
+    dispatch(fetchOffers());
+  }
+});
+
 export {Main};
-export default connect(mapStateToProps, null)(Main);
+export default connect(mapStateToProps, mapDispatchToProps)(Main);

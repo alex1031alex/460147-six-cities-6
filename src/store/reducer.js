@@ -7,6 +7,7 @@ const initialState = {
   activeSortType: SortType.POPULAR,
   offers: [],
   authorizationStatus: AuthorizationStatus.NO_AUTH,
+  isOffersDataLoaded: false,
 };
 
 const reducer = (state = initialState, action) => {
