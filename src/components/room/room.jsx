@@ -11,7 +11,7 @@ import OffersList from '../offers-list/offers-list.jsx';
 const MAX_PHOTO_IN_GALERY = 6;
 
 const Room = (props) => {
-  const {offer, reviews, nearbyOffers} = props;
+  const {offer, reviews = [], nearbyOffers} = props;
   const {images, isPremium, title, rating, type, bedrooms, maxAdults, price, goods, host, description} = offer;
   const {name, avatarUrl, isPro} = host;
 

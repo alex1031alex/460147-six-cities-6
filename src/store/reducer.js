@@ -1,11 +1,11 @@
 import {ActionType} from './action.js';
 import {Cities, SortType} from '../const.js';
-import {offers} from '../mocks/offers';
+
 
 const initialState = {
   activeCity: Cities.PARIS,
   activeSortType: SortType.POPULAR,
-  offers
+  offers: [],
 };
 
 const reducer = (state = initialState, action) => {
