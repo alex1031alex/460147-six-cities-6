@@ -9,7 +9,7 @@ import {createAPI} from './services/api.js';
 import {reducer} from './store/reducer.js';
 import {AuthorizationStatus} from './const.js';
 import App from './components/app/app.jsx';
-import { ActionCreator } from './store/action.js';
+import {ActionCreator} from './store/action.js';
 
 const api = createAPI(
     () => store.dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.NO_AUTH))

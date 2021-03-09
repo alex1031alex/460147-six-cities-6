@@ -16,7 +16,7 @@ import {fetchOffers} from '../../store/api-actions.js';
 const Main = (props) => {
   const {activeCity, activeSortType, offers, isOffersDataLoaded, onLoadOffersData} = props;
 
-  const offersByCity = sortOffers(getOffersByCity(offers, activeCity));
+  const offersByCity = getOffersByCity(offers, activeCity);
   const sortedOffers = sortOffers(offersByCity, activeSortType);
 
   const [activeCard, setActiveCard] = useState(null);
@@ -85,6 +85,7 @@ const Main = (props) => {
               <div className="cities__right-section">
                 <section className="cities__map map">
                   <Map
+                    city={activeCity}
                     points={offersByCity}
                     activePoint={activeCard}
                   />
@@ -103,6 +104,8 @@ Main.propTypes = {
   activeCity: PropTypes.string,
   activeSortType: PropTypes.string,
   offers: PropTypes.array,
+  isOffersDataLoaded: PropTypes.bool,
+  onLoadOffersData: PropTypes.func,
 };
 
 const mapStateToProps = (state) => ({
