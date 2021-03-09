@@ -7,8 +7,6 @@ import Favorites from '../favorites/favorites';
 import Room from '../room/room';
 import NotFoundPage from '../not-found-page/not-found-page';
 
-const MAX_NEARBY_OFFERS = 3;
-
 const App = (props) => {
   const {offers, reviews} = props;
   const favoriteOffers = offers
@@ -26,20 +24,10 @@ const App = (props) => {
         <Route exact path="/favorites">
           <Favorites offers={favoriteOffers} />
         </Route>
-        <Route exact path="/offer/:id"
-          render={({match}) => {
-            const {id} = match.params;
-            const offer = offers.find((item) => item.id === +id);
-            const nearbyOffers = offers
-            .filter((item) => item.id !== +id)
-            .slice(0, Math.min(MAX_NEARBY_OFFERS, offers.length));
-
-            return <Room
-              offer={offer}
-              reviews={reviews[id]}
-              nearbyOffers={nearbyOffers}
-            />;
-          }}>
+        <Route exact path="/offer/:id">
+          <Room
+            reviews={[]}
+          />
         </Route>
         <Route>
           <NotFoundPage />
