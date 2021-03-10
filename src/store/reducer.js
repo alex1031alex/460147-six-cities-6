@@ -1,7 +1,6 @@
 import {ActionType} from './action.js';
 import {AuthorizationStatus, Cities, SortType} from '../const.js';
 
-
 const initialState = {
   activeCity: Cities.PARIS,
   activeSortType: SortType.POPULAR,
@@ -36,7 +35,8 @@ const reducer = (state = initialState, action) => {
     case ActionType.LOAD_OFFERS: {
       return {
         ...state,
-        offers: action.payload
+        offers: action.payload,
+        isOffersDataLoaded: true,
       };
     }
 

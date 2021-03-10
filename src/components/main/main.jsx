@@ -9,6 +9,7 @@ import OffersList from '../offers-list/offers-list.jsx';
 import Map from '../map/map.jsx';
 import MainNoOffers from '../main-no-offers/main-no-offers.jsx';
 import Sorting from '../sorting/sorting.jsx';
+import Spinner from '../spinner/spinner.jsx';
 import {CardType} from '../../const.js';
 import {getOffersByCity, sortOffers} from '../../utils.js';
 import {fetchOffers} from '../../store/api-actions.js';
@@ -68,33 +69,38 @@ const Main = (props) => {
             <CitiesList />
           </section>
         </div>
-        <div className="cities">
-          {offersByCity.length ?
-            <div className="cities__places-container container">
-              <section className="cities__places places">
-                <h2 className="visually-hidden">Places</h2>
-                <b className="places__found">{offersByCity.length} places to stay in {activeCity}</b>
-                <Sorting />
-                <OffersList
-                  offers={sortedOffers}
-                  cardType={CardType.CITY}
-                  onMouseEnter={handleMouseEnter}
-                  onMouseLeave={handleMouseLeave}
-                />
-              </section>
-              <div className="cities__right-section">
-                <section className="cities__map map">
-                  <Map
-                    city={activeCity}
-                    points={offersByCity}
-                    activePoint={activeCard}
+        {!isOffersDataLoaded ?
+          <Spinner />
+          :
+          <div className="cities">
+            {offersByCity.length ?
+              <div className="cities__places-container container">
+                <section className="cities__places places">
+                  <h2 className="visually-hidden">Places</h2>
+                  <b className="places__found">{offersByCity.length} places to stay in {activeCity}</b>
+                  <Sorting />
+                  <OffersList
+                    offers={sortedOffers}
+                    cardType={CardType.CITY}
+                    onMouseEnter={handleMouseEnter}
+                    onMouseLeave={handleMouseLeave}
                   />
                 </section>
+                <div className="cities__right-section">
+                  <section className="cities__map map">
+                    <Map
+                      city={activeCity}
+                      points={offersByCity}
+                      activePoint={activeCard}
+                    />
+                  </section>
+                </div>
               </div>
-            </div>
-            : <MainNoOffers city={activeCity} />
-          }
-        </div>
+              :
+              <MainNoOffers city={activeCity} />
+            }
+          </div>
+        }
       </main>
     </div>
   );
@@ -111,7 +117,8 @@ Main.propTypes = {
 const mapStateToProps = (state) => ({
   activeCity: state.activeCity,
   activeSortType: state.activeSortType,
-  offers: state.offers
+  offers: state.offers,
+  isOffersDataLoaded: state.isOffersDataLoaded,
 });
 
 const mapDispatchToProps = (dispatch) => ({
