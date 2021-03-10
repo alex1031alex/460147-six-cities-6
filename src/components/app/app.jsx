@@ -8,7 +8,7 @@ import Room from '../room/room';
 import NotFoundPage from '../not-found-page/not-found-page';
 
 const App = (props) => {
-  const {offers, reviews} = props;
+  const {offers} = props;
   const favoriteOffers = offers
     .filter((offer) => offer.isFavorite);
 
