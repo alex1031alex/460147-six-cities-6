@@ -3,10 +3,11 @@ import PropTypes from 'prop-types';
 
 import leaflet from 'leaflet';
 import "leaflet/dist/leaflet.css";
+import {Coords} from '../../const.js';
 
 const Map = (props) => {
-  const {points, activePoint} = props;
-  const city = [52.38333, 4.9];
+  const {city, points, activePoint} = props;
+  const center = [Coords[city].latitude, Coords[city].longitude];
   const zoom = 12;
 
   const pin = leaflet.icon({
@@ -21,12 +22,11 @@ const Map = (props) => {
 
   useEffect(() => {
     const map = leaflet.map(`map`, {
-      center: city,
+      center,
       zoom,
       zoomControl: false,
       marker: true
     });
-    map.setView(city, zoom);
 
     const markers = [];
 
@@ -41,7 +41,7 @@ const Map = (props) => {
 
       markers.push(
           leaflet
-            .marker([point.city.location.latitude, point.city.location.longitude], {icon})
+            .marker([point.location.latitude, point.location.longitude], {icon})
             .addTo(map)
       );
     });
@@ -51,7 +51,7 @@ const Map = (props) => {
       markers.forEach((marker) => map.removeLayer(marker));
     };
 
-  }, [points, activePoint]);
+  }, [city, points, activePoint]);
 
   return (
     <div id="map" style={{height: `100%`}}></div>
@@ -59,6 +59,7 @@ const Map = (props) => {
 };
 
 Map.propTypes = {
+  city: PropTypes.string,
   points: PropTypes.array.isRequired,
   activePoint: PropTypes.shape({
     id: PropTypes.number.isRequired,

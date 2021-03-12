@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Link} from 'react-router-dom';
+import {Link, useParams} from 'react-router-dom';
+import {connect} from 'react-redux';
 
 import {CardType} from '../../const.js';
 import ReviewsList from '../reviews-list/reviews-list.jsx';
@@ -11,8 +12,23 @@ import OffersList from '../offers-list/offers-list.jsx';
 const MAX_PHOTO_IN_GALERY = 6;
 
 const Room = (props) => {
-  const {offer, reviews, nearbyOffers} = props;
-  const {images, isPremium, title, rating, type, bedrooms, maxAdults, price, goods, host, description} = offer;
+  const {offers, reviews = [], nearbyOffers = []} = props;
+  const {id} = useParams();
+  const offer = offers.find((it) => +id === it.id);
+
+  const {
+    images,
+    isPremium,
+    title,
+    rating,
+    type,
+    bedrooms,
+    maxAdults,
+    price,
+    goods,
+    host,
+    description
+  } = offer;
   const {name, avatarUrl, isPro} = host;
 
   const galeryTemplate = images
@@ -155,7 +171,11 @@ const Room = (props) => {
             </div>
           </div>
           <section className="property__map map">
-            <Map points={nearbyOffers} />
+            <Map
+              city={offer.city.name}
+              points={nearbyOffers}
+              activePoint={null}
+            />
           </section>
         </section>
         <div className="container">
@@ -173,7 +193,7 @@ const Room = (props) => {
 };
 
 Room.propTypes = {
-  offer: PropTypes.shape({
+  offers: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
     isPremium: PropTypes.bool.isRequired,
     images: PropTypes.array.isRequired,
@@ -191,7 +211,7 @@ Room.propTypes = {
       isPro: PropTypes.bool.isRequired,
     }),
     goods: PropTypes.arrayOf(PropTypes.string),
-  }).isRequired,
+  })).isRequired,
   reviews: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
     rating: PropTypes.number.isRequired,
@@ -207,4 +227,11 @@ Room.propTypes = {
   nearbyOffers: PropTypes.array,
 };
 
-export default Room;
+const mapStateToProps = (state) => {
+  return {
+    offers: state.offers,
+  };
+};
+
+export {Room};
+export default connect(mapStateToProps, null)(Room);
