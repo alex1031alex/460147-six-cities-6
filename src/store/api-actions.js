@@ -1,6 +1,6 @@
 import {ActionCreator} from './action.js';
 import {adaptOffersData} from '../services/adapter.js';
-import { AuthorizationStatus } from '../const.js';
+import {AuthorizationStatus} from '../const.js';
 
 export const fetchOffers = () => (dispatch, _getState, api) => {
   api.get(`/hotels`)
@@ -20,4 +20,5 @@ export const login = ({email, password}) => (dispatch, _getState, api) => (
       dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
       return data;
     })
+    .then((data) => dispatch(ActionCreator.setAuthInfo(data)))
 );

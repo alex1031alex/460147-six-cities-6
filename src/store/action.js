@@ -3,6 +3,7 @@ export const ActionType = {
   CHANGE_SORT_TYPE: `offers/changeSortType`,
   REQUIRE_AUTHORIZATION: `user/requireAuthorization`,
   LOAD_OFFERS: `offers/loadOffers`,
+  SET_AUTH_INFO: `user/setAuthInfo`,
 };
 
 export const ActionCreator = {
@@ -31,6 +32,13 @@ export const ActionCreator = {
     return {
       type: ActionType.LOAD_OFFERS,
       payload: offers,
+    };
+  },
+
+  setAuthInfo(authInfo) {
+    return {
+      type: ActionType.SET_AUTH_INFO,
+      payload: authInfo,
     };
   }
 };
