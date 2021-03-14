@@ -16,7 +16,7 @@ const Header = (props) => {
             <a className="header__logo-link header__logo-link--active">
               <img
                 className="header__logo"
-                src={isUserAuthorized ? authInfo.avatarUrl : `img/logo.svg`}
+                src="img/logo.svg"
                 alt="6 cities logo"
                 width={81}
                 height={41}
@@ -28,6 +28,15 @@ const Header = (props) => {
               <li className="header__nav-item user">
                 <Link className="header__nav-link header__nav-link--profile" to={`/favorites`}>
                   <div className="header__avatar-wrapper user__avatar-wrapper">
+                    {authorizationStatus === AuthorizationStatus.AUTH && authInfo.avatarUrl ?
+                      <img
+                        src={authInfo.avatarUrl}
+                        width={20}
+                        height={20}
+                        alt="User avatar"
+                      />
+                      : ``
+                    }
                   </div>
                   <span className="header__user-name user__name">
                     {isUserAuthorized ? authInfo.email : `Sign in`}
