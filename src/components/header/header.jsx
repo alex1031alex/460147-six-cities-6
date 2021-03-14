@@ -2,9 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
+import {AuthorizationStatus} from '../../const';
 
 const Header = (props) => {
-  const {authInfo} = props;
+  const {authInfo, authorizationStatus} = props;
+  const isUserAuthorized = authorizationStatus === AuthorizationStatus.AUTH;
 
   return (
     <header className="header">
@@ -12,7 +14,13 @@ const Header = (props) => {
         <div className="header__wrapper">
           <div className="header__left">
             <a className="header__logo-link header__logo-link--active">
-              <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width={81} height={41} />
+              <img
+                className="header__logo"
+                src={isUserAuthorized ? authInfo.avatarUrl : `img/logo.svg`}
+                alt="6 cities logo"
+                width={81}
+                height={41}
+              />
             </a>
           </div>
           <nav className="header__nav">
@@ -21,7 +29,9 @@ const Header = (props) => {
                 <Link className="header__nav-link header__nav-link--profile" to={`/favorites`}>
                   <div className="header__avatar-wrapper user__avatar-wrapper">
                   </div>
-                  <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
+                  <span className="header__user-name user__name">
+                    {isUserAuthorized ? authInfo.email : `Sign in`}
+                  </span>
                 </Link>
               </li>
             </ul>
@@ -34,6 +44,7 @@ const Header = (props) => {
 
 const mapStateToProps = (state) => ({
   authInfo: state.authInfo,
+  authorizationStatus: state.authorizationStatus,
 });
 
 Header.propTypes = {
@@ -44,6 +55,7 @@ Header.propTypes = {
     isPro: PropTypes.bool,
     name: PropTypes.string,
   }),
+  authorizationStatus: PropTypes.string.isRequired,
 };
 
 export {Header};
