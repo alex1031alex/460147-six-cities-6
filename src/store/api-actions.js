@@ -22,4 +22,5 @@ export const login = ({email, password}) => (dispatch, _getState, api) => (
     })
     .then((data) => adaptAuthInfo(data))
     .then((data) => dispatch(ActionCreator.setAuthInfo(data)))
+    .then(() => dispatch(ActionCreator.redirectToRoute(`/`)))
 );

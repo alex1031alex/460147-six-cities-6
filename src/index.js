@@ -10,6 +10,7 @@ import {reducer} from './store/reducer.js';
 import {AuthorizationStatus} from './const.js';
 import App from './components/app/app.jsx';
 import {ActionCreator} from './store/action.js';
+import {redirect} from './store/middlewares/redirect.js';
 
 const api = createAPI(
     () => store.dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.NO_AUTH))
@@ -18,7 +19,8 @@ const api = createAPI(
 const store = createStore(
     reducer,
     composeWithDevTools(
-        applyMiddleware(thunk.withExtraArgument(api))
+        applyMiddleware(thunk.withExtraArgument(api)),
+        applyMiddleware(redirect)
     )
 );
 
