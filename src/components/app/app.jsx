@@ -6,6 +6,7 @@ import SignIn from '../sign-in/sign-in';
 import Favorites from '../favorites/favorites';
 import Room from '../room/room';
 import NotFoundPage from '../not-found-page/not-found-page';
+import PrivateRoute from '../private-route/private-route.jsx';
 
 const App = (props) => {
   const {offers} = props;
@@ -21,9 +22,11 @@ const App = (props) => {
         <Route exact path="/login">
           <SignIn />
         </Route>
-        <Route exact path="/favorites">
-          <Favorites offers={favoriteOffers} />
-        </Route>
+        <PrivateRoute
+          exact
+          path="/favorites"
+          render={() => <Favorites offers={favoriteOffers} />}
+        />
         <Route exact path="/offer/:id">
           <Room
             reviews={[]}
