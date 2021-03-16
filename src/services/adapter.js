@@ -40,3 +40,13 @@ export const adaptOffersData = (data) => {
     return adaptOfferData(offerData);
   });
 };
+
+export const adaptAuthInfo = (authInfo) => {
+  return {
+    avatarUrl: authInfo[`avatar_url`],
+    email: authInfo.email,
+    id: authInfo.id,
+    isPro: authInfo[`is_pro`],
+    name: authInfo.name
+  };
+};

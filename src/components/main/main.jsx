@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {Link} from 'react-router-dom';
 import cn from 'classnames';
 
 import CitiesList from '../cities-list/cities-list.jsx';
@@ -10,6 +9,8 @@ import Map from '../map/map.jsx';
 import MainNoOffers from '../main-no-offers/main-no-offers.jsx';
 import Sorting from '../sorting/sorting.jsx';
 import Spinner from '../spinner/spinner.jsx';
+import Header from '../header/header.jsx';
+
 import {CardType} from '../../const.js';
 import {getOffersByCity, sortOffers} from '../../utils.js';
 import {fetchOffers} from '../../store/api-actions.js';
@@ -37,28 +38,7 @@ const Main = (props) => {
 
   return (
     <div className="page page--gray page--main">
-      <header className="header">
-        <div className="container">
-          <div className="header__wrapper">
-            <div className="header__left">
-              <a className="header__logo-link header__logo-link--active">
-                <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width={81} height={41} />
-              </a>
-            </div>
-            <nav className="header__nav">
-              <ul className="header__nav-list">
-                <li className="header__nav-item user">
-                  <Link className="header__nav-link header__nav-link--profile" to={`/favorites`}>
-                    <div className="header__avatar-wrapper user__avatar-wrapper">
-                    </div>
-                    <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                  </Link>
-                </li>
-              </ul>
-            </nav>
-          </div>
-        </div>
-      </header>
+      <Header />
       <main className={cn({
         'page__main page__main--index': true,
         'page__main page__main--index-empty': !offersByCity.length

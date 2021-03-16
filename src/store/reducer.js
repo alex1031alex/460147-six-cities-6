@@ -7,6 +7,7 @@ const initialState = {
   offers: [],
   authorizationStatus: AuthorizationStatus.NO_AUTH,
   isOffersDataLoaded: false,
+  authInfo: {},
 };
 
 const reducer = (state = initialState, action) => {
@@ -37,6 +38,13 @@ const reducer = (state = initialState, action) => {
         ...state,
         offers: action.payload,
         isOffersDataLoaded: true,
+      };
+    }
+
+    case ActionType.SET_AUTH_INFO: {
+      return {
+        ...state,
+        authInfo: action.payload
       };
     }
 
