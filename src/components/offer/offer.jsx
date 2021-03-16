@@ -5,7 +5,7 @@ import {CardType, ImageSize} from '../../const.js';
 
 const Offer = (props) => {
   const {offer, cardType, onMouseEnter, onMouseLeave} = props;
-  const {images, price, isFavorite, rating, title, type} = offer;
+  const {images, price, isFavorite, rating, title, type, id} = offer;
   const image = images[0];
 
   const getCardClassName = () => {
@@ -85,7 +85,7 @@ const Offer = (props) => {
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={`/offer/${offer.id}`}>
+          <Link to={`/offer/${id}`}>
             {title}
           </Link>
         </h2>

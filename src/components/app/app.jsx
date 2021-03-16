@@ -8,6 +8,7 @@ import Room from '../room/room';
 import NotFoundPage from '../not-found-page/not-found-page';
 import PrivateRoute from '../private-route/private-route.jsx';
 import browserHistory from '../../browser-history';
+import {AppRoute} from '../../const.js';
 
 const App = (props) => {
   const {offers} = props;
@@ -17,18 +18,18 @@ const App = (props) => {
   return (
     <BrowserRouter history={browserHistory}>
       <Switch>
-        <Route exact path="/">
+        <Route exact path={AppRoute.MAIN}>
           <Main />
         </Route>
-        <Route exact path="/login">
+        <Route exact path={AppRoute.LOGIN}>
           <SignIn />
         </Route>
         <PrivateRoute
           exact
-          path="/favorites"
+          path={AppRoute.FAVORITES}
           render={() => <Favorites offers={favoriteOffers} />}
         />
-        <Route exact path="/offer/:id">
+        <Route exact path={AppRoute.OFFER}>
           <Room
             reviews={[]}
           />

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
-import {AuthorizationStatus} from '../../const';
+import {AuthorizationStatus, AppRoute} from '../../const';
 
 const Header = (props) => {
   const {authInfo, authorizationStatus} = props;
@@ -26,7 +26,7 @@ const Header = (props) => {
           <nav className="header__nav">
             <ul className="header__nav-list">
               <li className="header__nav-item user">
-                <Link className="header__nav-link header__nav-link--profile" to={`/favorites`}>
+                <Link className="header__nav-link header__nav-link--profile" to={AppRoute.FAVORITES}>
                   <div className="header__avatar-wrapper user__avatar-wrapper">
                     {authorizationStatus === AuthorizationStatus.AUTH && authInfo.avatarUrl ?
                       <img
