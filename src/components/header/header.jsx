@@ -28,7 +28,7 @@ const Header = (props) => {
               <li className="header__nav-item user">
                 <Link className="header__nav-link header__nav-link--profile" to={AppRoute.FAVORITES}>
                   <div className="header__avatar-wrapper user__avatar-wrapper">
-                    {authorizationStatus === AuthorizationStatus.AUTH && authInfo.avatarUrl ?
+                    {isUserAuthorized && authInfo.avatarUrl ?
                       <img
                         src={authInfo.avatarUrl}
                         width={20}
@@ -69,4 +69,3 @@ Header.propTypes = {
 
 export {Header};
 export default connect(mapStateToProps, null)(Header);
-

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import {Link, useParams} from 'react-router-dom';
 import {connect} from 'react-redux';
@@ -8,13 +8,22 @@ import ReviewsList from '../reviews-list/reviews-list.jsx';
 import ReviewForm from '../review-form/review-form.jsx';
 import Map from '../map/map.jsx';
 import OffersList from '../offers-list/offers-list.jsx';
+import Spinner from '../spinner/spinner.jsx';
+import {fetchOfferById} from '../../store/api-actions.js';
 
 const MAX_PHOTO_IN_GALERY = 6;
 
 const Room = (props) => {
-  const {offers, reviews = [], nearbyOffers = []} = props;
+  const {offer, reviews, nearbyOffers = [], onLoadOfferData} = props;
   const {id} = useParams();
-  const offer = offers.find((it) => +id === it.id);
+
+  useEffect(() => {
+    onLoadOfferData(id);
+  }, [id]);
+
+  if (!offer) {
+    return <Spinner />;
+  }
 
   const {
     images,
@@ -193,7 +202,7 @@ const Room = (props) => {
 };
 
 Room.propTypes = {
-  offers: PropTypes.arrayOf(PropTypes.shape({
+  offer: PropTypes.shape({
     id: PropTypes.number.isRequired,
     isPremium: PropTypes.bool.isRequired,
     images: PropTypes.array.isRequired,
@@ -211,7 +220,11 @@ Room.propTypes = {
       isPro: PropTypes.bool.isRequired,
     }),
     goods: PropTypes.arrayOf(PropTypes.string),
-  })).isRequired,
+    city: PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      location: PropTypes.shape({}),
+    }),
+  }),
   reviews: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
     rating: PropTypes.number.isRequired,
@@ -225,13 +238,21 @@ Room.propTypes = {
     }),
   })),
   nearbyOffers: PropTypes.array,
+  onLoadOfferData: PropTypes.func,
 };
 
 const mapStateToProps = (state) => {
   return {
-    offers: state.offers,
+    offer: state.offer,
+    reviews: state.reviews
   };
 };
 
+const mapDispatchToProps = (dispatch) => ({
+  onLoadOfferData(id) {
+    dispatch(fetchOfferById(id));
+  }
+});
+
 export {Room};
-export default connect(mapStateToProps, null)(Room);
+export default connect(mapStateToProps, mapDispatchToProps)(Room);

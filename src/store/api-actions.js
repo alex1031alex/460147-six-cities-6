@@ -1,5 +1,5 @@
 import {ActionCreator} from './action.js';
-import {adaptOffersData, adaptAuthInfo} from '../services/adapters.js';
+import {adaptOfferData, adaptOffersData, adaptAuthInfo} from '../services/adapters.js';
 import {AuthorizationStatus, ApiRoute, AppRoute} from '../const.js';
 
 export const fetchOffers = () => (dispatch, _getState, api) => {
@@ -24,3 +24,10 @@ export const login = ({email, password}) => (dispatch, _getState, api) => (
     .then((data) => dispatch(ActionCreator.setAuthInfo(data)))
     .then(() => dispatch(ActionCreator.redirectToRoute(AppRoute.MAIN)))
 );
+
+export const fetchOfferById = (id) => (dispatch, _getState, api) => {
+  return api.get(`/hotels/${id}`)
+    .then(({data}) => adaptOfferData(data))
+    .then((data) => dispatch(ActionCreator.loadOfferById(data)))
+    .catch(() => dispatch(ActionCreator.redirectToRoute(ApiRoute.NOT_FOUND_PAGE)));
+};

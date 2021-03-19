@@ -78,4 +78,5 @@ export const ApiRoute = {
   REVIEWS: `/comments/:hotel_id`,
   LOGIN: `/login`,
   LOGOUT: `/logout`,
+  NOT_FOUND_PAGE: `/not_found_page`,
 };

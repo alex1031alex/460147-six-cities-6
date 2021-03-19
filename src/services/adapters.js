@@ -1,4 +1,4 @@
-const adaptOfferData = (data) => {
+export const adaptOfferData = (data) => {
   return ({
     bedrooms: data.bedrooms,
     city: {

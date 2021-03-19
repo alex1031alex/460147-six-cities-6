@@ -30,9 +30,7 @@ const App = (props) => {
           render={() => <Favorites offers={favoriteOffers} />}
         />
         <Route exact path={AppRoute.OFFER}>
-          <Room
-            reviews={[]}
-          />
+          <Room />
         </Route>
         <Route>
           <NotFoundPage />
