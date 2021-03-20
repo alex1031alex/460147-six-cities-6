@@ -9,7 +9,7 @@ import ReviewForm from '../review-form/review-form.jsx';
 import Map from '../map/map.jsx';
 import OffersList from '../offers-list/offers-list.jsx';
 import Spinner from '../spinner/spinner.jsx';
-import {fetchOfferById} from '../../store/api-actions.js';
+import {fetchOfferById, fetchReviews} from '../../store/api-actions.js';
 
 const MAX_PHOTO_IN_GALERY = 6;
 
@@ -251,6 +251,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => ({
   onLoadOfferData(id) {
     dispatch(fetchOfferById(id));
+    dispatch(fetchReviews(id));
   }
 });
 
