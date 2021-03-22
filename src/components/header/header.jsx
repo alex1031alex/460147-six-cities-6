@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
+import cn from 'classnames';
+
 import {AuthorizationStatus, AppRoute} from '../../const';
 
 const Header = (props) => {
@@ -13,7 +15,13 @@ const Header = (props) => {
       <div className="container">
         <div className="header__wrapper">
           <div className="header__left">
-            <a className="header__logo-link header__logo-link--active">
+            <Link
+              className={cn({
+                'header__logo-link': true,
+                'header__logo-link--active': location.pathname === AppRoute.MAIN
+              })}
+              to={AppRoute.MAIN}
+            >
               <img
                 className="header__logo"
                 src="img/logo.svg"
@@ -21,7 +29,7 @@ const Header = (props) => {
                 width={81}
                 height={41}
               />
-            </a>
+            </Link>
           </div>
           <nav className="header__nav">
             <ul className="header__nav-list">
