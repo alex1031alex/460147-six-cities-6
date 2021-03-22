@@ -156,7 +156,7 @@ const Room = (props) => {
                   Reviews · <span className="reviews__amount">{reviews.length}</span>
                 </h2>
                 <ReviewsList reviews={reviews} />
-                {isUserAuthorized && <ReviewForm id={id} />}
+                {isUserAuthorized && <ReviewForm id={offer.id} />}
               </section>
             </div>
           </div>

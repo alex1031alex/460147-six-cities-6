@@ -47,7 +47,7 @@ export const fetchNearbyOffers = (id) => (dispatch, _getState, api) => {
 };
 
 export const sendReview = ({id, review}) => (dispatch, _getState, api) => {
-  return api.post(`/comments/:${id}`, review)
+  return api.post(`/comments/${id}`, review)
     .then(({data}) => adaptReviews(data))
     .then((data) => dispatch(ActionCreator.loadReviews(data)));
 };
