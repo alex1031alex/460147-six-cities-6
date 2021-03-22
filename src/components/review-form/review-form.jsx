@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
-import {useState} from 'react';
+import React, {useEffect, useState} from 'react';
+import PropTypes from 'prop-types';
 
-const ReviewForm = () => {
+const ReviewForm = (props) => {
   const Ratings = {
     PREFECT: {
       value: 5,
@@ -24,6 +24,8 @@ const ReviewForm = () => {
       title: `terrible`,
     }
   };
+
+  const {id} = props;
 
   const [review, setReview] = useState({rating: 0, comment: ``});
   const [isSubmitDisabled, setSubmitDisabled] = useState(true);
@@ -81,11 +83,11 @@ const ReviewForm = () => {
         }
 
       </div>
-      <textarea 
+      <textarea
         className="reviews__textarea form__textarea"
         id="review"
         name="review"
-        placeholder="Tell how was your stay, what you like and what can be improved" 
+        placeholder="Tell how was your stay, what you like and what can be improved"
         value={review.comment}
         onChange={handleCommentChange}
       />
@@ -98,6 +100,10 @@ const ReviewForm = () => {
       </div>
     </form>
   );
+};
+
+ReviewForm.propTypes = {
+  id: PropTypes.number.isRequired,
 };
 
 export default ReviewForm;
