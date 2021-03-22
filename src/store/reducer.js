@@ -10,6 +10,7 @@ const initialState = {
   authInfo: {},
   offer: null,
   reviews: [],
+  nearbyOffers: [],
 };
 
 const reducer = (state = initialState, action) => {
@@ -61,6 +62,13 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         offer: action.payload
+      };
+    }
+
+    case ActionType.LOAD_NEARBY_OFFERS: {
+      return {
+        ...state,
+        nearbyOffers: action.payload
       };
     }
 

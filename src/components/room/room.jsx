@@ -9,12 +9,12 @@ import ReviewForm from '../review-form/review-form.jsx';
 import Map from '../map/map.jsx';
 import OffersList from '../offers-list/offers-list.jsx';
 import Spinner from '../spinner/spinner.jsx';
-import {fetchOfferById, fetchReviews} from '../../store/api-actions.js';
+import {fetchOfferById, fetchReviews, fetchNearbyOffers} from '../../store/api-actions.js';
 
 const MAX_PHOTO_IN_GALERY = 6;
 
 const Room = (props) => {
-  const {offer, reviews, nearbyOffers = [], onLoadOfferData} = props;
+  const {offer, reviews, nearbyOffers, onLoadOfferData} = props;
   const {id} = useParams();
 
   useEffect(() => {
@@ -182,14 +182,17 @@ const Room = (props) => {
           <section className="property__map map">
             <Map
               city={offer.city.name}
-              points={nearbyOffers}
-              activePoint={null}
+              points={[...nearbyOffers, offer]}
+              activePoint={offer}
             />
           </section>
         </section>
         <div className="container">
           <section className="near-places places">
-            <h2 className="near-places__title">Other places in the neighbourhood</h2>
+            <h2 className="near-places__title">
+              {(!nearbyOffers || nearbyOffers.length === 0) ?
+                `` : `Other places in the neighbourhood`}
+            </h2>
             <OffersList
               offers={nearbyOffers}
               cardType={CardType.NEARBY}
@@ -244,7 +247,8 @@ Room.propTypes = {
 const mapStateToProps = (state) => {
   return {
     offer: state.offer,
-    reviews: state.reviews
+    reviews: state.reviews,
+    nearbyOffers: state.nearbyOffers,
   };
 };
 
@@ -252,6 +256,7 @@ const mapDispatchToProps = (dispatch) => ({
   onLoadOfferData(id) {
     dispatch(fetchOfferById(id));
     dispatch(fetchReviews(id));
+    dispatch(fetchNearbyOffers(id));
   }
 });
 

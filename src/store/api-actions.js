@@ -38,3 +38,10 @@ export const fetchReviews = (id) => (dispatch, _getState, api) => {
     .then((data) => dispatch(ActionCreator.loadReviews(data)))
     .catch(() => {});
 };
+
+export const fetchNearbyOffers = (id) => (dispatch, _getState, api) => {
+  return api.get(`/hotels/${id}/nearby`)
+    .then(({data}) => adaptOffersData(data))
+    .then((data) => dispatch(ActionCreator.loadNearbyOffers(data)))
+    .catch(() => {});
+};
