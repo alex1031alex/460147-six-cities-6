@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {useState} from 'react';
 
 const ReviewForm = () => {
@@ -30,6 +30,11 @@ const ReviewForm = () => {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
+    resetForm();
+  };
+
+  const resetForm = () => {
+    setReview({rating: 0, comment: ``});
   };
 
   const handleRatingChange = (evt) => {
@@ -40,8 +45,11 @@ const ReviewForm = () => {
   const handleCommentChange = (evt) => {
     const {value} = evt.target;
     setReview({...review, comment: value});
-    setSubmitDisabled(review.comment.length < 50);
   };
+
+  useEffect(() => {
+    setSubmitDisabled(review.rating === 0 || review.comment.length < 50);
+  }, [review]);
 
   return (
     <form className="reviews__form form" action="#" method="post" onSubmit={handleSubmit}>
@@ -73,7 +81,14 @@ const ReviewForm = () => {
         }
 
       </div>
-      <textarea className="reviews__textarea form__textarea" id="review" name="review" placeholder="Tell how was your stay, what you like and what can be improved" defaultValue={``} onChange={handleCommentChange} />
+      <textarea 
+        className="reviews__textarea form__textarea"
+        id="review"
+        name="review"
+        placeholder="Tell how was your stay, what you like and what can be improved" 
+        value={review.comment}
+        onChange={handleCommentChange}
+      />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
           To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
