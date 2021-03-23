@@ -1,20 +1,30 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
-import {Link, useParams} from 'react-router-dom';
+import {useParams} from 'react-router-dom';
 import {connect} from 'react-redux';
 
-import {CardType} from '../../const.js';
+import {AuthorizationStatus, CardType} from '../../const.js';
 import ReviewsList from '../reviews-list/reviews-list.jsx';
 import ReviewForm from '../review-form/review-form.jsx';
 import Map from '../map/map.jsx';
 import OffersList from '../offers-list/offers-list.jsx';
+import Spinner from '../spinner/spinner.jsx';
+import Header from '../header/header.jsx';
+import {fetchOfferById, fetchReviews, fetchNearbyOffers} from '../../store/api-actions.js';
 
 const MAX_PHOTO_IN_GALERY = 6;
 
 const Room = (props) => {
-  const {offers, reviews = [], nearbyOffers = []} = props;
+  const {authorizationStatus, offer, reviews, nearbyOffers, onLoadOfferData} = props;
   const {id} = useParams();
-  const offer = offers.find((it) => +id === it.id);
+
+  useEffect(() => {
+    onLoadOfferData(id);
+  }, [id]);
+
+  if (!offer) {
+    return <Spinner />;
+  }
 
   const {
     images,
@@ -30,6 +40,7 @@ const Room = (props) => {
     description
   } = offer;
   const {name, avatarUrl, isPro} = host;
+  const isUserAuthorized = authorizationStatus === AuthorizationStatus.AUTH;
 
   const galeryTemplate = images
     .slice(0, Math.min(MAX_PHOTO_IN_GALERY, images.length))
@@ -60,28 +71,7 @@ const Room = (props) => {
 
   return (
     <div className="page">
-      <header className="header">
-        <div className="container">
-          <div className="header__wrapper">
-            <div className="header__left">
-              <Link className="header__logo-link" to={`/`}>
-                <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width={81} height={41} />
-              </Link>
-            </div>
-            <nav className="header__nav">
-              <ul className="header__nav-list">
-                <li className="header__nav-item user">
-                  <Link className="header__nav-link header__nav-link--profile" to={`/login`}>
-                    <div className="header__avatar-wrapper user__avatar-wrapper">
-                    </div>
-                    <span className="header__login">Sign in</span>
-                  </Link>
-                </li>
-              </ul>
-            </nav>
-          </div>
-        </div>
-      </header>
+      <Header />
       <main className="page__main page__main--property">
         <section className="property">
           <div className="property__gallery-container container">
@@ -166,21 +156,24 @@ const Room = (props) => {
                   Reviews · <span className="reviews__amount">{reviews.length}</span>
                 </h2>
                 <ReviewsList reviews={reviews} />
-                <ReviewForm />
+                {isUserAuthorized && <ReviewForm id={offer.id} />}
               </section>
             </div>
           </div>
           <section className="property__map map">
             <Map
               city={offer.city.name}
-              points={nearbyOffers}
-              activePoint={null}
+              points={[...nearbyOffers, offer]}
+              activePoint={offer}
             />
           </section>
         </section>
         <div className="container">
           <section className="near-places places">
-            <h2 className="near-places__title">Other places in the neighbourhood</h2>
+            <h2 className="near-places__title">
+              {(!nearbyOffers || nearbyOffers.length === 0) ?
+                `` : `Other places in the neighbourhood`}
+            </h2>
             <OffersList
               offers={nearbyOffers}
               cardType={CardType.NEARBY}
@@ -193,7 +186,8 @@ const Room = (props) => {
 };
 
 Room.propTypes = {
-  offers: PropTypes.arrayOf(PropTypes.shape({
+  authorizationStatus: PropTypes.string.isRequired,
+  offer: PropTypes.shape({
     id: PropTypes.number.isRequired,
     isPremium: PropTypes.bool.isRequired,
     images: PropTypes.array.isRequired,
@@ -211,7 +205,11 @@ Room.propTypes = {
       isPro: PropTypes.bool.isRequired,
     }),
     goods: PropTypes.arrayOf(PropTypes.string),
-  })).isRequired,
+    city: PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      location: PropTypes.shape({}),
+    }),
+  }),
   reviews: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
     rating: PropTypes.number.isRequired,
@@ -225,13 +223,25 @@ Room.propTypes = {
     }),
   })),
   nearbyOffers: PropTypes.array,
+  onLoadOfferData: PropTypes.func,
 };
 
 const mapStateToProps = (state) => {
   return {
-    offers: state.offers,
+    authorizationStatus: state.authorizationStatus,
+    offer: state.offer,
+    reviews: state.reviews,
+    nearbyOffers: state.nearbyOffers,
   };
 };
 
+const mapDispatchToProps = (dispatch) => ({
+  onLoadOfferData(id) {
+    dispatch(fetchOfferById(id));
+    dispatch(fetchReviews(id));
+    dispatch(fetchNearbyOffers(id));
+  }
+});
+
 export {Room};
-export default connect(mapStateToProps, null)(Room);
+export default connect(mapStateToProps, mapDispatchToProps)(Room);

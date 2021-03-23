@@ -62,3 +62,21 @@ export const Coords = {
     longitude: 6.776314,
   }
 };
+
+export const AppRoute = {
+  MAIN: `/`,
+  LOGIN: `/login`,
+  FAVORITES: `/favorites`,
+  OFFER: `/offer/:id`,
+};
+
+export const ApiRoute = {
+  OFFERS: `/hotels`,
+  OFFER: `/hotels/:id`,
+  OFFERS_NEARBY: `/hotels/:hotel_id/nearby`,
+  FAVORITES: `/favorite`,
+  REVIEWS: `/comments/:hotel_id`,
+  LOGIN: `/login`,
+  LOGOUT: `/logout`,
+  NOT_FOUND_PAGE: `/not_found_page`,
+};

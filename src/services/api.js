@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const BACKEND_URL = `https://6.react.pages.academy/six-cities`;
-const REQUEST_TIMEOUT = 5000;
+const REQUEST_TIMEOUT = 15000;
 
 const HttpCode = {
   UNAUTHORIZED: 401

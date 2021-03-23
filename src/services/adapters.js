@@ -1,4 +1,4 @@
-const adaptOfferData = (data) => {
+export const adaptOfferData = (data) => {
   return ({
     bedrooms: data.bedrooms,
     city: {
@@ -49,4 +49,25 @@ export const adaptAuthInfo = (authInfo) => {
     isPro: authInfo[`is_pro`],
     name: authInfo.name
   };
+};
+
+export const adaptReview = {
+  fromServerToClient(serverData) {
+    return {
+      id: serverData.id,
+      rating: serverData.rating,
+      date: serverData.date,
+      comment: serverData.comment,
+      user: {
+        id: serverData.user.id,
+        avatarUrl: serverData.user[`avatar_url`],
+        isPro: serverData.user[`is_pro`],
+        name: serverData.user.name
+      }
+    };
+  }
+};
+
+export const adaptReviews = (serverData) => {
+  return serverData.map((item) => adaptReview.fromServerToClient(item));
 };

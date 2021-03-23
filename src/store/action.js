@@ -5,6 +5,9 @@ export const ActionType = {
   LOAD_OFFERS: `offers/loadOffers`,
   SET_AUTH_INFO: `user/setAuthInfo`,
   REDIRECT_TO_ROUTE: `route/redirectToRoute`,
+  LOAD_REVIEWS: `offers/loadReviews`,
+  LOAD_OFFER_BY_ID: `offers/loadOfferById`,
+  LOAD_NEARBY_OFFERS: `offers/loadNearbyOffers`,
 };
 
 export const ActionCreator = {
@@ -46,7 +49,28 @@ export const ActionCreator = {
   redirectToRoute(url) {
     return {
       type: ActionType.REDIRECT_TO_ROUTE,
-      payload: url
+      payload: url,
+    };
+  },
+
+  loadReviews(reviews) {
+    return {
+      type: ActionType.LOAD_REVIEWS,
+      payload: reviews,
+    };
+  },
+
+  loadOfferById(offer) {
+    return {
+      type: ActionType.LOAD_OFFER_BY_ID,
+      payload: offer,
+    };
+  },
+
+  loadNearbyOffers(nearbyOffers) {
+    return {
+      type: ActionType.LOAD_NEARBY_OFFERS,
+      payload: nearbyOffers,
     };
   }
 };

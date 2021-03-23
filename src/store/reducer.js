@@ -8,6 +8,9 @@ const initialState = {
   authorizationStatus: AuthorizationStatus.NO_AUTH,
   isOffersDataLoaded: false,
   authInfo: {},
+  offer: null,
+  reviews: [],
+  nearbyOffers: [],
 };
 
 const reducer = (state = initialState, action) => {
@@ -45,6 +48,27 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         authInfo: action.payload
+      };
+    }
+
+    case ActionType.LOAD_REVIEWS: {
+      return {
+        ...state,
+        reviews: action.payload
+      };
+    }
+
+    case ActionType.LOAD_OFFER_BY_ID: {
+      return {
+        ...state,
+        offer: action.payload
+      };
+    }
+
+    case ActionType.LOAD_NEARBY_OFFERS: {
+      return {
+        ...state,
+        nearbyOffers: action.payload
       };
     }
 
