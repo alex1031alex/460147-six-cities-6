@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Review from '../review/review.jsx';
+
+import Review from '../review/review';
 
 const ReviewsList = (props) => {
   const {reviews} = props;
@@ -8,7 +9,7 @@ const ReviewsList = (props) => {
   return (
     <ul className="reviews__list">
       {reviews.length === 0 ? `` :
-        reviews.map((review, index) => <Review key={index} review={review} />)}
+        reviews.map((review) => <Review key={review.id} review={review} />)}
     </ul>
   );
 };

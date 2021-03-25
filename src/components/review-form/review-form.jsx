@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
+
 import {sendReview} from '../../store/api-actions';
 
 const ReviewForm = (props) => {
@@ -29,7 +30,12 @@ const ReviewForm = (props) => {
 
   const {id, onSubmit} = props;
 
-  const [review, setReview] = useState({rating: 0, comment: ``});
+  const initialReview = {
+    rating: 0,
+    comment: ``,
+  };
+
+  const [review, setReview] = useState(initialReview);
   const [isSubmitDisabled, setSubmitDisabled] = useState(true);
 
   const handleSubmit = (evt) => {
@@ -39,7 +45,7 @@ const ReviewForm = (props) => {
   };
 
   const resetForm = () => {
-    setReview({rating: 0, comment: ``});
+    setReview(initialReview);
   };
 
   const handleRatingChange = (evt) => {
@@ -62,7 +68,7 @@ const ReviewForm = (props) => {
       <div className="reviews__rating-form form__rating" >
         {Object.values(Ratings)
           .map(({value, title}) => {
-            return <React.Fragment key={value}>
+            return <React.Fragment key={title}>
               <input
                 className="form__rating-input visually-hidden"
                 name="rating"
@@ -113,7 +119,7 @@ ReviewForm.propTypes = {
 const mapDispatchToProps = (dispatch) => ({
   onSubmit({id, review}) {
     dispatch(sendReview({id, review}));
-  }
+  },
 });
 
 export {ReviewForm};

@@ -2,8 +2,9 @@ import React, {useRef} from 'react';
 import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {login} from '../../store/api-actions.js';
-import {AppRoute} from '../../const.js';
+
+import {login} from '../../store/api-actions';
+import {AppRoute} from '../../const';
 
 const SignIn = (props) => {
   const {onFormSubmit} = props;

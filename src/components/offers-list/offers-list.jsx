@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
-import {CardType} from '../../const.js';
-import Offer from '../offer/offer.jsx';
+import {CardType} from '../../const';
+import Offer from '../offer/offer';
 
 const OffersList = (props) => {
   const {offers, cardType, onMouseEnter, onMouseLeave} = props;

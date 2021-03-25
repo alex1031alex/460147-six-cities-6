@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import cn from 'classnames';
 
-import {SortType} from '../../const.js';
-import {ActionCreator} from '../../store/action.js';
+import {SortType} from '../../const';
+import {ActionCreator} from '../../store/action';
 
 const Sorting = (props) => {
   const {activeSortType, onSortTypeChange} = props;
@@ -15,6 +15,7 @@ const Sorting = (props) => {
   };
 
   const handleItemClick = (evt) => {
+    evt.preventDefault();
     onSortTypeChange(evt.target.dataset.sortType);
   };
 
@@ -57,17 +58,15 @@ Sorting.propTypes = {
   onSortTypeChange: PropTypes.func,
 };
 
-const mapStateToProps = (state) => {
-  return {activeSortType: state.activeSortType};
-};
+const mapStateToProps = (state) => ({
+  activeSortType: state.activeSortType,
+});
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onSortTypeChange(sortType) {
-      dispatch(ActionCreator.changeSortType(sortType));
-    },
-  };
-};
+const mapDispatchToProps = (dispatch) => ({
+  onSortTypeChange(sortType) {
+    dispatch(ActionCreator.changeSortType(sortType));
+  },
+});
 
 export {Sorting};
 export default connect(mapStateToProps, mapDispatchToProps)(Sorting);

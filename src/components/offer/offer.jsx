@@ -1,7 +1,9 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
-import {CardType, ImageSize} from '../../const.js';
+import cn from 'classnames';
+
+import {CardType, ImageSize} from '../../const';
 
 const Offer = (props) => {
   const {offer, cardType, onMouseEnter, onMouseLeave} = props;
@@ -59,8 +61,10 @@ const Offer = (props) => {
         </a>
       </div>
       <div
-        className={`${cardType === CardType.FAVORITE ?
-          `favorites__card-info` : ``} place-card__info`}
+        className={cn({
+          'place-card__info': true,
+          'favorites__card-info': cardType === CardType.FAVORITE,
+        })}
       >
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
@@ -69,8 +73,11 @@ const Offer = (props) => {
           </div>
           <button
             type="button"
-            className={`place-card__bookmark-button button
-            ${isFavorite ? `place-card__bookmark-button--active` : ``}`}
+            className={cn({
+              'place-card__bookmark-button': true,
+              'button': true,
+              'place-card__bookmark-button--active': !!isFavorite
+            })}
           >
             <svg className="place-card__bookmark-icon" width={18} height={19}>
               <use xlinkHref="#icon-bookmark" />
@@ -97,7 +104,7 @@ const Offer = (props) => {
 
 Offer.defaultProps = {
   onMouseEnter: () => {},
-  onMouseLeave: () => {}
+  onMouseLeave: () => {},
 };
 
 Offer.propTypes = {

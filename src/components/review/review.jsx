@@ -18,10 +18,10 @@ const Review = (props) => {
           {name}
         </span>
         {
-          isPro ?
+          isPro &&
             <span className="property__user-status">
               Pro
-            </span> : ``
+            </span>
         }
       </div>
       <div className="reviews__info">
@@ -50,7 +50,7 @@ Review.propTypes = {
       id: PropTypes.number.isRequired,
       name: PropTypes.string.isRequired,
       avatarUrl: PropTypes.string.isRequired,
-      isPro: PropTypes.bool.isRequired
+      isPro: PropTypes.bool.isRequired,
     }),
   }),
 };

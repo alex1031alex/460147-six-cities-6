@@ -3,7 +3,7 @@ import Loader from 'react-loader-spinner';
 
 const SpinnerSize = {
   WIDTH: 100,
-  HEIGHT: 100
+  HEIGHT: 100,
 };
 
 const Spinner = () => {

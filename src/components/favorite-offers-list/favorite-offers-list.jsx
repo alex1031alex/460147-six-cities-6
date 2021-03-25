@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Offer from '../offer/offer.jsx';
+import Offer from '../offer/offer';
 
 const FavoriteOffersList = (props) => {
   const {cityName, offers, cardType} = props;

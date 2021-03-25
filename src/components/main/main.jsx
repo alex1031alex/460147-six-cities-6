@@ -3,21 +3,20 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import cn from 'classnames';
 
-import CitiesList from '../cities-list/cities-list.jsx';
-import OffersList from '../offers-list/offers-list.jsx';
-import Map from '../map/map.jsx';
-import MainNoOffers from '../main-no-offers/main-no-offers.jsx';
-import Sorting from '../sorting/sorting.jsx';
-import Spinner from '../spinner/spinner.jsx';
-import Header from '../header/header.jsx';
+import {CardType} from '../../const';
+import {getOffersByCity, sortOffers} from '../../utils';
+import {fetchOffers} from '../../store/api-actions';
 
-import {CardType} from '../../const.js';
-import {getOffersByCity, sortOffers} from '../../utils.js';
-import {fetchOffers} from '../../store/api-actions.js';
+import CitiesList from '../cities-list/cities-list';
+import OffersList from '../offers-list/offers-list';
+import Map from '../map/map';
+import MainNoOffers from '../main-no-offers/main-no-offers';
+import Sorting from '../sorting/sorting';
+import Spinner from '../spinner/spinner';
+import Header from '../header/header';
 
 const Main = (props) => {
   const {activeCity, activeSortType, offers, isOffersDataLoaded, onLoadOffersData} = props;
-
   const offersByCity = getOffersByCity(offers, activeCity);
   const sortedOffers = sortOffers(offersByCity, activeSortType);
 
@@ -41,7 +40,7 @@ const Main = (props) => {
       <Header />
       <main className={cn({
         'page__main page__main--index': true,
-        'page__main page__main--index-empty': !offersByCity.length
+        'page__main page__main--index-empty': !offersByCity.length,
       })}>
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">

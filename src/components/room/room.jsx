@@ -2,15 +2,17 @@ import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import {useParams} from 'react-router-dom';
 import {connect} from 'react-redux';
+import cn from 'classnames';
 
-import {AuthorizationStatus, CardType} from '../../const.js';
-import ReviewsList from '../reviews-list/reviews-list.jsx';
-import ReviewForm from '../review-form/review-form.jsx';
-import Map from '../map/map.jsx';
-import OffersList from '../offers-list/offers-list.jsx';
-import Spinner from '../spinner/spinner.jsx';
-import Header from '../header/header.jsx';
-import {fetchOfferById, fetchReviews, fetchNearbyOffers} from '../../store/api-actions.js';
+import {AuthorizationStatus, CardType} from '../../const';
+import {fetchOfferById, fetchReviews, fetchNearbyOffers} from '../../store/api-actions';
+
+import ReviewsList from '../reviews-list/reviews-list';
+import ReviewForm from '../review-form/review-form';
+import Map from '../map/map';
+import OffersList from '../offers-list/offers-list';
+import Spinner from '../spinner/spinner';
+import Header from '../header/header';
 
 const MAX_PHOTO_IN_GALERY = 6;
 
@@ -82,10 +84,10 @@ const Room = (props) => {
           <div className="property__container container">
             <div className="property__wrapper">
               {
-                isPremium ?
+                isPremium &&
                   <div className="property__mark">
                     <span>Premium</span>
-                  </div> : ``
+                  </div>
               }
               <div className="property__name-wrapper">
                 <h1 className="property__name">
@@ -130,10 +132,10 @@ const Room = (props) => {
                 <h2 className="property__host-title">Meet the host</h2>
                 <div className="property__host-user user">
                   <div
-                    className={
-                      `property__avatar-wrapper user__avatar-wrapper
-                      ${isPro ? ` property__avatar-wrapper--pro` : ``}`
-                    }
+                    className={cn({
+                      'property__avatar-wrapper user__avatar-wrapper': true,
+                      'property__avatar-wrapper--pro': !!isPro,
+                    })}
                   >
                     <img className="property__avatar user__avatar" src={avatarUrl} width={74} height={74} alt="Host avatar" />
                   </div>
@@ -141,10 +143,10 @@ const Room = (props) => {
                     {name}
                   </span>
                   {
-                    isPro ?
+                    isPro &&
                       <span className="property__user-status">
                         Pro
-                      </span> : ``
+                      </span>
                   }
                 </div>
                 <div className="property__description">
@@ -226,21 +228,19 @@ Room.propTypes = {
   onLoadOfferData: PropTypes.func,
 };
 
-const mapStateToProps = (state) => {
-  return {
-    authorizationStatus: state.authorizationStatus,
-    offer: state.offer,
-    reviews: state.reviews,
-    nearbyOffers: state.nearbyOffers,
-  };
-};
+const mapStateToProps = (state) => ({
+  authorizationStatus: state.authorizationStatus,
+  offer: state.offer,
+  reviews: state.reviews,
+  nearbyOffers: state.nearbyOffers,
+});
 
 const mapDispatchToProps = (dispatch) => ({
   onLoadOfferData(id) {
     dispatch(fetchOfferById(id));
     dispatch(fetchReviews(id));
     dispatch(fetchNearbyOffers(id));
-  }
+  },
 });
 
 export {Room};
