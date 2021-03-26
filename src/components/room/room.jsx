@@ -2,7 +2,6 @@ import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import {useParams} from 'react-router-dom';
 import {connect} from 'react-redux';
-import cn from 'classnames';
 
 import {AuthorizationStatus, CardType} from '../../const';
 import {offerPropType, reviewPropType} from '../../prop-types';
@@ -14,6 +13,7 @@ import Map from '../map/map';
 import OffersList from '../offers-list/offers-list';
 import Spinner from '../spinner/spinner';
 import Header from '../header/header';
+import Host from '../host/host';
 
 const MAX_PHOTO_IN_GALERY = 6;
 
@@ -42,33 +42,23 @@ const Room = (props) => {
     host,
     description
   } = offer;
-  const {name, avatarUrl, isPro} = host;
+
   const isUserAuthorized = authorizationStatus === AuthorizationStatus.AUTH;
 
   const galeryTemplate = images
     .slice(0, Math.min(MAX_PHOTO_IN_GALERY, images.length))
-    .map((image, index) => {
-      return <div className="property__image-wrapper" key={index}>
+    .map((image) => {
+      return <div className="property__image-wrapper" key={image}>
         <img className="property__image" src={image} alt="Photo studio" />
       </div>;
     });
 
   const goodsTemplate = goods
-    .map((item, index) => {
+    .map((item) => {
       return (
-        <li className="property__inside-item" key={index}>
+        <li className="property__inside-item" key={item}>
           {item}
         </li>
-      );
-    });
-
-  const descriptionTemplate = description
-    .split(`\n`)
-    .map((paragraph, index) => {
-      return (
-        <p className="property__text" key={index}>
-          {paragraph}
-        </p>
       );
     });
 
@@ -129,31 +119,7 @@ const Room = (props) => {
                   {goodsTemplate}
                 </ul>
               </div>
-              <div className="property__host">
-                <h2 className="property__host-title">Meet the host</h2>
-                <div className="property__host-user user">
-                  <div
-                    className={cn({
-                      'property__avatar-wrapper user__avatar-wrapper': true,
-                      'property__avatar-wrapper--pro': !!isPro,
-                    })}
-                  >
-                    <img className="property__avatar user__avatar" src={avatarUrl} width={74} height={74} alt="Host avatar" />
-                  </div>
-                  <span className="property__user-name">
-                    {name}
-                  </span>
-                  {
-                    isPro &&
-                      <span className="property__user-status">
-                        Pro
-                      </span>
-                  }
-                </div>
-                <div className="property__description">
-                  {descriptionTemplate}
-                </div>
-              </div>
+              <Host host={host} description={description} />
               <section className="property__reviews reviews">
                 <h2 className="reviews__title">
                   Reviews · <span className="reviews__amount">{reviews.length}</span>
