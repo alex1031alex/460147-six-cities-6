@@ -11,10 +11,10 @@ import {cityPropType, offerPropType, sortTypePropType} from '../../prop-types';
 import CitiesList from '../cities-list/cities-list';
 import OffersList from '../offers-list/offers-list';
 import Map from '../map/map';
-import MainNoOffers from '../main-no-offers/main-no-offers';
 import Sorting from '../sorting/sorting';
 import Spinner from '../spinner/spinner';
 import Header from '../header/header';
+import MainContent from '../main-content/main-content';
 
 const Main = (props) => {
   const {activeCity, activeSortType, offers, isOffersDataLoaded, onLoadOffersData} = props;
@@ -49,37 +49,31 @@ const Main = (props) => {
             <CitiesList />
           </section>
         </div>
-        {!isOffersDataLoaded ?
-          <Spinner />
-          :
-          <div className="cities">
-            {offersByCity.length ?
-              <div className="cities__places-container container">
-                <section className="cities__places places">
-                  <h2 className="visually-hidden">Places</h2>
-                  <b className="places__found">{offersByCity.length} places to stay in {activeCity}</b>
-                  <Sorting />
-                  <OffersList
-                    offers={sortedOffers}
-                    cardType={CardType.CITY}
-                    onMouseEnter={handleMouseEnter}
-                    onMouseLeave={handleMouseLeave}
+        {!isOffersDataLoaded ? <Spinner /> :
+          <MainContent isOffersAvailable={!!offersByCity.length}>
+            <div className="cities__places-container container">
+              <section className="cities__places places">
+                <h2 className="visually-hidden">Places</h2>
+                <b className="places__found">{offersByCity.length} places to stay in {activeCity}</b>
+                <Sorting />
+                <OffersList
+                  offers={sortedOffers}
+                  cardType={CardType.CITY}
+                  onMouseEnter={handleMouseEnter}
+                  onMouseLeave={handleMouseLeave}
+                />
+              </section>
+              <div className="cities__right-section">
+                <section className="cities__map map">
+                  <Map
+                    city={activeCity}
+                    points={offersByCity}
+                    activePoint={activeCard}
                   />
                 </section>
-                <div className="cities__right-section">
-                  <section className="cities__map map">
-                    <Map
-                      city={activeCity}
-                      points={offersByCity}
-                      activePoint={activeCard}
-                    />
-                  </section>
-                </div>
               </div>
-              :
-              <MainNoOffers city={activeCity} />
-            }
-          </div>
+            </div>
+          </MainContent>
         }
       </main>
     </div>
