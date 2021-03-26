@@ -1,5 +1,6 @@
 import React from 'react';
 import {cityPropType} from '../../prop-types';
+import {connect} from 'react-redux';
 
 const MainNoOffers = (props) => {
   const {city} = props;
@@ -21,4 +22,9 @@ MainNoOffers.propTypes = {
   city: cityPropType,
 };
 
-export default MainNoOffers;
+const mapStateToProps = (state) => ({
+  city: state.activeCity,
+});
+
+export {MainNoOffers};
+export default connect(mapStateToProps, null)(MainNoOffers);
