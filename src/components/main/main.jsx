@@ -12,8 +12,8 @@ import CitiesList from '../cities-list/cities-list';
 import OffersList from '../offers-list/offers-list';
 import Map from '../map/map';
 import Sorting from '../sorting/sorting';
-import Spinner from '../spinner/spinner';
 import Header from '../header/header';
+import MainContentContainer from '../main-content-container/main-content-container';
 import MainContent from '../main-content/main-content';
 
 const Main = (props) => {
@@ -49,7 +49,7 @@ const Main = (props) => {
             <CitiesList />
           </section>
         </div>
-        {!isOffersDataLoaded ? <Spinner /> :
+        <MainContentContainer>
           <MainContent isOffersAvailable={!!offersByCity.length}>
             <div className="cities__places-container container">
               <section className="cities__places places">
@@ -74,7 +74,7 @@ const Main = (props) => {
               </div>
             </div>
           </MainContent>
-        }
+        </MainContentContainer>
       </main>
     </div>
   );
