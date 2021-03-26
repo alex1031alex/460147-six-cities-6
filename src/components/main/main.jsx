@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import cn from 'classnames';
 
 import {CardType} from '../../const';
-import {getOffersByCity, sortOffers} from '../../utils';
+import {getOffersByCity, sortOffers} from '../../services/common';
 import {fetchOffers} from '../../store/api-actions';
 import {cityPropType, offerPropType, sortTypePropType} from '../../prop-types';
 

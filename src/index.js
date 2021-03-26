@@ -28,7 +28,6 @@ ReactDOM.render(
     <Provider store={store}>
       <App
         offers={[]}
-        reviews={{}}
       />
     </Provider>,
     document.querySelector(`#root`)

@@ -4,49 +4,17 @@ import PropTypes from 'prop-types';
 import cn from 'classnames';
 
 import {cardTypePropType, offerPropType} from '../../prop-types';
-import {CardType, ImageSize} from '../../const';
+import {CardType} from '../../const';
+import {getCardClassName, getImageSize} from '../../services/common';
 
 const Offer = (props) => {
   const {offer, cardType, onMouseEnter, onMouseLeave} = props;
   const {images, price, isFavorite, rating, title, type, id} = offer;
   const image = images[0];
 
-  const getCardClassName = () => {
-    switch (cardType) {
-      case CardType.FAVORITE: {
-        return `favorites__card`;
-      }
-      case CardType.CITY: {
-        return `cities__place-card`;
-      }
-      case CardType.NEARBY: {
-        return `near-places__card`;
-      }
-    }
-
-    return ``;
-  };
-
-  const getImageSize = () => {
-    switch (cardType) {
-      case CardType.FAVORITE: {
-        return {
-          width: ImageSize.SMALL.width,
-          height: ImageSize.SMALL.height
-        };
-      }
-      default: {
-        return {
-          width: ImageSize.STANDARD.width,
-          height: ImageSize.STANDARD.height
-        };
-      }
-    }
-  };
-
   return (
     <article
-      className={`${getCardClassName()} place-card`}
+      className={`${getCardClassName(cardType)} place-card`}
       onMouseEnter={() => onMouseEnter(offer)}
       onMouseLeave={() => onMouseLeave()}
     >
@@ -56,8 +24,8 @@ const Offer = (props) => {
             className="place-card__image"
             src={image}
             alt="Place image"
-            width={getImageSize().width}
-            height={getImageSize().height}
+            width={getImageSize(cardType).width}
+            height={getImageSize(cardType).height}
           />
         </a>
       </div>
