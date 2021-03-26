@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import cn from 'classnames';
 
 import {CardType} from '../../const';
+import {cardTypePropType, offerPropType} from '../../prop-types.js';
+
 import Offer from '../offer/offer';
 
 const OffersList = (props) => {
@@ -30,8 +32,8 @@ const OffersList = (props) => {
 };
 
 OffersList.propTypes = {
-  offers: PropTypes.array.isRequired,
-  cardType: PropTypes.string.isRequired,
+  offers: PropTypes.arrayOf(offerPropType).isRequired,
+  cardType: cardTypePropType,
   onMouseEnter: PropTypes.func,
   onMouseLeave: PropTypes.func,
 };

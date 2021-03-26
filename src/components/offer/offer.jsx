@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
+import {cardTypePropType, offerPropType} from '../../prop-types';
 import {CardType, ImageSize} from '../../const';
 
 const Offer = (props) => {
@@ -108,17 +109,8 @@ Offer.defaultProps = {
 };
 
 Offer.propTypes = {
-  offer: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    isPremium: PropTypes.bool.isRequired,
-    images: PropTypes.array.isRequired,
-    price: PropTypes.number.isRequired,
-    isFavorite: PropTypes.bool.isRequired,
-    rating: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired,
-  }).isRequired,
-  cardType: PropTypes.string.isRequired,
+  offer: offerPropType.isRequired,
+  cardType: cardTypePropType,
   onMouseEnter: PropTypes.func,
   onMouseLeave: PropTypes.func,
 };

@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import {cityPropType} from '../../prop-types';
 
 const MainNoOffers = (props) => {
   const {city} = props;
@@ -18,7 +18,7 @@ const MainNoOffers = (props) => {
 };
 
 MainNoOffers.propTypes = {
-  city: PropTypes.string,
+  city: cityPropType,
 };
 
 export default MainNoOffers;

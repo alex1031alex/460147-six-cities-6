@@ -5,6 +5,7 @@ import cn from 'classnames';
 
 import {ActionCreator} from '../../store/action';
 import {Cities} from '../../const';
+import {cityPropType} from '../../prop-types';
 
 const CitiesList = (props) => {
   const {activeCity, onCityChange} = props;
@@ -29,7 +30,7 @@ const CitiesList = (props) => {
 };
 
 CitiesList.propTypes = {
-  activeCity: PropTypes.string,
+  activeCity: cityPropType,
   onCityChange: PropTypes.func,
 };
 

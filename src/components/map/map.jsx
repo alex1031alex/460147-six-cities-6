@@ -4,6 +4,7 @@ import leaflet from 'leaflet';
 import "leaflet/dist/leaflet.css";
 
 import {Coords} from '../../const';
+import {cityPropType, offerPropType} from '../../prop-types';
 
 const Map = (props) => {
   const {city, points, activePoint} = props;
@@ -61,18 +62,9 @@ const Map = (props) => {
 };
 
 Map.propTypes = {
-  city: PropTypes.string,
-  points: PropTypes.array.isRequired,
-  activePoint: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    isPremium: PropTypes.bool.isRequired,
-    images: PropTypes.array.isRequired,
-    price: PropTypes.number.isRequired,
-    isFavorite: PropTypes.bool.isRequired,
-    rating: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired,
-  }),
+  city: cityPropType,
+  points: PropTypes.arrayOf(offerPropType),
+  activePoint: offerPropType,
 };
 
 export default Map;

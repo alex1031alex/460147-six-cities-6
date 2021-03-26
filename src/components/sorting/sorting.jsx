@@ -5,6 +5,7 @@ import cn from 'classnames';
 
 import {SortType} from '../../const';
 import {ActionCreator} from '../../store/action';
+import {sortTypePropType} from '../../prop-types';
 
 const Sorting = (props) => {
   const {activeSortType, onSortTypeChange} = props;
@@ -54,7 +55,7 @@ const Sorting = (props) => {
 };
 
 Sorting.propTypes = {
-  activeSortType: PropTypes.string,
+  activeSortType: sortTypePropType,
   onSortTypeChange: PropTypes.func,
 };
 

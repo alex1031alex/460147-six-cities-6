@@ -11,6 +11,7 @@ import Favorites from '../favorites/favorites';
 import Room from '../room/room';
 import NotFoundPage from '../not-found-page/not-found-page';
 import PrivateRoute from '../private-route/private-route';
+import {offerPropType} from '../../prop-types';
 
 const App = (props) => {
   const {offers} = props;
@@ -43,8 +44,7 @@ const App = (props) => {
 };
 
 App.propTypes = {
-  offers: PropTypes.array.isRequired,
-  reviews: PropTypes.shape({}),
+  offers: PropTypes.arrayOf(offerPropType),
 };
 
 export default App;

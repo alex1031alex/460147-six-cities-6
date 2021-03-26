@@ -6,6 +6,7 @@ import {CardType, AppRoute} from '../../const';
 
 import FavoriteOffersList from '../favorite-offers-list/favorite-offers-list';
 import Header from '../header/header';
+import {offerPropType} from '../../prop-types';
 
 const Favorites = (props) => {
   const {offers} = props;
@@ -59,7 +60,7 @@ const Favorites = (props) => {
 };
 
 Favorites.propTypes = {
-  offers: PropTypes.array.isRequired
+  offers: PropTypes.arrayOf(offerPropType).isRequired
 };
 
 export default Favorites;

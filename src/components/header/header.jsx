@@ -72,7 +72,7 @@ Header.propTypes = {
     isPro: PropTypes.bool,
     name: PropTypes.string,
   }),
-  authorizationStatus: PropTypes.string.isRequired,
+  authorizationStatus: PropTypes.oneOf(Object.values(AuthorizationStatus)).isRequired,
 };
 
 export {Header};

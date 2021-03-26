@@ -5,6 +5,7 @@ import {connect} from 'react-redux';
 import cn from 'classnames';
 
 import {AuthorizationStatus, CardType} from '../../const';
+import {offerPropType, reviewPropType} from '../../prop-types';
 import {fetchOfferById, fetchReviews, fetchNearbyOffers} from '../../store/api-actions';
 
 import ReviewsList from '../reviews-list/reviews-list';
@@ -188,43 +189,10 @@ const Room = (props) => {
 };
 
 Room.propTypes = {
-  authorizationStatus: PropTypes.string.isRequired,
-  offer: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    isPremium: PropTypes.bool.isRequired,
-    images: PropTypes.array.isRequired,
-    price: PropTypes.number.isRequired,
-    isFavorite: PropTypes.bool.isRequired,
-    rating: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired,
-    bedrooms: PropTypes.number.isRequired,
-    description: PropTypes.string.isRequired,
-    maxAdults: PropTypes.number.isRequired,
-    host: PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      avatarUrl: PropTypes.string.isRequired,
-      isPro: PropTypes.bool.isRequired,
-    }),
-    goods: PropTypes.arrayOf(PropTypes.string),
-    city: PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      location: PropTypes.shape({}),
-    }),
-  }),
-  reviews: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    rating: PropTypes.number.isRequired,
-    date: PropTypes.string.isRequired,
-    comment: PropTypes.string.isRequired,
-    user: PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired,
-      avatarUrl: PropTypes.string.isRequired,
-      isPro: PropTypes.bool.isRequired,
-    }),
-  })),
-  nearbyOffers: PropTypes.array,
+  authorizationStatus: PropTypes.oneOf(Object.values(AuthorizationStatus)),
+  offer: offerPropType,
+  reviews: PropTypes.arrayOf(reviewPropType),
+  nearbyOffers: PropTypes.arrayOf(offerPropType),
   onLoadOfferData: PropTypes.func,
 };
 

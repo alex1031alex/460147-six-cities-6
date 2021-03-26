@@ -6,6 +6,7 @@ import cn from 'classnames';
 import {CardType} from '../../const';
 import {getOffersByCity, sortOffers} from '../../utils';
 import {fetchOffers} from '../../store/api-actions';
+import {cityPropType, offerPropType, sortTypePropType} from '../../prop-types';
 
 import CitiesList from '../cities-list/cities-list';
 import OffersList from '../offers-list/offers-list';
@@ -86,9 +87,9 @@ const Main = (props) => {
 };
 
 Main.propTypes = {
-  activeCity: PropTypes.string,
-  activeSortType: PropTypes.string,
-  offers: PropTypes.array,
+  activeCity: cityPropType,
+  activeSortType: sortTypePropType,
+  offers: PropTypes.arrayOf(offerPropType),
   isOffersDataLoaded: PropTypes.bool,
   onLoadOffersData: PropTypes.func,
 };
