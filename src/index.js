@@ -10,6 +10,7 @@ import rootReducer from './store/root-reducer';
 import {AuthStatus} from './const';
 import {requireAuthorization} from './store/action';
 import {redirect} from './store/middlewares/redirect';
+import {checkAuth} from './store/api-actions';
 
 import App from './components/app/app';
 
@@ -25,11 +26,14 @@ const store = createStore(
     )
 );
 
-ReactDOM.render(
-    <Provider store={store}>
-      <App
-        offers={[]}
-      />
-    </Provider>,
-    document.querySelector(`#root`)
-);
+store.dispatch(checkAuth())
+  .then(() => {
+    ReactDOM.render(
+        <Provider store={store}>
+          <App
+            offers={[]}
+          />
+        </Provider>,
+        document.querySelector(`#root`)
+    );
+  });

@@ -7,7 +7,7 @@ import cn from 'classnames';
 import {AuthStatus, AppRoute} from '../../const';
 
 const Header = (props) => {
-  const {authInfo, authStatus} = props;
+  const {authInfo, authStatus = AuthStatus.NO_AUTH} = props;
   const isUserAuthorized = authStatus === AuthStatus.AUTH;
 
   return (

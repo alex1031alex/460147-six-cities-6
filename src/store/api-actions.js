@@ -23,9 +23,10 @@ export const fetchOffers = () => (dispatch, _getState, api) => {
     .then((data) => dispatch(loadOffers(data)));
 };
 
-export const checkAuth = () => (dispath, _getState, api) => (
+export const checkAuth = () => (dispatch, _getState, api) => (
   api.get(ApiRoute.LOGIN)
-    .then(() => dispath(requireAuthorization(AuthStatus.AUTH)))
+    .then(({data}) => dispatch(setAuthInfo(data)))
+    .then(() => dispatch(requireAuthorization(AuthStatus.AUTH)))
     .catch(() => {})
 );
 
