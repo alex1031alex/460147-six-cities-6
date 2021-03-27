@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import cn from 'classnames';
 
-import {ActionCreator} from '../../store/action';
+import {changeCity} from '../../store/action';
 import {Cities} from '../../const';
 import {cityPropType} from '../../prop-types';
 
@@ -40,7 +40,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   onCityChange(city) {
-    dispatch(ActionCreator.changeCity(city));
+    dispatch(changeCity(city));
   }
 });
 

@@ -10,67 +10,47 @@ export const ActionType = {
   LOAD_NEARBY_OFFERS: `offers/loadNearbyOffers`,
 };
 
-export const ActionCreator = {
-  changeCity(city) {
-    return {
-      type: ActionType.CHANGE_CITY,
-      payload: city,
-    };
-  },
+export const changeCity = (city) => ({
+  type: ActionType.CHANGE_CITY,
+  payload: city,
+});
 
-  changeSortType(sortType) {
-    return {
-      type: ActionType.CHANGE_SORT_TYPE,
-      payload: sortType,
-    };
-  },
+export const changeSortType = (sortType) => ({
+  type: ActionType.CHANGE_SORT_TYPE,
+  payload: sortType,
+});
 
-  requireAuthorization(status) {
-    return {
-      type: ActionType.REQUIRE_AUTHORIZATION,
-      payload: status,
-    };
-  },
+export const requireAuthorization = (status) => ({
+  type: ActionType.REQUIRE_AUTHORIZATION,
+  payload: status,
+});
 
-  loadOffers(offers) {
-    return {
-      type: ActionType.LOAD_OFFERS,
-      payload: offers,
-    };
-  },
+export const loadOffers = (offers) => ({
+  type: ActionType.LOAD_OFFERS,
+  payload: offers,
+});
 
-  setAuthInfo(authInfo) {
-    return {
-      type: ActionType.SET_AUTH_INFO,
-      payload: authInfo,
-    };
-  },
+export const setAuthInfo = (authInfo) => ({
+  type: ActionType.SET_AUTH_INFO,
+  payload: authInfo,
+});
 
-  redirectToRoute(url) {
-    return {
-      type: ActionType.REDIRECT_TO_ROUTE,
-      payload: url,
-    };
-  },
+export const redirectToRoute = (url) => ({
+  type: ActionType.REDIRECT_TO_ROUTE,
+  payload: url,
+});
 
-  loadReviews(reviews) {
-    return {
-      type: ActionType.LOAD_REVIEWS,
-      payload: reviews,
-    };
-  },
+export const loadReviews = (reviews) => ({
+  type: ActionType.LOAD_REVIEWS,
+  payload: reviews,
+});
 
-  loadOfferById(offer) {
-    return {
-      type: ActionType.LOAD_OFFER_BY_ID,
-      payload: offer,
-    };
-  },
+export const loadOfferById = (offer) => ({
+  type: ActionType.LOAD_OFFER_BY_ID,
+  payload: offer,
+});
 
-  loadNearbyOffers(nearbyOffers) {
-    return {
-      type: ActionType.LOAD_NEARBY_OFFERS,
-      payload: nearbyOffers,
-    };
-  }
-};
+export const loadNearbyOffers = (nearbyOffers) => ({
+  type: ActionType.LOAD_NEARBY_OFFERS,
+  payload: nearbyOffers,
+});
