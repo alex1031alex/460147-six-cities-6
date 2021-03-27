@@ -18,8 +18,8 @@ MainContentContainer.propTypes = {
   children: PropTypes.object,
 };
 
-const mapStateToProps = (state) => ({
-  isOffersDataLoaded: state.isOffersDataLoaded,
+const mapStateToProps = ({OFFERS}) => ({
+  isOffersDataLoaded: OFFERS.isOffersDataLoaded,
 });
 
 export {MainContentContainer};

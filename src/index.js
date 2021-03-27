@@ -5,19 +5,20 @@ import thunk from 'redux-thunk';
 import {Provider} from 'react-redux';
 import {composeWithDevTools} from 'redux-devtools-extension';
 
-import {createAPI} from './services/api.js';
-import {reducer} from './store/reducer.js';
-import {AuthorizationStatus} from './const.js';
-import App from './components/app/app.jsx';
-import {requireAuthorization} from './store/action.js';
-import {redirect} from './store/middlewares/redirect.js';
+import {createAPI} from './services/api';
+import rootReducer from './store/root-reducer';
+import {AuthorizationStatus} from './const';
+import {requireAuthorization} from './store/action';
+import {redirect} from './store/middlewares/redirect';
+
+import App from './components/app/app';
 
 const api = createAPI(
     () => store.dispatch(requireAuthorization(AuthorizationStatus.NO_AUTH))
 );
 
 const store = createStore(
-    reducer,
+    rootReducer,
     composeWithDevTools(
         applyMiddleware(thunk.withExtraArgument(api)),
         applyMiddleware(redirect)

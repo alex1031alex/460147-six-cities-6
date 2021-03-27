@@ -59,8 +59,8 @@ Sorting.propTypes = {
   onSortTypeChange: PropTypes.func,
 };
 
-const mapStateToProps = (state) => ({
-  activeSortType: state.activeSortType,
+const mapStateToProps = ({CITY}) => ({
+  activeSortType: CITY.activeSortType,
 });
 
 const mapDispatchToProps = (dispatch) => ({

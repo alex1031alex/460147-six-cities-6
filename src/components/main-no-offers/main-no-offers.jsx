@@ -22,8 +22,8 @@ MainNoOffers.propTypes = {
   city: cityPropType,
 };
 
-const mapStateToProps = (state) => ({
-  city: state.activeCity,
+const mapStateToProps = ({CITY}) => ({
+  city: CITY.activeCity,
 });
 
 export {MainNoOffers};

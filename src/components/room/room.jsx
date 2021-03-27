@@ -162,11 +162,11 @@ Room.propTypes = {
   onLoadOfferData: PropTypes.func,
 };
 
-const mapStateToProps = (state) => ({
-  authorizationStatus: state.authorizationStatus,
-  offer: state.offer,
-  reviews: state.reviews,
-  nearbyOffers: state.nearbyOffers,
+const mapStateToProps = ({USER, OFFERS}) => ({
+  authorizationStatus: USER.authorizationStatus,
+  offer: OFFERS.offer,
+  reviews: OFFERS.reviews,
+  nearbyOffers: OFFERS.nearbyOffers,
 });
 
 const mapDispatchToProps = (dispatch) => ({
