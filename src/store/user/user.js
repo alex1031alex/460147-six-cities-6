@@ -1,8 +1,8 @@
 import {ActionType} from './../action';
-import {AuthorizationStatus} from '../../const.js';
+import {AuthStatus} from '../../const.js';
 
 const initialState = {
-  authorizationStatus: AuthorizationStatus.NO_AUTH,
+  authStatus: AuthStatus.NO_AUTH,
   authInfo: {},
 };
 
@@ -11,7 +11,7 @@ const user = (state = initialState, action) => {
     case ActionType.REQUIRE_AUTHORIZATION: {
       return {
         ...state,
-        authorizationStatus: action.payload
+        authStatus: action.payload
       };
     }
 

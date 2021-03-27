@@ -15,7 +15,7 @@ import {
   adaptReviews
 } from '../services/adapters.js';
 
-import {AuthorizationStatus, ApiRoute, AppRoute} from '../const.js';
+import {AuthStatus, ApiRoute, AppRoute} from '../const.js';
 
 export const fetchOffers = () => (dispatch, _getState, api) => {
   api.get(ApiRoute.OFFERS)
@@ -25,14 +25,14 @@ export const fetchOffers = () => (dispatch, _getState, api) => {
 
 export const checkAuth = () => (dispath, _getState, api) => (
   api.get(ApiRoute.LOGIN)
-    .then(() => dispath(requireAuthorization(AuthorizationStatus.AUTH)))
+    .then(() => dispath(requireAuthorization(AuthStatus.AUTH)))
     .catch(() => {})
 );
 
 export const login = ({email, password}) => (dispatch, _getState, api) => (
   api.post(ApiRoute.LOGIN, {email, password})
     .then(({data}) => {
-      dispatch(requireAuthorization(AuthorizationStatus.AUTH));
+      dispatch(requireAuthorization(AuthStatus.AUTH));
       return data;
     })
     .then((data) => adaptAuthInfo(data))

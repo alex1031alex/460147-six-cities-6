@@ -4,11 +4,11 @@ import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 import cn from 'classnames';
 
-import {AuthorizationStatus, AppRoute} from '../../const';
+import {AuthStatus, AppRoute} from '../../const';
 
 const Header = (props) => {
-  const {authInfo, authorizationStatus} = props;
-  const isUserAuthorized = authorizationStatus === AuthorizationStatus.AUTH;
+  const {authInfo, authStatus} = props;
+  const isUserAuthorized = authStatus === AuthStatus.AUTH;
 
   return (
     <header className="header">
@@ -61,7 +61,7 @@ const Header = (props) => {
 
 const mapStateToProps = ({USER}) => ({
   authInfo: USER.authInfo,
-  authorizationStatus: USER.authorizationStatus,
+  authStatus: USER.authStatus,
 });
 
 Header.propTypes = {
@@ -72,7 +72,7 @@ Header.propTypes = {
     isPro: PropTypes.bool,
     name: PropTypes.string,
   }),
-  authorizationStatus: PropTypes.oneOf(Object.values(AuthorizationStatus)).isRequired,
+  authStatus: PropTypes.oneOf(Object.values(AuthStatus)).isRequired,
 };
 
 export {Header};

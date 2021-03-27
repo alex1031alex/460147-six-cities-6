@@ -4,22 +4,22 @@ import {connect} from 'react-redux';
 import Spinner from '../spinner/spinner';
 
 const MainContentContainer = (props) => {
-  const {isOffersDataLoaded, children} = props;
+  const {isOffersLoaded, children} = props;
 
   return (
     <React.Fragment>
-      {isOffersDataLoaded ? children : <Spinner />}
+      {isOffersLoaded ? children : <Spinner />}
     </React.Fragment>
   );
 };
 
 MainContentContainer.propTypes = {
-  isOffersDataLoaded: PropTypes.bool,
+  isOffersLoaded: PropTypes.bool,
   children: PropTypes.object,
 };
 
 const mapStateToProps = ({OFFERS}) => ({
-  isOffersDataLoaded: OFFERS.isOffersDataLoaded,
+  isOffersLoaded: OFFERS.isOffersLoaded,
 });
 
 export {MainContentContainer};

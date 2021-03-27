@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {useParams} from 'react-router-dom';
 import {connect} from 'react-redux';
 
-import {AuthorizationStatus, CardType} from '../../const';
+import {AuthStatus, CardType} from '../../const';
 import {offerPropType, reviewPropType} from '../../prop-types';
 import {fetchOfferById, fetchReviews, fetchNearbyOffers} from '../../store/api-actions';
 
@@ -18,7 +18,7 @@ import Host from '../host/host';
 const MAX_PHOTO_IN_GALERY = 6;
 
 const Room = (props) => {
-  const {authorizationStatus, offer, reviews, nearbyOffers, onLoadOfferData} = props;
+  const {authStatus, offer, reviews, nearbyOffers, onLoadOfferData} = props;
   const {id} = useParams();
 
   useEffect(() => {
@@ -43,7 +43,7 @@ const Room = (props) => {
     description
   } = offer;
 
-  const isUserAuthorized = authorizationStatus === AuthorizationStatus.AUTH;
+  const isUserAuthorized = authStatus === AuthStatus.AUTH;
 
   const galeryTemplate = images
     .slice(0, Math.min(MAX_PHOTO_IN_GALERY, images.length))
@@ -155,7 +155,7 @@ const Room = (props) => {
 };
 
 Room.propTypes = {
-  authorizationStatus: PropTypes.oneOf(Object.values(AuthorizationStatus)),
+  authStatus: PropTypes.oneOf(Object.values(AuthStatus)),
   offer: offerPropType,
   reviews: PropTypes.arrayOf(reviewPropType),
   nearbyOffers: PropTypes.arrayOf(offerPropType),
@@ -163,7 +163,7 @@ Room.propTypes = {
 };
 
 const mapStateToProps = ({USER, OFFERS}) => ({
-  authorizationStatus: USER.authorizationStatus,
+  authStatus: USER.authStatus,
   offer: OFFERS.offer,
   reviews: OFFERS.reviews,
   nearbyOffers: OFFERS.nearbyOffers,

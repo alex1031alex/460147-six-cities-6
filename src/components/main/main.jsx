@@ -17,17 +17,17 @@ import MainContentContainer from '../main-content-container/main-content-contain
 import MainContent from '../main-content/main-content';
 
 const Main = (props) => {
-  const {activeCity, activeSortType, offers, isOffersDataLoaded, onLoadOffersData} = props;
+  const {activeCity, activeSortType, offers, isOffersLoaded, onLoadOffersData} = props;
   const offersByCity = getOffersByCity(offers, activeCity);
   const sortedOffers = sortOffers(offersByCity, activeSortType);
 
   const [activeCard, setActiveCard] = useState(null);
 
   useEffect(() => {
-    if (!isOffersDataLoaded) {
+    if (!isOffersLoaded) {
       onLoadOffersData();
     }
-  }, [isOffersDataLoaded]);
+  }, [isOffersLoaded]);
 
   const handleMouseEnter = (offer) => {
     setActiveCard(offer);
@@ -84,7 +84,7 @@ Main.propTypes = {
   activeCity: cityPropType,
   activeSortType: sortTypePropType,
   offers: PropTypes.arrayOf(offerPropType),
-  isOffersDataLoaded: PropTypes.bool,
+  isOffersLoaded: PropTypes.bool,
   onLoadOffersData: PropTypes.func,
 };
 
@@ -92,7 +92,7 @@ const mapStateToProps = ({CITY, OFFERS}) => ({
   activeCity: CITY.activeCity,
   activeSortType: OFFERS.activeSortType,
   offers: OFFERS.offers,
-  isOffersDataLoaded: OFFERS.isOffersDataLoaded,
+  isOffersLoaded: OFFERS.isOffersLoaded,
 });
 
 const mapDispatchToProps = (dispatch) => ({

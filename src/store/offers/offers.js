@@ -7,7 +7,7 @@ const initialState = {
   offer: null,
   reviews: [],
   nearbyOffers: [],
-  isOffersDataLoaded: false,
+  isOffersLoaded: false,
 };
 
 const offers = (state = initialState, action) => {
@@ -23,7 +23,7 @@ const offers = (state = initialState, action) => {
       return {
         ...state,
         offers: action.payload,
-        isOffersDataLoaded: true,
+        isOffersLoaded: true,
       };
     }
 
