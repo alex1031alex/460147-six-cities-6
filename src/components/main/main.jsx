@@ -4,11 +4,10 @@ import {connect} from 'react-redux';
 import cn from 'classnames';
 
 import {CardType} from '../../const';
-import {getOffersByCity, sortOffers} from '../../services/common';
 import {fetchOffers} from '../../store/api-actions';
-import {cityPropType, offerPropType, sortTypePropType} from '../../prop-types';
+import {cityPropType, offerPropType} from '../../prop-types';
 import {getActiveCity} from '../../store/city/selectors';
-import {getActiveSortType, getLoadedOffersStatus, getOffers} from '../../store/offers/selectors';
+import {getLoadedOffersStatus, getSortedOffers} from '../../store/offers/selectors';
 
 import CitiesList from '../cities-list/cities-list';
 import OffersList from '../offers-list/offers-list';
@@ -20,10 +19,7 @@ import MainContent from '../main-content/main-content';
 
 
 const Main = (props) => {
-  const {activeCity, activeSortType, offers, isOffersLoaded, onLoadOffersData} = props;
-  const offersByCity = getOffersByCity(offers, activeCity);
-  const sortedOffers = sortOffers(offersByCity, activeSortType);
-
+  const {activeCity, offers, isOffersLoaded, onLoadOffersData} = props;
   const [activeCard, setActiveCard] = useState(null);
 
   useEffect(() => {
@@ -44,7 +40,7 @@ const Main = (props) => {
       <Header />
       <main className={cn({
         'page__main page__main--index': true,
-        'page__main page__main--index-empty': !offersByCity.length,
+        'page__main page__main--index-empty': !offers.length,
       })}>
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
@@ -53,14 +49,14 @@ const Main = (props) => {
           </section>
         </div>
         <MainContentContainer>
-          <MainContent isOffersAvailable={!!offersByCity.length}>
+          <MainContent isOffersAvailable={!!offers.length}>
             <div className="cities__places-container container">
               <section className="cities__places places">
                 <h2 className="visually-hidden">Places</h2>
-                <b className="places__found">{offersByCity.length} places to stay in {activeCity}</b>
+                <b className="places__found">{offers.length} places to stay in {activeCity}</b>
                 <Sorting />
                 <OffersList
-                  offers={sortedOffers}
+                  offers={offers}
                   cardType={CardType.CITY}
                   onMouseEnter={handleMouseEnter}
                   onMouseLeave={handleMouseLeave}
@@ -70,7 +66,7 @@ const Main = (props) => {
                 <section className="cities__map map">
                   <Map
                     city={activeCity}
-                    points={offersByCity}
+                    points={offers}
                     activePoint={activeCard}
                   />
                 </section>
@@ -85,7 +81,6 @@ const Main = (props) => {
 
 Main.propTypes = {
   activeCity: cityPropType,
-  activeSortType: sortTypePropType,
   offers: PropTypes.arrayOf(offerPropType),
   isOffersLoaded: PropTypes.bool,
   onLoadOffersData: PropTypes.func,
@@ -93,8 +88,7 @@ Main.propTypes = {
 
 const mapStateToProps = (state) => ({
   activeCity: getActiveCity(state),
-  activeSortType: getActiveSortType(state),
-  offers: getOffers(state),
+  offers: getSortedOffers(state),
   isOffersLoaded: getLoadedOffersStatus(state),
 });
 
