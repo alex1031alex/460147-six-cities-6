@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
+
+import {getLoadedOffersStatus} from '../../store/offers/selectors';
+
 import Spinner from '../spinner/spinner';
 
 const MainContentContainer = (props) => {
@@ -18,8 +21,8 @@ MainContentContainer.propTypes = {
   children: PropTypes.object,
 };
 
-const mapStateToProps = ({OFFERS}) => ({
-  isOffersLoaded: OFFERS.isOffersLoaded,
+const mapStateToProps = (state) => ({
+  isOffersLoaded: getLoadedOffersStatus(state),
 });
 
 export {MainContentContainer};

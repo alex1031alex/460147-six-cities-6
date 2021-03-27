@@ -6,6 +6,7 @@ import cn from 'classnames';
 import {SortType} from '../../const';
 import {changeSortType} from '../../store/action';
 import {sortTypePropType} from '../../prop-types';
+import {getActiveSortType} from '../../store/offers/selectors';
 
 const Sorting = (props) => {
   const {activeSortType, onSortTypeChange} = props;
@@ -59,8 +60,8 @@ Sorting.propTypes = {
   onSortTypeChange: PropTypes.func,
 };
 
-const mapStateToProps = ({CITY}) => ({
-  activeSortType: CITY.activeSortType,
+const mapStateToProps = (state) => ({
+  activeSortType: getActiveSortType(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

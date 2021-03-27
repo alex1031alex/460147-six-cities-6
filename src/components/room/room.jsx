@@ -14,6 +14,8 @@ import OffersList from '../offers-list/offers-list';
 import Spinner from '../spinner/spinner';
 import Header from '../header/header';
 import Host from '../host/host';
+import {getAuthStatus} from '../../store/user/selectors';
+import {getNearbyOffers, getOffer, getReviews} from '../../store/offers/selectors';
 
 const MAX_PHOTO_IN_GALERY = 6;
 
@@ -162,11 +164,11 @@ Room.propTypes = {
   onLoadOfferData: PropTypes.func,
 };
 
-const mapStateToProps = ({USER, OFFERS}) => ({
-  authStatus: USER.authStatus,
-  offer: OFFERS.offer,
-  reviews: OFFERS.reviews,
-  nearbyOffers: OFFERS.nearbyOffers,
+const mapStateToProps = (state) => ({
+  authStatus: getAuthStatus(state),
+  offer: getOffer(state),
+  reviews: getReviews(state),
+  nearbyOffers: getNearbyOffers(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

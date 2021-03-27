@@ -7,6 +7,8 @@ import {CardType} from '../../const';
 import {getOffersByCity, sortOffers} from '../../services/common';
 import {fetchOffers} from '../../store/api-actions';
 import {cityPropType, offerPropType, sortTypePropType} from '../../prop-types';
+import {getActiveCity} from '../../store/city/selectors';
+import {getActiveSortType, getLoadedOffersStatus, getOffers} from '../../store/offers/selectors';
 
 import CitiesList from '../cities-list/cities-list';
 import OffersList from '../offers-list/offers-list';
@@ -15,6 +17,7 @@ import Sorting from '../sorting/sorting';
 import Header from '../header/header';
 import MainContentContainer from '../main-content-container/main-content-container';
 import MainContent from '../main-content/main-content';
+
 
 const Main = (props) => {
   const {activeCity, activeSortType, offers, isOffersLoaded, onLoadOffersData} = props;
@@ -88,11 +91,11 @@ Main.propTypes = {
   onLoadOffersData: PropTypes.func,
 };
 
-const mapStateToProps = ({CITY, OFFERS}) => ({
-  activeCity: CITY.activeCity,
-  activeSortType: OFFERS.activeSortType,
-  offers: OFFERS.offers,
-  isOffersLoaded: OFFERS.isOffersLoaded,
+const mapStateToProps = (state) => ({
+  activeCity: getActiveCity(state),
+  activeSortType: getActiveSortType(state),
+  offers: getOffers(state),
+  isOffersLoaded: getLoadedOffersStatus(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

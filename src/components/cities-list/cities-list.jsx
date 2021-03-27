@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import cn from 'classnames';
 
+import {getActiveCity} from '../../store/city/selectors';
+
 import {changeCity} from '../../store/action';
 import {Cities} from '../../const';
 import {cityPropType} from '../../prop-types';
@@ -34,8 +36,8 @@ CitiesList.propTypes = {
   onCityChange: PropTypes.func,
 };
 
-const mapStateToProps = ({CITY}) => ({
-  activeCity: CITY.activeCity,
+const mapStateToProps = (state) => ({
+  activeCity: getActiveCity(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

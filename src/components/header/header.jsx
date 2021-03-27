@@ -5,6 +5,7 @@ import {Link} from 'react-router-dom';
 import cn from 'classnames';
 
 import {AuthStatus, AppRoute} from '../../const';
+import {getAuthStatus, getAuthInfo} from '../../store/user/selectors';
 
 const Header = (props) => {
   const {authInfo, authStatus = AuthStatus.NO_AUTH} = props;
@@ -59,9 +60,9 @@ const Header = (props) => {
   );
 };
 
-const mapStateToProps = ({USER}) => ({
-  authInfo: USER.authInfo,
-  authStatus: USER.authStatus,
+const mapStateToProps = (state) => ({
+  authInfo: getAuthInfo(state),
+  authStatus: getAuthStatus(state),
 });
 
 Header.propTypes = {
