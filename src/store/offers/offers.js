@@ -1,4 +1,13 @@
-import {ActionType} from './../action';
+import {createReducer} from '@reduxjs/toolkit';
+
+import {
+  changeSortType,
+  loadNearbyOffers,
+  loadOfferById,
+  loadOffers,
+  loadReviews
+} from './../action';
+
 import {SortType} from '../../const';
 
 const initialState = {
@@ -10,46 +19,23 @@ const initialState = {
   isOffersLoaded: false,
 };
 
-const offers = (state = initialState, action) => {
-  switch (action.type) {
-    case ActionType.CHANGE_SORT_TYPE: {
-      return {
-        ...state,
-        activeSortType: action.payload,
-      };
-    }
-
-    case ActionType.LOAD_OFFERS: {
-      return {
-        ...state,
-        offers: action.payload,
-        isOffersLoaded: true,
-      };
-    }
-
-    case ActionType.LOAD_OFFER_BY_ID: {
-      return {
-        ...state,
-        offer: action.payload
-      };
-    }
-
-    case ActionType.LOAD_REVIEWS: {
-      return {
-        ...state,
-        reviews: action.payload
-      };
-    }
-
-    case ActionType.LOAD_NEARBY_OFFERS: {
-      return {
-        ...state,
-        nearbyOffers: action.payload
-      };
-    }
-  }
-
-  return state;
-};
+const offers = createReducer(initialState, (builder) => {
+  builder.addCase(changeSortType, (state, action) => {
+    state.activeSortType = action.payload;
+  });
+  builder.addCase(loadOffers, (state, action) => {
+    state.offers = action.payload;
+    state.isOffersLoaded = true;
+  });
+  builder.addCase(loadOfferById, (state, action) => {
+    state.offer = action.payload;
+  });
+  builder.addCase(loadReviews, (state, action) => {
+    state.reviews = action.payload;
+  });
+  builder.addCase(loadNearbyOffers, (state, action) => {
+    state.nearbyOffers = action.payload;
+  });
+});
 
 export {offers};
