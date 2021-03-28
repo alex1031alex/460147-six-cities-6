@@ -1,10 +1,8 @@
 import React, {useEffect} from 'react';
-import PropTypes from 'prop-types';
 import {useParams} from 'react-router-dom';
-import {connect} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 
 import {AuthStatus, CardType} from '../../const';
-import {offerPropType, reviewPropType} from '../../prop-types';
 import {fetchOfferById, fetchReviews, fetchNearbyOffers} from '../../store/api-actions';
 
 import ReviewsList from '../reviews-list/reviews-list';
@@ -19,12 +17,20 @@ import {getNearbyOffers, getOffer, getReviews} from '../../store/offers/selector
 
 const MAX_PHOTO_IN_GALERY = 6;
 
-const Room = (props) => {
-  const {authStatus, offer, reviews, nearbyOffers, onLoadOfferData} = props;
+const Room = () => {
+  const authStatus = useSelector(getAuthStatus);
+  const offer = useSelector(getOffer);
+  const reviews = useSelector(getReviews);
+  const nearbyOffers = useSelector(getNearbyOffers);
+
+  const dispatch = useDispatch();
+
   const {id} = useParams();
 
   useEffect(() => {
-    onLoadOfferData(id);
+    dispatch(fetchOfferById(id));
+    dispatch(fetchReviews(id));
+    dispatch(fetchNearbyOffers(id));
   }, [id]);
 
   if (!offer) {
@@ -156,28 +162,4 @@ const Room = (props) => {
   );
 };
 
-Room.propTypes = {
-  authStatus: PropTypes.oneOf(Object.values(AuthStatus)),
-  offer: offerPropType,
-  reviews: PropTypes.arrayOf(reviewPropType),
-  nearbyOffers: PropTypes.arrayOf(offerPropType),
-  onLoadOfferData: PropTypes.func,
-};
-
-const mapStateToProps = (state) => ({
-  authStatus: getAuthStatus(state),
-  offer: getOffer(state),
-  reviews: getReviews(state),
-  nearbyOffers: getNearbyOffers(state),
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onLoadOfferData(id) {
-    dispatch(fetchOfferById(id));
-    dispatch(fetchReviews(id));
-    dispatch(fetchNearbyOffers(id));
-  },
-});
-
-export {Room};
-export default connect(mapStateToProps, mapDispatchToProps)(Room);
+export default Room;

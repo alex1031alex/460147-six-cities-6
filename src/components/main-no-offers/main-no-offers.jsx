@@ -1,11 +1,10 @@
 import React from 'react';
-import {cityPropType} from '../../prop-types';
-import {connect} from 'react-redux';
+import {useSelector} from 'react-redux';
 
 import {getActiveCity} from '../../store/city/selectors';
 
-const MainNoOffers = (props) => {
-  const {city} = props;
+const MainNoOffers = () => {
+  const city = useSelector(getActiveCity);
 
   return (
     <div className="cities__places-container cities__places-container--empty container">
@@ -20,13 +19,4 @@ const MainNoOffers = (props) => {
   );
 };
 
-MainNoOffers.propTypes = {
-  city: cityPropType,
-};
-
-const mapStateToProps = (state) => ({
-  city: getActiveCity(state),
-});
-
-export {MainNoOffers};
-export default connect(mapStateToProps, null)(MainNoOffers);
+export default MainNoOffers;

@@ -1,13 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Route, Redirect} from 'react-router-dom';
-import {connect} from 'react-redux';
+import {useSelector} from 'react-redux';
 
 import {AppRoute, AuthStatus} from '../../const';
 import {getAuthStatus} from '../../store/user/selectors';
 
 const PrivateRoute = (props) => {
-  const {render, path, exact, authStatus} = props;
+  const {render, path, exact} = props;
+  const authStatus = useSelector(getAuthStatus);
 
   return (
     <Route
@@ -25,15 +26,9 @@ const PrivateRoute = (props) => {
 };
 
 PrivateRoute.propTypes = {
-  authStatus: PropTypes.oneOf(Object.values(AuthStatus)),
   exact: PropTypes.bool.isRequired,
   path: PropTypes.string.isRequired,
   render: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  authStatus: getAuthStatus(state),
-});
-
-export {PrivateRoute};
-export default connect(mapStateToProps, null)(PrivateRoute);
+export default PrivateRoute;

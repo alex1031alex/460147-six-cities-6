@@ -1,11 +1,9 @@
 import React, {useState, useEffect} from 'react';
-import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import cn from 'classnames';
 
 import {CardType} from '../../const';
 import {fetchOffers} from '../../store/api-actions';
-import {cityPropType, offerPropType} from '../../prop-types';
 import {getActiveCity} from '../../store/city/selectors';
 import {getLoadedOffersStatus, getSortedOffers} from '../../store/offers/selectors';
 
@@ -17,14 +15,18 @@ import Header from '../header/header';
 import MainContentContainer from '../main-content-container/main-content-container';
 import MainContent from '../main-content/main-content';
 
+const Main = () => {
+  const activeCity = useSelector(getActiveCity);
+  const offers = useSelector(getSortedOffers);
+  const isOffersLoaded = useSelector(getLoadedOffersStatus);
 
-const Main = (props) => {
-  const {activeCity, offers, isOffersLoaded, onLoadOffersData} = props;
+  const dispatch = useDispatch();
+
   const [activeCard, setActiveCard] = useState(null);
 
   useEffect(() => {
     if (!isOffersLoaded) {
-      onLoadOffersData();
+      dispatch(fetchOffers());
     }
   }, [isOffersLoaded]);
 
@@ -79,24 +81,4 @@ const Main = (props) => {
   );
 };
 
-Main.propTypes = {
-  activeCity: cityPropType,
-  offers: PropTypes.arrayOf(offerPropType),
-  isOffersLoaded: PropTypes.bool,
-  onLoadOffersData: PropTypes.func,
-};
-
-const mapStateToProps = (state) => ({
-  activeCity: getActiveCity(state),
-  offers: getSortedOffers(state),
-  isOffersLoaded: getLoadedOffersStatus(state),
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onLoadOffersData() {
-    dispatch(fetchOffers());
-  }
-});
-
-export {Main};
-export default connect(mapStateToProps, mapDispatchToProps)(Main);
+export default Main;
