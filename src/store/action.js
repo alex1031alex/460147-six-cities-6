@@ -1,3 +1,5 @@
+import {createAction} from '@reduxjs/toolkit';
+
 export const ActionType = {
   CHANGE_CITY: `city/change`,
   REDIRECT_TO_ROUTE: `route/redirectToRoute`,
@@ -10,47 +12,12 @@ export const ActionType = {
   LOAD_NEARBY_OFFERS: `offers/loadNearbyOffers`,
 };
 
-export const changeCity = (city) => ({
-  type: ActionType.CHANGE_CITY,
-  payload: city,
-});
-
-export const changeSortType = (sortType) => ({
-  type: ActionType.CHANGE_SORT_TYPE,
-  payload: sortType,
-});
-
-export const requireAuthorization = (status) => ({
-  type: ActionType.REQUIRE_AUTHORIZATION,
-  payload: status,
-});
-
-export const loadOffers = (offers) => ({
-  type: ActionType.LOAD_OFFERS,
-  payload: offers,
-});
-
-export const setAuthInfo = (authInfo) => ({
-  type: ActionType.SET_AUTH_INFO,
-  payload: authInfo,
-});
-
-export const redirectToRoute = (url) => ({
-  type: ActionType.REDIRECT_TO_ROUTE,
-  payload: url,
-});
-
-export const loadReviews = (reviews) => ({
-  type: ActionType.LOAD_REVIEWS,
-  payload: reviews,
-});
-
-export const loadOfferById = (offer) => ({
-  type: ActionType.LOAD_OFFER_BY_ID,
-  payload: offer,
-});
-
-export const loadNearbyOffers = (nearbyOffers) => ({
-  type: ActionType.LOAD_NEARBY_OFFERS,
-  payload: nearbyOffers,
-});
+export const changeCity = createAction(ActionType.CHANGE_CITY);
+export const changeSortType = createAction(ActionType.CHANGE_SORT_TYPE);
+export const requireAuthorization = createAction(ActionType.REQUIRE_AUTHORIZATION);
+export const loadOffers = createAction(ActionType.LOAD_OFFERS);
+export const setAuthInfo = createAction(ActionType.SET_AUTH_INFO);
+export const redirectToRoute = createAction(ActionType.REDIRECT_TO_ROUTE);
+export const loadReviews = createAction(ActionType.LOAD_REVIEWS);
+export const loadOfferById = createAction(ActionType.LOAD_OFFER_BY_ID);
+export const loadNearbyOffers = createAction(ActionType.LOAD_NEARBY_OFFERS);
