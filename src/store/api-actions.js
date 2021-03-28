@@ -25,7 +25,8 @@ export const fetchOffers = () => (dispatch, _getState, api) => {
 
 export const checkAuth = () => (dispatch, _getState, api) => (
   api.get(ApiRoute.LOGIN)
-    .then(({data}) => dispatch(setAuthInfo(data)))
+    .then(({data}) => adaptAuthInfo(data))
+    .then((data) => dispatch(setAuthInfo(data)))
     .then(() => dispatch(requireAuthorization(AuthStatus.AUTH)))
     .catch(() => {})
 );
