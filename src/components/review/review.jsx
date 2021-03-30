@@ -1,5 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+
+import {reviewPropType} from '../../prop-types';
 
 const Review = (props) => {
   const {review} = props;
@@ -18,10 +19,10 @@ const Review = (props) => {
           {name}
         </span>
         {
-          isPro ?
+          isPro &&
             <span className="property__user-status">
               Pro
-            </span> : ``
+            </span>
         }
       </div>
       <div className="reviews__info">
@@ -41,18 +42,7 @@ const Review = (props) => {
 };
 
 Review.propTypes = {
-  review: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    rating: PropTypes.number.isRequired,
-    date: PropTypes.string.isRequired,
-    comment: PropTypes.string.isRequired,
-    user: PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired,
-      avatarUrl: PropTypes.string.isRequired,
-      isPro: PropTypes.bool.isRequired
-    }),
-  }),
+  review: reviewPropType,
 };
 
 export default Review;

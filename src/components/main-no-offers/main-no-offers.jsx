@@ -1,8 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import {useSelector} from 'react-redux';
 
-const MainNoOffers = (props) => {
-  const {city} = props;
+import {getActiveCity} from '../../store/city/selectors';
+
+const MainNoOffers = () => {
+  const city = useSelector(getActiveCity);
 
   return (
     <div className="cities__places-container cities__places-container--empty container">
@@ -15,10 +17,6 @@ const MainNoOffers = (props) => {
       <div className="cities__right-section" />
     </div>
   );
-};
-
-MainNoOffers.propTypes = {
-  city: PropTypes.string,
 };
 
 export default MainNoOffers;

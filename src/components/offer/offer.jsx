@@ -1,49 +1,20 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
-import {CardType, ImageSize} from '../../const.js';
+import cn from 'classnames';
+
+import {cardTypePropType, offerPropType} from '../../prop-types';
+import {CardType} from '../../const';
+import {getCardClassName, getImageSize} from '../../services/common';
 
 const Offer = (props) => {
   const {offer, cardType, onMouseEnter, onMouseLeave} = props;
   const {images, price, isFavorite, rating, title, type, id} = offer;
   const image = images[0];
 
-  const getCardClassName = () => {
-    switch (cardType) {
-      case CardType.FAVORITE: {
-        return `favorites__card`;
-      }
-      case CardType.CITY: {
-        return `cities__place-card`;
-      }
-      case CardType.NEARBY: {
-        return `near-places__card`;
-      }
-    }
-
-    return ``;
-  };
-
-  const getImageSize = () => {
-    switch (cardType) {
-      case CardType.FAVORITE: {
-        return {
-          width: ImageSize.SMALL.width,
-          height: ImageSize.SMALL.height
-        };
-      }
-      default: {
-        return {
-          width: ImageSize.STANDARD.width,
-          height: ImageSize.STANDARD.height
-        };
-      }
-    }
-  };
-
   return (
     <article
-      className={`${getCardClassName()} place-card`}
+      className={`${getCardClassName(cardType)} place-card`}
       onMouseEnter={() => onMouseEnter(offer)}
       onMouseLeave={() => onMouseLeave()}
     >
@@ -53,14 +24,16 @@ const Offer = (props) => {
             className="place-card__image"
             src={image}
             alt="Place image"
-            width={getImageSize().width}
-            height={getImageSize().height}
+            width={getImageSize(cardType).width}
+            height={getImageSize(cardType).height}
           />
         </a>
       </div>
       <div
-        className={`${cardType === CardType.FAVORITE ?
-          `favorites__card-info` : ``} place-card__info`}
+        className={cn({
+          'place-card__info': true,
+          'favorites__card-info': cardType === CardType.FAVORITE,
+        })}
       >
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
@@ -69,8 +42,11 @@ const Offer = (props) => {
           </div>
           <button
             type="button"
-            className={`place-card__bookmark-button button
-            ${isFavorite ? `place-card__bookmark-button--active` : ``}`}
+            className={cn({
+              'place-card__bookmark-button': true,
+              'button': true,
+              'place-card__bookmark-button--active': !!isFavorite
+            })}
           >
             <svg className="place-card__bookmark-icon" width={18} height={19}>
               <use xlinkHref="#icon-bookmark" />
@@ -97,21 +73,12 @@ const Offer = (props) => {
 
 Offer.defaultProps = {
   onMouseEnter: () => {},
-  onMouseLeave: () => {}
+  onMouseLeave: () => {},
 };
 
 Offer.propTypes = {
-  offer: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    isPremium: PropTypes.bool.isRequired,
-    images: PropTypes.array.isRequired,
-    price: PropTypes.number.isRequired,
-    isFavorite: PropTypes.bool.isRequired,
-    rating: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired,
-  }).isRequired,
-  cardType: PropTypes.string.isRequired,
+  offer: offerPropType.isRequired,
+  cardType: cardTypePropType,
   onMouseEnter: PropTypes.func,
   onMouseLeave: PropTypes.func,
 };

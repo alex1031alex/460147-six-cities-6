@@ -1,25 +1,36 @@
 import React, {useEffect} from 'react';
-import PropTypes from 'prop-types';
 import {useParams} from 'react-router-dom';
-import {connect} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 
-import {AuthorizationStatus, CardType} from '../../const.js';
-import ReviewsList from '../reviews-list/reviews-list.jsx';
-import ReviewForm from '../review-form/review-form.jsx';
-import Map from '../map/map.jsx';
-import OffersList from '../offers-list/offers-list.jsx';
-import Spinner from '../spinner/spinner.jsx';
-import Header from '../header/header.jsx';
-import {fetchOfferById, fetchReviews, fetchNearbyOffers} from '../../store/api-actions.js';
+import {AuthStatus, CardType} from '../../const';
+import {fetchOfferById, fetchReviews, fetchNearbyOffers} from '../../store/api-actions';
+
+import ReviewsList from '../reviews-list/reviews-list';
+import ReviewForm from '../review-form/review-form';
+import Map from '../map/map';
+import OffersList from '../offers-list/offers-list';
+import Spinner from '../spinner/spinner';
+import Header from '../header/header';
+import Host from '../host/host';
+import {getAuthStatus} from '../../store/user/selectors';
+import {getNearbyOffers, getOffer, getReviews} from '../../store/offers/selectors';
 
 const MAX_PHOTO_IN_GALERY = 6;
 
-const Room = (props) => {
-  const {authorizationStatus, offer, reviews, nearbyOffers, onLoadOfferData} = props;
+const Room = () => {
+  const authStatus = useSelector(getAuthStatus);
+  const offer = useSelector(getOffer);
+  const reviews = useSelector(getReviews);
+  const nearbyOffers = useSelector(getNearbyOffers);
+
+  const dispatch = useDispatch();
+
   const {id} = useParams();
 
   useEffect(() => {
-    onLoadOfferData(id);
+    dispatch(fetchOfferById(id));
+    dispatch(fetchReviews(id));
+    dispatch(fetchNearbyOffers(id));
   }, [id]);
 
   if (!offer) {
@@ -39,33 +50,23 @@ const Room = (props) => {
     host,
     description
   } = offer;
-  const {name, avatarUrl, isPro} = host;
-  const isUserAuthorized = authorizationStatus === AuthorizationStatus.AUTH;
+
+  const isUserAuthorized = authStatus === AuthStatus.AUTH;
 
   const galeryTemplate = images
     .slice(0, Math.min(MAX_PHOTO_IN_GALERY, images.length))
-    .map((image, index) => {
-      return <div className="property__image-wrapper" key={index}>
+    .map((image) => {
+      return <div className="property__image-wrapper" key={image}>
         <img className="property__image" src={image} alt="Photo studio" />
       </div>;
     });
 
   const goodsTemplate = goods
-    .map((item, index) => {
+    .map((item) => {
       return (
-        <li className="property__inside-item" key={index}>
+        <li className="property__inside-item" key={item}>
           {item}
         </li>
-      );
-    });
-
-  const descriptionTemplate = description
-    .split(`\n`)
-    .map((paragraph, index) => {
-      return (
-        <p className="property__text" key={index}>
-          {paragraph}
-        </p>
       );
     });
 
@@ -82,10 +83,10 @@ const Room = (props) => {
           <div className="property__container container">
             <div className="property__wrapper">
               {
-                isPremium ?
+                isPremium &&
                   <div className="property__mark">
                     <span>Premium</span>
-                  </div> : ``
+                  </div>
               }
               <div className="property__name-wrapper">
                 <h1 className="property__name">
@@ -126,31 +127,7 @@ const Room = (props) => {
                   {goodsTemplate}
                 </ul>
               </div>
-              <div className="property__host">
-                <h2 className="property__host-title">Meet the host</h2>
-                <div className="property__host-user user">
-                  <div
-                    className={
-                      `property__avatar-wrapper user__avatar-wrapper
-                      ${isPro ? ` property__avatar-wrapper--pro` : ``}`
-                    }
-                  >
-                    <img className="property__avatar user__avatar" src={avatarUrl} width={74} height={74} alt="Host avatar" />
-                  </div>
-                  <span className="property__user-name">
-                    {name}
-                  </span>
-                  {
-                    isPro ?
-                      <span className="property__user-status">
-                        Pro
-                      </span> : ``
-                  }
-                </div>
-                <div className="property__description">
-                  {descriptionTemplate}
-                </div>
-              </div>
+              <Host host={host} description={description} />
               <section className="property__reviews reviews">
                 <h2 className="reviews__title">
                   Reviews · <span className="reviews__amount">{reviews.length}</span>
@@ -185,63 +162,4 @@ const Room = (props) => {
   );
 };
 
-Room.propTypes = {
-  authorizationStatus: PropTypes.string.isRequired,
-  offer: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    isPremium: PropTypes.bool.isRequired,
-    images: PropTypes.array.isRequired,
-    price: PropTypes.number.isRequired,
-    isFavorite: PropTypes.bool.isRequired,
-    rating: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired,
-    bedrooms: PropTypes.number.isRequired,
-    description: PropTypes.string.isRequired,
-    maxAdults: PropTypes.number.isRequired,
-    host: PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      avatarUrl: PropTypes.string.isRequired,
-      isPro: PropTypes.bool.isRequired,
-    }),
-    goods: PropTypes.arrayOf(PropTypes.string),
-    city: PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      location: PropTypes.shape({}),
-    }),
-  }),
-  reviews: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    rating: PropTypes.number.isRequired,
-    date: PropTypes.string.isRequired,
-    comment: PropTypes.string.isRequired,
-    user: PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired,
-      avatarUrl: PropTypes.string.isRequired,
-      isPro: PropTypes.bool.isRequired,
-    }),
-  })),
-  nearbyOffers: PropTypes.array,
-  onLoadOfferData: PropTypes.func,
-};
-
-const mapStateToProps = (state) => {
-  return {
-    authorizationStatus: state.authorizationStatus,
-    offer: state.offer,
-    reviews: state.reviews,
-    nearbyOffers: state.nearbyOffers,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => ({
-  onLoadOfferData(id) {
-    dispatch(fetchOfferById(id));
-    dispatch(fetchReviews(id));
-    dispatch(fetchNearbyOffers(id));
-  }
-});
-
-export {Room};
-export default connect(mapStateToProps, mapDispatchToProps)(Room);
+export default Room;

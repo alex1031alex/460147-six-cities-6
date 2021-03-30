@@ -1,13 +1,15 @@
 import React, {useState} from 'react';
-import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import cn from 'classnames';
 
-import {SortType} from '../../const.js';
-import {ActionCreator} from '../../store/action.js';
+import {SortType} from '../../const';
+import {changeSortType} from '../../store/action';
+import {getActiveSortType} from '../../store/offers/selectors';
 
-const Sorting = (props) => {
-  const {activeSortType, onSortTypeChange} = props;
+const Sorting = () => {
+  const activeSortType = useSelector(getActiveSortType);
+  const dispatch = useDispatch();
+
   const [isListDropped, setListDropped] = useState(false);
 
   const handleFormClick = () => {
@@ -15,7 +17,8 @@ const Sorting = (props) => {
   };
 
   const handleItemClick = (evt) => {
-    onSortTypeChange(evt.target.dataset.sortType);
+    evt.preventDefault();
+    dispatch(changeSortType(evt.target.dataset.sortType));
   };
 
   return (
@@ -52,22 +55,4 @@ const Sorting = (props) => {
   );
 };
 
-Sorting.propTypes = {
-  activeSortType: PropTypes.string,
-  onSortTypeChange: PropTypes.func,
-};
-
-const mapStateToProps = (state) => {
-  return {activeSortType: state.activeSortType};
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onSortTypeChange(sortType) {
-      dispatch(ActionCreator.changeSortType(sortType));
-    },
-  };
-};
-
-export {Sorting};
-export default connect(mapStateToProps, mapDispatchToProps)(Sorting);
+export default Sorting;

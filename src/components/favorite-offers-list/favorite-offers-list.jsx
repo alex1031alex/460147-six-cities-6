@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Offer from '../offer/offer.jsx';
+import Offer from '../offer/offer';
+import {cardTypePropType, cityPropType, offerPropType} from '../../prop-types';
 
 const FavoriteOffersList = (props) => {
   const {cityName, offers, cardType} = props;
@@ -32,9 +33,9 @@ const FavoriteOffersList = (props) => {
 };
 
 FavoriteOffersList.propTypes = {
-  cityName: PropTypes.string.isRequired,
-  offers: PropTypes.array.isRequired,
-  cardType: PropTypes.string.isRequired,
+  cityName: cityPropType.isRequired,
+  offers: PropTypes.arrayOf(offerPropType).isRequired,
+  cardType: cardTypePropType.isRequired,
 };
 
 export default FavoriteOffersList;

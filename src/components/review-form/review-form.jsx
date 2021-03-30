@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
+import {useDispatch} from 'react-redux';
+
 import {sendReview} from '../../store/api-actions';
 
 const ReviewForm = (props) => {
@@ -27,19 +28,25 @@ const ReviewForm = (props) => {
     }
   };
 
-  const {id, onSubmit} = props;
+  const {id} = props;
+  const dispatch = useDispatch();
 
-  const [review, setReview] = useState({rating: 0, comment: ``});
+  const initialReview = {
+    rating: 0,
+    comment: ``,
+  };
+
+  const [review, setReview] = useState(initialReview);
   const [isSubmitDisabled, setSubmitDisabled] = useState(true);
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    onSubmit({id, review});
+    dispatch(sendReview({id, review}));
     resetForm();
   };
 
   const resetForm = () => {
-    setReview({rating: 0, comment: ``});
+    setReview(initialReview);
   };
 
   const handleRatingChange = (evt) => {
@@ -62,7 +69,7 @@ const ReviewForm = (props) => {
       <div className="reviews__rating-form form__rating" >
         {Object.values(Ratings)
           .map(({value, title}) => {
-            return <React.Fragment key={value}>
+            return <React.Fragment key={title}>
               <input
                 className="form__rating-input visually-hidden"
                 name="rating"
@@ -107,14 +114,6 @@ const ReviewForm = (props) => {
 
 ReviewForm.propTypes = {
   id: PropTypes.number.isRequired,
-  onSubmit: PropTypes.func,
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  onSubmit({id, review}) {
-    dispatch(sendReview({id, review}));
-  }
-});
-
-export {ReviewForm};
-export default connect(null, mapDispatchToProps)(ReviewForm);
+export default ReviewForm;

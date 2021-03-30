@@ -1,14 +1,15 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
+import {useSelector} from 'react-redux';
 import {Link} from 'react-router-dom';
 import cn from 'classnames';
 
-import {AuthorizationStatus, AppRoute} from '../../const';
+import {AuthStatus, AppRoute} from '../../const';
+import {getAuthStatus, getAuthInfo} from '../../store/user/selectors';
 
-const Header = (props) => {
-  const {authInfo, authorizationStatus} = props;
-  const isUserAuthorized = authorizationStatus === AuthorizationStatus.AUTH;
+const Header = () => {
+  const authInfo = useSelector(getAuthInfo);
+  const authStatus = useSelector(getAuthStatus);
+  const isUserAuthorized = authStatus === AuthStatus.AUTH;
 
   return (
     <header className="header">
@@ -59,21 +60,4 @@ const Header = (props) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  authInfo: state.authInfo,
-  authorizationStatus: state.authorizationStatus,
-});
-
-Header.propTypes = {
-  authInfo: PropTypes.shape({
-    avatarUrl: PropTypes.string,
-    email: PropTypes.string,
-    id: PropTypes.number,
-    isPro: PropTypes.bool,
-    name: PropTypes.string,
-  }),
-  authorizationStatus: PropTypes.string.isRequired,
-};
-
-export {Header};
-export default connect(mapStateToProps, null)(Header);
+export default Header;
