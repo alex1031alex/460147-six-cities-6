@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import MainNoOffers from '../main-no-offers/main-no-offers';
+import MainNoOffers from '../main-empty/main-empty';
 
 const MainContent = (props) => {
   const {isOffersAvailable, children} = props;
