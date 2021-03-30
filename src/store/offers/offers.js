@@ -17,6 +17,7 @@ const initialState = {
   reviews: [],
   nearbyOffers: [],
   isOffersLoaded: false,
+  favoriteOffers: [],
 };
 
 const offers = createReducer(initialState, (builder) => {

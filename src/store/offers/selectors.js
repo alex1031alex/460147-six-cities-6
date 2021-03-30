@@ -10,6 +10,7 @@ export const getOffer = (state) => state[NameSpace.OFFERS].offer;
 export const getReviews = (state) => state[NameSpace.OFFERS].reviews;
 export const getNearbyOffers = (state) => state[NameSpace.OFFERS].nearbyOffers;
 export const getLoadedOffersStatus = (state) => state[NameSpace.OFFERS].isOffersLoaded;
+export const getFavoriteOffers = (state) => state[NameSpace.OFFERS].favoriteOffers;
 
 export const getOffersByCity = createSelector(
     [getOffers, getActiveCity],

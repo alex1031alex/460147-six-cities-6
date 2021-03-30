@@ -9,7 +9,7 @@ import Header from '../header/header';
 import {offerPropType} from '../../prop-types';
 
 const Favorites = (props) => {
-  const {offers} = props;
+  const {offers = []} = props;
 
   const offersByCities = offers
     .reduce((acc, offer) => {

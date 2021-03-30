@@ -30,9 +30,7 @@ store.dispatch(checkAuth())
   .then(() => {
     ReactDOM.render(
         <Provider store={store}>
-          <App
-            offers={[]}
-          />
+          <App />
         </Provider>,
         document.querySelector(`#root`)
     );
