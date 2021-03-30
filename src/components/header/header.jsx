@@ -1,15 +1,22 @@
 import React from 'react';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import {Link} from 'react-router-dom';
 import cn from 'classnames';
 
 import {AuthStatus, AppRoute} from '../../const';
 import {getAuthStatus, getAuthInfo} from '../../store/user/selectors';
+import {logout} from '../../store/api-actions';
 
 const Header = () => {
   const authInfo = useSelector(getAuthInfo);
   const authStatus = useSelector(getAuthStatus);
+  const dispatch = useDispatch();
+
   const isUserAuthorized = authStatus === AuthStatus.AUTH;
+  const handleLogoutClick = (evt) => {
+    evt.preventDefault();
+    dispatch(logout());
+  };
 
   return (
     <header className="header">
@@ -54,7 +61,7 @@ const Header = () => {
               </li>
               {isUserAuthorized ?
                 <li className="header__nav-item">
-                  <a>&nbsp;Logout</a>
+                  <a onClick={handleLogoutClick}>&nbsp;Logout</a>
                 </li> : ``}
             </ul>
           </nav>

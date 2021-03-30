@@ -5,7 +5,8 @@ import {
   redirectToRoute,
   loadOfferById,
   loadReviews,
-  loadNearbyOffers
+  loadNearbyOffers,
+  resetAuthInfo,
 } from './action.js';
 
 import {
@@ -67,4 +68,10 @@ export const sendReview = ({id, review}) => (dispatch, _getState, api) => {
   return api.post(`/comments/${id}`, review)
     .then(({data}) => adaptReviews(data))
     .then((data) => dispatch(loadReviews(data)));
+};
+
+export const logout = () => (dispatch, _getState, api) => {
+  return api.get(ApiRoute.LOGOUT)
+    .then(() => dispatch(requireAuthorization(AuthStatus.NO_AUTH)))
+    .then(() => dispatch(resetAuthInfo()));
 };

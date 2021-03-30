@@ -10,6 +10,7 @@ export const ActionType = {
   LOAD_REVIEWS: `offers/loadReviews`,
   LOAD_OFFER_BY_ID: `offers/loadOfferById`,
   LOAD_NEARBY_OFFERS: `offers/loadNearbyOffers`,
+  RESET_AUTH_INFO: `user/resetAuthInfo`,
 };
 
 export const changeCity = createAction(ActionType.CHANGE_CITY);
@@ -21,3 +22,4 @@ export const redirectToRoute = createAction(ActionType.REDIRECT_TO_ROUTE);
 export const loadReviews = createAction(ActionType.LOAD_REVIEWS);
 export const loadOfferById = createAction(ActionType.LOAD_OFFER_BY_ID);
 export const loadNearbyOffers = createAction(ActionType.LOAD_NEARBY_OFFERS);
+export const resetAuthInfo = createAction(ActionType.RESET_AUTH_INFO);

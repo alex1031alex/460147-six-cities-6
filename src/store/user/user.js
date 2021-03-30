@@ -1,5 +1,5 @@
 import {createReducer} from '@reduxjs/toolkit';
-import {requireAuthorization, setAuthInfo} from './../action';
+import {requireAuthorization, resetAuthInfo, setAuthInfo} from './../action';
 import {AuthStatus} from '../../const.js';
 
 const initialState = {
@@ -13,6 +13,9 @@ const user = createReducer(initialState, (builder) => {
   });
   builder.addCase(setAuthInfo, (state, action) => {
     state.authInfo = action.payload;
+  });
+  builder.addCase(resetAuthInfo, (state) => {
+    state.authInfo = initialState.authInfo;
   });
 });
 
