@@ -52,6 +52,10 @@ const Header = () => {
                   </span>
                 </Link>
               </li>
+              {isUserAuthorized ?
+                <li className="header__nav-item">
+                  <a>&nbsp;Logout</a>
+                </li> : ``}
             </ul>
           </nav>
         </div>
