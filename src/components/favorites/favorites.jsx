@@ -1,12 +1,12 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import {CardType, AppRoute} from '../../const';
+import {CardType} from '../../const';
+import {offerPropType} from '../../prop-types';
 
 import FavoriteOffersList from '../favorite-offers-list/favorite-offers-list';
 import Header from '../header/header';
-import {offerPropType} from '../../prop-types';
+import Footer from '../footer/footer';
 
 const Favorites = (props) => {
   const {offers = []} = props;
@@ -50,11 +50,7 @@ const Favorites = (props) => {
           </section>
         </div>
       </main>
-      <footer className="footer container">
-        <Link className="footer__logo-link" to={AppRoute.MAIN}>
-          <img className="footer__logo" src="img/logo.svg" alt="6 cities logo" width={64} height={33} />
-        </Link>
-      </footer>
+      <Footer />
     </div>
   );
 };
