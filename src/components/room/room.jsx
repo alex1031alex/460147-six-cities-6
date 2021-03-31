@@ -12,8 +12,10 @@ import OffersList from '../offers-list/offers-list';
 import Spinner from '../spinner/spinner';
 import Header from '../header/header';
 import Host from '../host/host';
+import BookmarkButton from '../bookmark-button/bookmark-button';
 import {getAuthStatus} from '../../store/user/selectors';
 import {getNearbyOffers, getOffer, getReviews} from '../../store/offers/selectors';
+import {loadOfferById} from '../../store/action';
 
 const MAX_PHOTO_IN_GALERY = 6;
 
@@ -31,6 +33,10 @@ const Room = () => {
     dispatch(fetchOfferById(id));
     dispatch(fetchReviews(id));
     dispatch(fetchNearbyOffers(id));
+
+    return () => {
+      dispatch(loadOfferById(null));
+    };
   }, [id]);
 
   if (!offer) {
@@ -48,7 +54,8 @@ const Room = () => {
     price,
     goods,
     host,
-    description
+    description,
+    isFavorite,
   } = offer;
 
   const isUserAuthorized = authStatus === AuthStatus.AUTH;
@@ -92,12 +99,15 @@ const Room = () => {
                 <h1 className="property__name">
                   {title}
                 </h1>
-                <button className="property__bookmark-button button" type="button">
+                <BookmarkButton
+                  isFavorite={isFavorite}
+                  parentClassName={`property__bookmark-button`}
+                  id={+id}
+                >
                   <svg className="property__bookmark-icon" width={31} height={33}>
                     <use xlinkHref="#icon-bookmark" />
                   </svg>
-                  <span className="visually-hidden">To bookmarks</span>
-                </button>
+                </BookmarkButton>
               </div>
               <div className="property__rating rating">
                 <div className="property__stars rating__stars">

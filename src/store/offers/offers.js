@@ -5,7 +5,9 @@ import {
   loadNearbyOffers,
   loadOfferById,
   loadOffers,
-  loadReviews
+  loadReviews,
+  updateOffers,
+  updateOffer,
 } from './../action';
 
 import {SortType} from '../../const';
@@ -36,6 +38,20 @@ const offers = createReducer(initialState, (builder) => {
   });
   builder.addCase(loadNearbyOffers, (state, action) => {
     state.nearbyOffers = action.payload;
+  });
+  builder.addCase(updateOffers, (state, action) => {
+    state.offers = state.offers.map((offer) => {
+      if (offer.id === action.payload.id) {
+        return action.payload;
+      }
+
+      return offer;
+    });
+  });
+  builder.addCase(updateOffer, (state, action) => {
+    if (state.offer && state.offer.id === action.payload.id) {
+      state.offer = action.payload;
+    }
   });
 });
 

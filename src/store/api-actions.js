@@ -7,6 +7,8 @@ import {
   loadReviews,
   loadNearbyOffers,
   resetAuthInfo,
+  updateOffers,
+  updateOffer,
 } from './action.js';
 
 import {
@@ -74,4 +76,13 @@ export const logout = () => (dispatch, _getState, api) => {
   return api.get(ApiRoute.LOGOUT)
     .then(() => dispatch(requireAuthorization(AuthStatus.NO_AUTH)))
     .then(() => dispatch(resetAuthInfo()));
+};
+
+export const changeFavoriteStatus = (id, status) => (dispatch, _getState, api) => {
+  return api.post(`/favorite/${id}/${status}`)
+    .then(({data}) => adaptOfferData(data))
+    .then((data) => {
+      dispatch(updateOffers(data));
+      dispatch(updateOffer(data));
+    });
 };
