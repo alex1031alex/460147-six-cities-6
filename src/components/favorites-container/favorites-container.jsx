@@ -1,18 +1,25 @@
-import React from 'react';
-import {useSelector} from 'react-redux';
+import React, {useEffect} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 
-import {getFavoriteOffers} from '../../store/offers/selectors';
+import {getLoadedOffersStatus} from '../../store/favorites/selectors';
 
 import Favorites from '../favorites/favorites';
-import FavoritesEmpty from '../favorites-empty/favorites-empty';
+import Spinner from '../spinner/spinner';
+import {fetchFavorites} from '../../store/api-actions';
 
 const FavoritesContainer = () => {
-  const favoriteOffers = useSelector(getFavoriteOffers);
-  const isFavorites = !!favoriteOffers.length;
+  const isOffersLoaded = useSelector(getLoadedOffersStatus);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (!isOffersLoaded) {
+      dispatch(fetchFavorites());
+    }
+  }, [isOffersLoaded]);
 
   return (
     <React.Fragment>
-      {isFavorites ? <Favorites /> : <FavoritesEmpty />}
+      {isOffersLoaded ? <Favorites /> : <Spinner />}
     </React.Fragment>
   );
 };

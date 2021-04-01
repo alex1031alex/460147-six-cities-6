@@ -10,6 +10,7 @@ import {
   updateOffers,
   updateOffer,
   updateNearbyOffers,
+  loadFavorites,
 } from './action.js';
 
 import {
@@ -87,4 +88,11 @@ export const changeFavoriteStatus = (id, status) => (dispatch, _getState, api) =
       dispatch(updateOffer(data));
       dispatch(updateNearbyOffers(data));
     });
+};
+
+export const fetchFavorites = () => (dispatch, _getState, api) => {
+  return api.get(ApiRoute.FAVORITES)
+    .then(({data}) => adaptOffersData(data))
+    .then((data) => dispatch(loadFavorites(data)))
+    .catch(() => {});
 };
