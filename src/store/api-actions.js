@@ -9,6 +9,7 @@ import {
   resetAuthInfo,
   updateOffers,
   updateOffer,
+  updateNearbyOffers,
 } from './action.js';
 
 import {
@@ -84,5 +85,6 @@ export const changeFavoriteStatus = (id, status) => (dispatch, _getState, api) =
     .then((data) => {
       dispatch(updateOffers(data));
       dispatch(updateOffer(data));
+      dispatch(updateNearbyOffers(data));
     });
 };

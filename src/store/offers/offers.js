@@ -8,6 +8,7 @@ import {
   loadReviews,
   updateOffers,
   updateOffer,
+  updateNearbyOffers,
 } from './../action';
 
 import {SortType} from '../../const';
@@ -52,6 +53,13 @@ const offers = createReducer(initialState, (builder) => {
     if (state.offer && state.offer.id === action.payload.id) {
       state.offer = action.payload;
     }
+  });
+  builder.addCase(updateNearbyOffers, (state, action) => {
+    state.nearbyOffers.forEach((item, index) => {
+      if (item.id === action.payload.id) {
+        state.nearbyOffers[index] = action.payload;
+      }
+    });
   });
 });
 

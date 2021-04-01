@@ -13,6 +13,7 @@ export const ActionType = {
   LOAD_NEARBY_OFFERS: `offers/loadNearbyOffers`,
   UPDATE_OFFERS: `offers/updateOffers`,
   UPDATE_OFFER: `offers/updateOffer`,
+  UPDATE_NEARBY_OFFERS: `offers/updateNearbyOffers`,
 };
 
 export const changeCity = createAction(ActionType.CHANGE_CITY);
@@ -25,6 +26,6 @@ export const loadReviews = createAction(ActionType.LOAD_REVIEWS);
 export const loadOfferById = createAction(ActionType.LOAD_OFFER_BY_ID);
 export const loadNearbyOffers = createAction(ActionType.LOAD_NEARBY_OFFERS);
 export const resetAuthInfo = createAction(ActionType.RESET_AUTH_INFO);
-
 export const updateOffers = createAction(ActionType.UPDATE_OFFERS);
 export const updateOffer = createAction(ActionType.UPDATE_OFFER);
+export const updateNearbyOffers = createAction(ActionType.UPDATE_NEARBY_OFFERS);
