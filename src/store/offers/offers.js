@@ -9,6 +9,7 @@ import {
   updateOffers,
   updateOffer,
   updateNearbyOffers,
+  resetFavoriteStatus
 } from './../action';
 
 import {SortType} from '../../const';
@@ -58,6 +59,15 @@ const offers = createReducer(initialState, (builder) => {
       if (item.id === action.payload.id) {
         state.nearbyOffers[index] = action.payload;
       }
+    });
+  });
+  builder.addCase(resetFavoriteStatus, (state) => {
+    state.offers = state.offers.map((item) => {
+      if (item.isFavorite) {
+        return {...item, isFavorite: false};
+      }
+
+      return item;
     });
   });
 });

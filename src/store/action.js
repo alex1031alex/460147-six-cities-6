@@ -14,6 +14,7 @@ export const ActionType = {
   UPDATE_OFFERS: `offers/updateOffers`,
   UPDATE_OFFER: `offers/updateOffer`,
   UPDATE_NEARBY_OFFERS: `offers/updateNearbyOffers`,
+  RESET_FAVORITE_STATUS: `offers/resetFavoriteStatus`,
   LOAD_FAVORITES: `favorites/loadFavorites`,
 };
 
@@ -31,3 +32,4 @@ export const updateOffers = createAction(ActionType.UPDATE_OFFERS);
 export const updateOffer = createAction(ActionType.UPDATE_OFFER);
 export const updateNearbyOffers = createAction(ActionType.UPDATE_NEARBY_OFFERS);
 export const loadFavorites = createAction(ActionType.LOAD_FAVORITES);
+export const resetFavoriteStatus = createAction(ActionType.RESET_FAVORITE_STATUS);

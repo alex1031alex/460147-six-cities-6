@@ -11,6 +11,7 @@ import {
   updateOffer,
   updateNearbyOffers,
   loadFavorites,
+  resetFavoriteStatus
 } from './action.js';
 
 import {
@@ -76,8 +77,18 @@ export const sendReview = ({id, review}) => (dispatch, _getState, api) => {
 
 export const logout = () => (dispatch, _getState, api) => {
   return api.get(ApiRoute.LOGOUT)
-    .then(() => dispatch(requireAuthorization(AuthStatus.NO_AUTH)))
-    .then(() => dispatch(resetAuthInfo()));
+    .then(() => {
+      dispatch(requireAuthorization(AuthStatus.NO_AUTH));
+      dispatch(resetAuthInfo());
+      dispatch(resetFavoriteStatus());
+    });
+};
+
+export const fetchFavorites = () => (dispatch, _getState, api) => {
+  return api.get(ApiRoute.FAVORITES)
+    .then(({data}) => adaptOffersData(data))
+    .then((data) => dispatch(loadFavorites(data)))
+    .catch(() => {});
 };
 
 export const changeFavoriteStatus = (id, status) => (dispatch, _getState, api) => {
@@ -87,12 +98,6 @@ export const changeFavoriteStatus = (id, status) => (dispatch, _getState, api) =
       dispatch(updateOffers(data));
       dispatch(updateOffer(data));
       dispatch(updateNearbyOffers(data));
+      dispatch(fetchFavorites());
     });
-};
-
-export const fetchFavorites = () => (dispatch, _getState, api) => {
-  return api.get(ApiRoute.FAVORITES)
-    .then(({data}) => adaptOffersData(data))
-    .then((data) => dispatch(loadFavorites(data)))
-    .catch(() => {});
 };
