@@ -7,6 +7,8 @@ import {cardTypePropType, offerPropType} from '../../prop-types';
 import {CardType} from '../../const';
 import {getCardClassName, getImageSize} from '../../services/common';
 
+import BookmarkButton from '../bookmark-button/bookmark-button';
+
 const Offer = (props) => {
   const {offer, cardType, onMouseEnter, onMouseLeave} = props;
   const {images, price, isFavorite, rating, title, type, id} = offer;
@@ -40,19 +42,15 @@ const Offer = (props) => {
             <b className="place-card__price-value">€{price}</b>
             <span className="place-card__price-text">/&nbsp;night</span>
           </div>
-          <button
-            type="button"
-            className={cn({
-              'place-card__bookmark-button': true,
-              'button': true,
-              'place-card__bookmark-button--active': !!isFavorite
-            })}
+          <BookmarkButton
+            isFavorite={isFavorite}
+            parentClassName={`place-card__bookmark-button`}
+            id={+id}
           >
             <svg className="place-card__bookmark-icon" width={18} height={19}>
               <use xlinkHref="#icon-bookmark" />
             </svg>
-            <span className="visually-hidden">${isFavorite ? `In` : `To`} bookmarks</span>
-          </button>
+          </BookmarkButton>
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">

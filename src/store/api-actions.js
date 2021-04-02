@@ -5,7 +5,13 @@ import {
   redirectToRoute,
   loadOfferById,
   loadReviews,
-  loadNearbyOffers
+  loadNearbyOffers,
+  resetAuthInfo,
+  updateOffers,
+  updateOffer,
+  updateNearbyOffers,
+  loadFavorites,
+  resetFavoriteStatus
 } from './action.js';
 
 import {
@@ -67,4 +73,31 @@ export const sendReview = ({id, review}) => (dispatch, _getState, api) => {
   return api.post(`/comments/${id}`, review)
     .then(({data}) => adaptReviews(data))
     .then((data) => dispatch(loadReviews(data)));
+};
+
+export const logout = () => (dispatch, _getState, api) => {
+  return api.get(ApiRoute.LOGOUT)
+    .then(() => {
+      dispatch(requireAuthorization(AuthStatus.NO_AUTH));
+      dispatch(resetAuthInfo());
+      dispatch(resetFavoriteStatus());
+    });
+};
+
+export const fetchFavorites = () => (dispatch, _getState, api) => {
+  return api.get(ApiRoute.FAVORITES)
+    .then(({data}) => adaptOffersData(data))
+    .then((data) => dispatch(loadFavorites(data)))
+    .catch(() => {});
+};
+
+export const changeFavoriteStatus = (id, status) => (dispatch, _getState, api) => {
+  return api.post(`/favorite/${id}/${status}`)
+    .then(({data}) => adaptOfferData(data))
+    .then((data) => {
+      dispatch(updateOffers(data));
+      dispatch(updateOffer(data));
+      dispatch(updateNearbyOffers(data));
+      dispatch(fetchFavorites());
+    });
 };
