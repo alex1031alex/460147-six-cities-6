@@ -24,7 +24,7 @@ import {
 import {AuthStatus, ApiRoute, AppRoute} from '../const.js';
 
 export const fetchOffers = () => (dispatch, _getState, api) => {
-  api.get(ApiRoute.OFFERS)
+  return api.get(ApiRoute.OFFERS)
     .then(({data}) => adaptOffersData(data))
     .then((data) => dispatch(loadOffers(data)));
 };
