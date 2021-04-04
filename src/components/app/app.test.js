@@ -1,5 +1,5 @@
 import React from 'react';
-import {render, screen} from '@testing-library/react';
+import {render, screen, waitFor} from '@testing-library/react';
 import {Router} from 'react-router-dom';
 import {createMemoryHistory} from 'history';
 import * as redux from 'react-redux';
@@ -97,7 +97,7 @@ describe(`Test routing`, () => {
     expect(screen.getByText(/Nothing yet saved/i)).toBeInTheDocument();
   });
 
-  it(`Render 'Room' when user navigates to '/offer/:id' url`, () => {
+  it(`Render 'Room' when user navigates to '/offer/:id' url`, async () => {
     const store = mockStore({
       [NameSpace.OFFERS]: {
         offer: adaptOfferData(rawOffers[0]),
@@ -116,6 +116,8 @@ describe(`Test routing`, () => {
     const history = createMemoryHistory();
     history.push(`/offer/1`);
 
+    store.dispatch = () => Promise.resolve();
+
     render(
         <Provider store={store}>
           <Router history={history}>
@@ -124,6 +126,6 @@ describe(`Test routing`, () => {
         </Provider>
     );
 
-    expect(screen.getByText(/The house among olive/i)).toBeInTheDocument();
+    await waitFor(() => expect(screen.getByText(/The house among olive/i)).toBeInTheDocument());
   });
 });
