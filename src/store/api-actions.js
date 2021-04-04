@@ -37,16 +37,16 @@ export const checkAuth = () => (dispatch, _getState, api) => (
     .catch(() => {})
 );
 
-export const login = ({email, password}) => (dispatch, _getState, api) => (
-  api.post(ApiRoute.LOGIN, {email, password})
+export const login = ({email, password}) => (dispatch, _getState, api) => {
+  return api.post(ApiRoute.LOGIN, {email, password})
     .then(({data}) => {
       dispatch(requireAuthorization(AuthStatus.AUTH));
       return data;
     })
     .then((data) => adaptAuthInfo(data))
     .then((data) => dispatch(setAuthInfo(data)))
-    .then(() => dispatch(redirectToRoute(AppRoute.MAIN)))
-);
+    .then(() => dispatch(redirectToRoute(AppRoute.MAIN)));
+};
 
 export const fetchOfferById = (id) => (dispatch, _getState, api) => {
   return api.get(`/hotels/${id}`)
