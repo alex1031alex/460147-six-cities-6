@@ -128,4 +128,19 @@ describe(`Test routing`, () => {
 
     await waitFor(() => expect(screen.getByText(/The house among olive/i)).toBeInTheDocument());
   });
+
+  it(`Render NotFoundPage when user navigates to '/not-found-page' url`, () => {
+    const history = createMemoryHistory();
+    history.push(`/not-found-page`);
+
+    render(
+        <Provider store={mockStore({})}>
+          <Router history={history}>
+            <App />
+          </Router>
+        </Provider>
+    );
+
+    expect(screen.getByText(/404\. Page not found/i)).toBeInTheDocument();
+  });
 });

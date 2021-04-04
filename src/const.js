@@ -74,6 +74,7 @@ export const AppRoute = {
   LOGIN: `/login`,
   FAVORITES: `/favorites`,
   OFFER: `/offer/:id`,
+  NOT_FOUND_PAGE: `/not-found-page`,
 };
 
 export const ApiRoute = {
@@ -84,5 +85,4 @@ export const ApiRoute = {
   REVIEWS: `/comments/:hotel_id`,
   LOGIN: `/login`,
   LOGOUT: `/logout`,
-  NOT_FOUND_PAGE: `/not_found_page`,
 };
