@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import MainNoOffers from '../main-empty/main-empty';
+import MainEmpty from '../main-empty/main-empty';
 
 const MainContent = (props) => {
   const {isOffersAvailable, children} = props;
 
   return (
     <div className="cities">
-      {isOffersAvailable ? children : <MainNoOffers />}
+      {isOffersAvailable ? children : <MainEmpty />}
     </div>
   );
 };

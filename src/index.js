@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
 import {configureStore} from '@reduxjs/toolkit';
+import {Router as BrowserRouter} from 'react-router-dom';
 
 import {createAPI} from './services/api';
 import rootReducer from './store/root-reducer';
@@ -9,6 +10,7 @@ import {AuthStatus} from './const';
 import {requireAuthorization} from './store/action';
 import {redirect} from './store/middlewares/redirect';
 import {checkAuth} from './store/api-actions';
+import browserHistory from './browser-history';
 
 import App from './components/app/app';
 
@@ -30,7 +32,9 @@ store.dispatch(checkAuth())
   .then(() => {
     ReactDOM.render(
         <Provider store={store}>
-          <App />
+          <BrowserRouter history={browserHistory}>
+            <App />
+          </BrowserRouter>
         </Provider>,
         document.querySelector(`#root`)
     );

@@ -3,7 +3,7 @@ import {useSelector} from 'react-redux';
 
 import {getActiveCity} from '../../store/city/selectors';
 
-const MainNoOffers = () => {
+const MainEmpty = () => {
   const city = useSelector(getActiveCity);
 
   return (
@@ -19,4 +19,4 @@ const MainNoOffers = () => {
   );
 };
 
-export default MainNoOffers;
+export default MainEmpty;
