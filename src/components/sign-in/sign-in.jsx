@@ -50,10 +50,10 @@ const SignIn = () => {
             <form className="login__form form" action="#" method="post" onSubmit={handleSubmit}>
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">E-mail</label>
-                <input className="login__input form__input" type="email" name="email" placeholder="Email" required ref={emailRef} />
+                <input className="login__input form__input" type="email" name="email" placeholder="Email" required ref={emailRef} data-testid="email" />
               </div>
               <div className="login__input-wrapper form__input-wrapper">
-                <label className="visually-hidden" ref={passwordRef}>Password</label>
+                <label className="visually-hidden" ref={passwordRef} data-testid="password">Password</label>
                 <input className="login__input form__input" type="password" name="password" placeholder="Password" required />
               </div>
               <button className="login__submit form__submit button" type="submit">Sign in</button>
