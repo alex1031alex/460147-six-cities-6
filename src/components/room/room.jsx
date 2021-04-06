@@ -14,16 +14,20 @@ import Header from '../header/header';
 import Host from '../host/host';
 import BookmarkButton from '../bookmark-button/bookmark-button';
 import {getAuthStatus} from '../../store/user/selectors';
-import {getNearbyOffers, getOffer, getReviews} from '../../store/offers/selectors';
+import {getNearbyOffers, getOffer, getSortedReviews} from '../../store/offers/selectors';
 import {loadOfferById} from '../../store/action';
 
 const MAX_PHOTO_IN_GALERY = 6;
+const REVIEWS_MAX_COUNT = 10;
 
 const Room = () => {
   const authStatus = useSelector(getAuthStatus);
   const offer = useSelector(getOffer);
-  const reviews = useSelector(getReviews);
+  const reviews = useSelector(getSortedReviews);
   const nearbyOffers = useSelector(getNearbyOffers);
+
+  const showingReviews = reviews.length > REVIEWS_MAX_COUNT ?
+    reviews.slice(0, REVIEWS_MAX_COUNT) : reviews;
 
   const dispatch = useDispatch();
 
@@ -142,7 +146,7 @@ const Room = () => {
                 <h2 className="reviews__title">
                   Reviews · <span className="reviews__amount">{reviews.length}</span>
                 </h2>
-                <ReviewsList reviews={reviews} />
+                <ReviewsList reviews={showingReviews} />
                 {isUserAuthorized && <ReviewForm id={offer.id} />}
               </section>
             </div>

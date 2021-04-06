@@ -4,6 +4,12 @@ import {useDispatch} from 'react-redux';
 
 import {sendReview} from '../../store/api-actions';
 
+import Warning from '../warning/warning';
+
+const COMMENT_MIN_LENGTH = 50;
+const COMMENT_MAX_LENGTH = 300;
+const ERROR_SHOWING_TIME = 3000;
+
 const ReviewForm = (props) => {
   const Ratings = {
     PREFECT: {
@@ -38,11 +44,24 @@ const ReviewForm = (props) => {
 
   const [review, setReview] = useState(initialReview);
   const [isSubmitDisabled, setSubmitDisabled] = useState(true);
+  const [error, setError] = useState(null);
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    dispatch(sendReview({id, review}));
-    resetForm();
+    setSubmitDisabled(true);
+    dispatch(sendReview({id, review}))
+      .then(() => {
+        resetForm();
+        setSubmitDisabled(false);
+      })
+      .catch((e) => {
+        setError(e);
+
+        setTimeout(() => {
+          setError(null);
+          setSubmitDisabled(false);
+        }, ERROR_SHOWING_TIME);
+      });
   };
 
   const resetForm = () => {
@@ -60,7 +79,11 @@ const ReviewForm = (props) => {
   };
 
   useEffect(() => {
-    setSubmitDisabled(review.rating === 0 || review.comment.length < 50);
+    setSubmitDisabled(
+        review.rating === 0 ||
+        review.comment.length < COMMENT_MIN_LENGTH ||
+        review.comment.length > COMMENT_MAX_LENGTH
+    );
   }, [review]);
 
   return (
@@ -91,8 +114,8 @@ const ReviewForm = (props) => {
             </React.Fragment>;
           })
         }
-
       </div>
+      {error && <Warning description={error.toJSON().message} />}
       <textarea
         className="reviews__textarea form__textarea"
         id="review"
