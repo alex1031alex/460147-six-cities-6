@@ -4,7 +4,7 @@ import {useDispatch} from 'react-redux';
 
 import {sendReview} from '../../store/api-actions';
 
-import ErrorMessage from '../error-message/error-message';
+import Warning from '../warning/warning';
 
 const COMMENT_MIN_LENGTH = 50;
 const COMMENT_MAX_LENGTH = 300;
@@ -56,6 +56,7 @@ const ReviewForm = (props) => {
       })
       .catch((e) => {
         setError(e);
+
         setTimeout(() => {
           setError(null);
           setSubmitDisabled(false);
@@ -114,7 +115,7 @@ const ReviewForm = (props) => {
           })
         }
       </div>
-      {error && <ErrorMessage description={error.toJSON().message} />}
+      {error && <Warning description={error.toJSON().message} />}
       <textarea
         className="reviews__textarea form__textarea"
         id="review"
