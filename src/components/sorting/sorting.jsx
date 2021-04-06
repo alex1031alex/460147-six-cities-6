@@ -22,7 +22,7 @@ const Sorting = () => {
   };
 
   return (
-    <form className="places__sorting" action="#" method="get" onClick={handleFormClick}>
+    <form className="places__sorting" action="#" method="get" onClick={handleFormClick} data-testid="sorting-form">
       <span className="places__sorting-caption">Sort by</span>
       <span className="places__sorting-type" tabIndex={0}>
         {activeSortType}
