@@ -33,4 +33,5 @@ it(`Sorting should render correctly`, () => {
 
   expect(screen.getByTestId(`email`)).toBeInTheDocument();
   expect(screen.getByTestId(`password`)).toBeInTheDocument();
+  expect(screen.getAllByText(/sign\sin/i)).toHaveLength(3);
 });
