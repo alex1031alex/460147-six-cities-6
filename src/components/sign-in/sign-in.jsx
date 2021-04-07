@@ -1,20 +1,20 @@
 import React, {useRef} from 'react';
-import {Link, useHistory} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import {useSelector, useDispatch} from 'react-redux';
 import {getAuthStatus} from '../../store/user/selectors';
+import {redirectToRoute} from '../../store/action';
 
 import {login} from '../../store/api-actions';
 import {AppRoute, AuthStatus} from '../../const';
 
 const SignIn = () => {
-  const history = useHistory();
   const authStatus = useSelector(getAuthStatus);
+  const dispatch = useDispatch();
 
   if (authStatus === AuthStatus.AUTH) {
-    history.push(AppRoute.MAIN);
+    dispatch(redirectToRoute(AppRoute.MAIN));
   }
 
-  const dispatch = useDispatch();
   const emailRef = useRef();
   const passwordRef = useRef();
 
